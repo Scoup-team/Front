@@ -9,9 +9,12 @@ const Stack = createStackNavigator();
 const App = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="MyPage">
-        <Stack.Screen name="MyPage" component={MyPage} />
-        <Stack.Screen name="SearchPage" component={SearchPage} />
+      <Stack.Navigator
+        initialRouteName="Mypage"
+        screenOptions={{ headerShown: false }}
+      >
+        <Stack.Screen name="Mypage" component={Mypage} />
+        <Stack.Screen name="Searchpage" component={Searchpage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
