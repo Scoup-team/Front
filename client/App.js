@@ -1,23 +1,21 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-//페이지 이동 모듈
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
+// import {StyleSheet} from 'react-native';
+import Mypage from "./screens/Mypage";
+import Searchpage from "./screens/Searchpage";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+const Stack = createNativeStackNavigator();
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Mypage">
+        <Stack.Screen name="Mypage" component={Mypage} />
+        <Stack.Screen name="Searchpage" component={Searchpage} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default App;

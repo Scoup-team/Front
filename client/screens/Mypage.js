@@ -1,12 +1,24 @@
-import React from "react";
-import { View, Text } from "react-native";
+import React from 'react';
+import {View, Text, Button, TouchableOpacity, StyleSheet} from 'react-native';
 
-function Mypage() {
+const MyPage = ({navigation}) => {
   return (
     <View>
-      <Text>Start!</Text>
+      <TouchableOpacity style={styles.button}>
+        <Text style={{color: 'black'}}>버튼입니다</Text>
+      </TouchableOpacity>
+      <Text>MyPage</Text>
+      <Button title="Searchpage 열기" onPress={() => navigation.navigate('Searchpage')} />
     </View>
   );
-}
+};
 
-export default Start;
+const styles = StyleSheet.create({
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+  },
+});
+
+export default MyPage;
