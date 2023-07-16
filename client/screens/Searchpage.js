@@ -1,13 +1,13 @@
 import React from "react";
 import { View, Text, Button, TouchableOpacity, StyleSheet } from "react-native";
 
-const Searchpage = ({ navigation }) => {
+const SearchPage = ({ navigation }) => {
   return (
     <View>
       <TouchableOpacity style={styles.button}>
         <Text style={{ color: "black" }}>버튼입니다</Text>
       </TouchableOpacity>
-      <Text>Searchpage</Text>
+      <Text>SearchPage</Text>
       <Button
         title="MyPage 열기"
         onPress={() => navigation.navigate("MyPage")}
@@ -24,4 +24,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Searchpage;
+export default SearchPage;
