@@ -8,7 +8,7 @@ const MyPage = ({navigation}) => {
         <Text style={{color: 'black'}}>버튼입니다</Text>
       </TouchableOpacity>
       <Text>MyPage</Text>
-      <Button title="Searchpage 열기" onPress={() => navigation.navigate('Searchpage')} />
+      <Button title="Searchpage 열기" onPress={() => navigation.navigate('SearchPage')} />
     </View>
   );
 };
