@@ -25,7 +25,9 @@ const MyPage = ({ navigation }) => {
       </View>
       <View style={styles.section}>
         <Text style={styles.topMenu}>내 쿠폰함</Text>
-        <Image source={bluearrow} style={styles.arrow} />
+        <Button>
+          <Image source={bluearrow} style={styles.arrow} />
+        </Button>
       </View>
       <Text style={styles.BottomMenu}>로그아웃하기</Text>
       <Text style={styles.BottomMenu}>탈퇴하기</Text>
