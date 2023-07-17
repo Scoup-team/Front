@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Searchpage;
+export default SearchPage;
