@@ -10,19 +10,26 @@ export const textStyles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
-    marginTop: 33,
+    marginTop: 66,
     fontStyle: "normal",
   },
 });
 
 export const boxStyle = StyleSheet.create({
   inputText: {
-    backgroundColor: "#E8E8E8",
     width: 312,
     height: 42,
-    borderRadius: 8,
-    fontSize: 20,
-    marginLeft: 11,
+    // justifyContent: "center",
+    // alignItems: "center",
+    // flexDirection: "column",
+    // justifyContent: "center",
+    // alignItems: "center",
+    backgroundColor: "#E8E8E8",
+    // width: 312,
+    // height: 42,
+    // borderRadius: 8,
+    // fontSize: 20,
+    // marginLeft: 11,
   },
 });
 
@@ -34,7 +41,7 @@ export const buttonStyle = StyleSheet.create({
     width: 107,
     height: 31,
     justifyContent: "center",
-    marginLeft: 100,
+    // marginLeft: 100,
     borderRadius: 38.75,
   },
   buttonText: {
