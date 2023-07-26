@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Text, TextInput, StyleSheet, Button, View, Image } from "react-native";
 import search from "../assets/icons/search.png";
 
-const Searchpage = ({ navigation }) => {
+const SearchPage = ({ navigation }) => {
   const [myTextInput, setMyTextInput] = useState(""); // Using useState hook for state
 
   const onChangeInput = (text) => {
