@@ -1,11 +1,10 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
-// import {StyleSheet} from 'react-native';
-import Mypage from "./screens/Mypage";
-import Searchpage from "./screens/Searchpage";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import MyPage from "./screens/MyPage"; 
+import SearchPage from "./screens/SearchPage"; 
+import { createStackNavigator } from "@react-navigation/stack";
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
