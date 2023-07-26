@@ -14,7 +14,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="SignUp"
+        initialRouteName="ModifyInfo"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="FindPw" component={FindPw} />
