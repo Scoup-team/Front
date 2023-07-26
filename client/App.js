@@ -13,8 +13,8 @@ const App = () => {
         initialRouteName="Searchpage"
         screenOptions={{ headerShown: false }}
       >
-        <Stack.Screen name="Mypage" component={Mypage} />
-        <Stack.Screen name="Searchpage" component={Searchpage} />
+        <Stack.Screen name="MyPage" component={MyPage} />
+        <Stack.Screen name="Searchpage" component={SearchPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
