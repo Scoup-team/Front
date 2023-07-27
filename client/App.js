@@ -14,7 +14,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="ModifyInfo"
+        initialRouteName="SearchPage"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="FindPw" component={FindPw} />
