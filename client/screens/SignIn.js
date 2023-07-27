@@ -12,52 +12,55 @@ const SignIn = ({ navigation }) => {
   const Login = () => {};
 
   return (
-    <View
-      style={{
-        marginLeft: 32,
-        marginTop: 225,
-      }}
-    >
-      <Image
-        source={logo}
-        style={{ width: "90%", height: "20%", marginBottom: "20%" }}
-      />
+    <View>
+      <View style={{ marginTop: 78, alignItems: "center" }}>
+        <Image source={logo} style={{ width: "80%", height: "20%" }} />
+        <View>
+          <Text
+            style={[textStyles.basicText, { marginTop: 39, marginBottom: 13 }]}
+          >
+            아이디
+          </Text>
+          <TextInput
+            placeholder="이메일 주소"
+            value={userId}
+            onChangeText={setUserId}
+            style={boxStyle.inputText}
+          />
 
-      <Text style={textStyles.basicText}>아이디</Text>
-      <TextInput
-        placeholder="이메일 주소"
-        value={userId}
-        onChangeText={setUserId}
-        style={boxStyle.inputText}
-      />
+          <Text
+            style={[textStyles.basicText, { marginTop: 31, marginBottom: 9 }]}
+          >
+            비밀번호
+          </Text>
+          <TextInput
+            placeholder="영문, 숫자 포함 8자 이상"
+            secureTextEntry
+            value={userPw}
+            onChangeText={setUserPw}
+            style={boxStyle.inputText}
+          />
 
-      <Text style={[textStyles.basicText, { marginTop: 28 }]}>비밀번호</Text>
-      <TextInput
-        placeholder="영문, 숫자 포함 8자 이상"
-        secureTextEntry
-        value={userPw}
-        onChangeText={setUserPw}
-        style={boxStyle.inputText}
-      />
-
-      <View
-        style={{
-          flexDirection: "row",
-          justifyContent: "space-between",
-          width: 310,
-          marginTop: 34,
-          marginBottom: 24,
-        }}
-      >
-        <Text
-          style={{ color: "#FF0000" }}
-          onPress={() => this.props.navigation.navigate("SignUp")}
-        >
-          회원가입하기
-        </Text>
-        <Text onPress={() => this.props.navigation.navigate("FindPw")}>
-          비밀번호 찾기
-        </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "space-between",
+              width: 310,
+              marginTop: 35,
+              marginBottom: 84,
+            }}
+          >
+            <Text
+              style={{ color: "#FF0000" }}
+              onPress={() => navigation.navigate("SignUp")}
+            >
+              회원가입하기
+            </Text>
+            <Text onPress={() => navigation.navigate("FindPw")}>
+              비밀번호 찾기
+            </Text>
+          </View>
+        </View>
       </View>
 
       <ClickButton text={"로그인"} onPress={Login} />

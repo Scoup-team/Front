@@ -7,13 +7,13 @@ const FindPw = () => {
     <View>
       <Text style={textStyles.mainText}>비밀번호 찾기</Text>
 
-      <View style={{ marginTop: 44, marginLeft: 35 }}>
+      <View style={{ marginTop: 42, marginLeft: 36 }}>
         <TextInput
           style={[boxStyle.inputText]}
           placeholder="이름 입력"
         ></TextInput>
         <TextInput
-          style={[boxStyle.inputText, { marginTop: 32 }]}
+          style={[boxStyle.inputText, { marginTop: 33 }]}
           placeholder="이메일 입력"
         ></TextInput>
       </View>
@@ -23,6 +23,9 @@ const FindPw = () => {
           textAlign: "center",
           fontSize: 11,
           marginTop: 31,
+          fontStyle: "normal",
+          letterSpacing: 0.22,   
+          marginBottom: 38       
         }}
       >
         입력하신 이메일로 비밀번호 재설정 링크가 전송됩니다.
