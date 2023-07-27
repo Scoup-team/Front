@@ -17,8 +17,8 @@ const SignUp = ({ navigation }) => {
 
       <View
         style={{
-          marginTop: 37,
-          marginLeft: 40,
+          marginTop: 32,
+          marginLeft: 39,
         }}
       >
         <TextInput
@@ -29,23 +29,18 @@ const SignUp = ({ navigation }) => {
         ></TextInput>
 
         <TextInput
-          style={[
-            boxStyle.inputText,
-            {
-              marginTop: 46,
-            },
-          ]}
+          style={[boxStyle.inputText, { marginTop: 45 }]}
           placeholder="아이디(이메일 주소)"
           value={userId}
           onChangeText={setUserId}
         ></TextInput>
 
-        <Text style={[textStyles.basicText, { marginTop: 46, marginLeft: 10 }]}>
+        <Text style={[textStyles.basicText, { marginTop: 48 }]}>
           영문, 숫자 포함 8자 이상
         </Text>
 
         <TextInput
-          style={[boxStyle.inputText, { marginTop: 10 }]}
+          style={[boxStyle.inputText, { marginTop: 16 }]}
           placeholder="비밀번호 입력"
           value={userPw}
           onChangeText={setUserPw}
@@ -53,14 +48,14 @@ const SignUp = ({ navigation }) => {
         ></TextInput>
 
         <TextInput
-          style={[boxStyle.inputText, { marginTop: 33 }]}
+          style={[boxStyle.inputText, { marginTop: 32 }]}
           placeholder="비밀번호 재입력"
           // value={checkPw}
           secureTextEntry
         ></TextInput>
 
         <TextInput
-          style={[boxStyle.inputText, { marginTop: 48 }]}
+          style={[boxStyle.inputText, { marginTop: 48, marginBottom: 66 }]}
           placeholder="닉네임 입력"
           value={nickname}
           onChangeText={setNickname}

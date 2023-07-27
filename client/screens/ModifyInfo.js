@@ -1,34 +1,57 @@
-import { Text, TextInput, View, StyleSheet } from "react-native";
+import { Text, TextInput, View, StyleSheet, Image } from "react-native";
 import { boxStyle, textStyles } from "./Styles";
 import ClickButton from "./Components/ClickButton";
+import prevArrow from "../assets/icons/prevArrow.png";
 
-const ModifyInfo = () => {
+const ModifyInfo = ({ navigation }) => {
   return (
     <View>
-      <Text style={textStyles.mainText}>개인정보 수정</Text>
+      <View
+        style={{
+          width: 253,
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
+        <Image
+          source={prevArrow}
+          style={{ marginTop: 66, marginLeft: 42 }}
+          onPress={() => navigation.navigate("MyPage")}
+        />
+        <Text style={[textStyles.mainText]}>개인정보 수정</Text>
+      </View>
 
-      <View style={{ marginTop: 44, marginLeft: 35 }}>
-        <Text style={{ marginLeft: 10 }}>닉네임 변경</Text>
-        <TextInput style={[boxStyle.inputText, { marginTop: 18 }]}></TextInput>
+      <View>
+        <Text style={[textStyles.notifyText, styles.notifyMargin]}>
+          닉네임 변경
+        </Text>
+        <TextInput
+          style={[boxStyle.inputText, styles.boxMargin, { marginBottom: 23 }]}
+        ></TextInput>
         <ClickButton text={"변경하기"} />
       </View>
 
-      <View style={{ marginTop: 44, marginLeft: 35 }}>
-        <Text style={{ marginLeft: 10 }}>비밀번호 변경</Text>
+      <View>
+        <Text style={[textStyles.notifyText, styles.notifyMargin]}>
+          비밀번호 변경
+        </Text>
 
         <TextInput
-          style={[boxStyle.inputText, { marginTop: 18 }]}
+          style={[boxStyle.inputText, styles.boxMargin]}
           placeholder="기존 비밀번호"
+          secureTextEntry
         ></TextInput>
 
         <TextInput
-          style={[boxStyle.inputText, { marginTop: 18 }]}
-          placeholder="기존 비밀번호"
+          style={[boxStyle.inputText, styles.boxMargin]}
+          placeholder="새 비밀번호"
+          secureTextEntry
         ></TextInput>
 
         <TextInput
-          style={[boxStyle.inputText, { marginTop: 18 }]}
-          placeholder="기존 비밀번호 확인"
+          style={[boxStyle.inputText, styles.boxMargin, { marginBottom: 23 }]}
+          placeholder=" 비밀번호 확인"
+          secureTextEntry
         ></TextInput>
 
         <ClickButton text={"변경하기"} />
@@ -38,3 +61,8 @@ const ModifyInfo = () => {
 };
 
 export default ModifyInfo;
+
+const styles = StyleSheet.create({
+  notifyMargin: { marginTop: 36, marginLeft: 36 },
+  boxMargin: { marginTop: 15, marginLeft: 40, marginTop: 18 },
+});
