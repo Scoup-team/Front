@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
-import MyPage from "./screens/MyPage"; 
-import SearchPage from "./screens/SearchPage"; 
+import MyPage from "./screens/MyPage";
+import SearchPage from "./screens/SearchPage";
 import SignIn from "./screens/SignIn";
 import FindPw from "./screens/FindPw";
 import ModifyInfo from "./screens/ModifyInfo";
