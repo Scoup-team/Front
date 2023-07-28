@@ -2,6 +2,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import MyPage from "./screens/MyPage";
 import SearchPage from "./screens/SearchPage";
+import EventPage from "./screens/EventPage";
+import CouponPage from "./screens/CouponPage";
 import SignIn from "./screens/SignIn";
 import FindPw from "./screens/FindPw";
 import ModifyInfo from "./screens/ModifyInfo";
@@ -14,7 +16,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator
-        initialRouteName="ModifyInfo"
+        initialRouteName="CouponPage"
         screenOptions={{ headerShown: false }}
       >
         <Stack.Screen name="FindPw" component={FindPw} />
@@ -22,6 +24,8 @@ const App = () => {
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="MyPage" component={MyPage} />
+        <Stack.Screen name="CouponPage" component={CouponPage} />
+        <Stack.Screen name="EventPage" component={EventPage} />
         <Stack.Screen name="SearchPage" component={SearchPage} />
       </Stack.Navigator>
     </NavigationContainer>
