@@ -40,6 +40,7 @@ const CouponPage = ({ navigation }) => {
 
           <Text style={styles.content}>아이스 아메리카노 1잔 무료</Text>
         </ImageBackground>
+        
       </View>
     </View>
   );
@@ -106,16 +107,15 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   couponSection: {
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
   },
   top: { flexDirection: "row", marginTop: 18 },
   couponComponent: {
-    flex: 1,
     width: 340,
     height: 125,
-    marginLeft: 30,
+    marginLeft: 7,
     marginTop: 30,
   },
 
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: 500,
     flexGrow: 1,
-    marginRight: 7,
+    marginRight: 15,
     marginTop: 4,
   },
 
