@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from "react";
 import {
+  TouchableOpacity,
   View,
   Text,
   Button,
   TouchableHighlight,
-  TouchableOpacity,
+  Pressable,
   StyleSheet,
   ImageBackground,
   Image,
 } from "react-native";
 
+import Modal from "../components/coupon/Modal";
 import back from "../assets/icons/back.png";
 
 const CouponPage = ({ navigation }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
   const [availableCouponClick, setAvailableCouponClick] = useState(true);
   const click = () => {
     setAvailableCouponClick(!availableCouponClick);
+  };
+  const couponClick = () => {
+    setModalOpen(!modalOpen);
   };
   return (
     <View>
@@ -57,7 +64,7 @@ const CouponPage = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </View>
-      <View style={styles.couponSection}>
+      <Pressable style={styles.couponSection} onPress={couponClick}>
         <ImageBackground
           style={styles.couponComponent}
           source={require("../assets/icons/couponFrame.png")}
@@ -70,7 +77,12 @@ const CouponPage = ({ navigation }) => {
 
           <Text style={styles.content}>아이스 아메리카노 1잔 무료</Text>
         </ImageBackground>
-      </View>
+      </Pressable>
+      {modalOpen ? (
+          <Modal
+          open={modalOpen}
+          setOpen={setModalOpen} />
+        ) : null}
     </View>
   );
 };
