@@ -1,18 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
+  TouchableOpacity,
   View,
   Text,
   Button,
-  TouchableOpacity,
+  TouchableHighlight,
+  Pressable,
   StyleSheet,
   ImageBackground,
   Image,
 } from "react-native";
 
-import couponFrame from "../assets/icons/couponFrame.png";
+import Modal from "../components/coupon/Modal";
 import back from "../assets/icons/back.png";
 
 const CouponPage = ({ navigation }) => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const [availableCouponClick, setAvailableCouponClick] = useState(true);
+  const click = () => {
+    setAvailableCouponClick(!availableCouponClick);
+  };
+  const couponClick = () => {
+    setModalOpen(!modalOpen);
+  };
   return (
     <View>
       <View style={styles.header}>
@@ -20,14 +31,40 @@ const CouponPage = ({ navigation }) => {
         <Text style={styles.title}>내 쿠폰함</Text>
       </View>
       <View style={styles.topMenu}>
-        <View style={styles.availableCoupon}>
-          <Text style={styles.availabletext}>사용 가능한 쿠폰</Text>
-        </View>
-        <View style={styles.disabledCoupon}>
-          <Text style={styles.disabledtext}>지난 쿠폰</Text>
-        </View>
+        <TouchableOpacity
+          style={{
+            ...styles.availableCoupon,
+            borderBottomColor: availableCouponClick ? "#6E85B7" : "#C4C4C4",
+          }}
+          onPress={click}
+        >
+          <Text
+            style={{
+              ...styles.availabletext,
+              color: availableCouponClick ? "#6E85B7" : "#C4C4C4",
+            }}
+          >
+            사용 가능한 쿠폰
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            ...styles.availableCoupon,
+            borderBottomColor: availableCouponClick ? "#C4C4C4" : "#6E85B7",
+          }}
+          onPress={click}
+        >
+          <Text
+            style={{
+              ...styles.availabletext,
+              color: availableCouponClick ? "#C4C4C4" : "#6E85B7",
+            }}
+          >
+            지난 쿠폰
+          </Text>
+        </TouchableOpacity>
       </View>
-      <View style={styles.couponSection}>
+      <Pressable style={styles.couponSection} onPress={couponClick}>
         <ImageBackground
           style={styles.couponComponent}
           source={require("../assets/icons/couponFrame.png")}
@@ -40,7 +77,12 @@ const CouponPage = ({ navigation }) => {
 
           <Text style={styles.content}>아이스 아메리카노 1잔 무료</Text>
         </ImageBackground>
-      </View>
+      </Pressable>
+      {modalOpen ? (
+          <Modal
+          open={modalOpen}
+          setOpen={setModalOpen} />
+        ) : null}
     </View>
   );
 };
@@ -81,7 +123,6 @@ const styles = StyleSheet.create({
     width: 180,
     height: 60,
     borderBottomWidth: 4,
-    borderBottomColor: "#6E85B7",
   },
   disabledCoupon: {
     width: 150,
@@ -90,7 +131,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#C4C4C4",
   },
   availabletext: {
-    color: "#6E85B7",
+    // color: "#6E85B7",
     fontSize: 20,
     fontWeight: 500,
     textAlign: "center",
@@ -106,16 +147,15 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   couponSection: {
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
   },
   top: { flexDirection: "row", marginTop: 18 },
   couponComponent: {
-    flex: 1,
     width: 340,
     height: 125,
-    marginLeft: 30,
+    marginLeft: 7,
     marginTop: 30,
   },
 
@@ -135,7 +175,7 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: 500,
     flexGrow: 1,
-    marginRight: 7,
+    marginRight: 15,
     marginTop: 4,
   },
 
