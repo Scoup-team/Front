@@ -71,6 +71,7 @@ const App = () => {
         <Stack.Screen name="FindPw" component={FindPw} />
         <Stack.Screen name="ModifyInfo" component={ModifyInfo} />
         <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="CouponPage" component={CouponPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

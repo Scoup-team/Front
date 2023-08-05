@@ -15,7 +15,6 @@ import Modal from "./Modal";
 
 const AvailableCoupon = ({}) => {
   const [modalOpen, setModalOpen] = useState(false);
-  
   const couponClick = () => {
     setModalOpen(!modalOpen);
   };

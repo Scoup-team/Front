@@ -38,12 +38,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  top: { flexDirection: "row", marginTop: 18 },
+  top: { flexDirection: "row", marginTop: 25 },
   couponComponent: {
     width: 375,
-    height: 140,
+    height: 145,
     marginLeft: 7,
-    marginTop: 30,
+    marginTop: 20,
   },
 
   name: {
