@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import * as Permissions from "expo-permissions";
+import { Camera } from "expo-camera";
 
 const QrPage = () => {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
@@ -22,7 +22,7 @@ const QrPage = () => {
   }, []);
 
   const _requestCameraPermission = async () => {
-    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    const { status } = await Camera.requestCameraPermissionsAsync(); // 변경
     setHasCameraPermission(status === "granted");
   };
 
@@ -33,45 +33,10 @@ const QrPage = () => {
     }
   };
 
-  const _handlePressUrl = () => {
-    Alert.alert(
-      "Open this URL?",
-      lastScannedUrl,
-      [
-        {
-          text: "Yes",
-          onPress: () => Linking.openURL(lastScannedUrl),
-        },
-        { text: "No", onPress: () => {} },
-      ],
-      { cancellable: false }
-    );
-  };
-
-  const _handlePressCancel = () => {
-    setLastScannedUrl(null);
-  };
-
   const _maybeRenderUrl = () => {
     if (!lastScannedUrl) {
       return;
     }
-
-    return (
-      <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.url} onPress={_handlePressUrl}>
-          <Text numberOfLines={1} style={styles.urlText}>
-            {lastScannedUrl}
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.cancelButton}
-          onPress={_handlePressCancel}
-        >
-          <Text style={styles.cancelButtonText}>Cancel</Text>
-        </TouchableOpacity>
-      </View>
-    );
   };
 
   return (
@@ -91,7 +56,7 @@ const QrPage = () => {
           }}
         >
           <BarCodeScanner
-            onBarCodeRead={_handleBarCodeRead}
+            onBarCodeScanned={_handleBarCodeRead} // 변경
             style={{
               height: "50%",
               width: "50%",
