@@ -11,6 +11,7 @@ import ModifyInfo from "./screens/ModifyInfo";
 import SignUp from "./screens/SignUp";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+import QrPage from "./screens/QrPage";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -63,7 +64,7 @@ const App = () => {
     <NavigationContainer style={styles.container}>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName="Main"
+        initialRouteName="QrPage"
       >
         <Stack.Screen name="Main" component={MainTabNavigator} />
         <Stack.Screen name="SearchPage" component={SearchPage} />
@@ -72,6 +73,7 @@ const App = () => {
         <Stack.Screen name="ModifyInfo" component={ModifyInfo} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="CouponPage" component={CouponPage} />
+        <Stack.Screen name="QrPage" component={QrPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
