@@ -99,10 +99,8 @@ const style = StyleSheet.create({
     height: 16,
   },
   noticeContainer: {
-    // width: 272,
     width: "95%",
     height: 36,
-    // flexShrink: 0,
     borderRadius: 6,
     borderWidth: 0.4,
     borderColor: "#818181",
@@ -119,12 +117,10 @@ const style = StyleSheet.create({
   setting: {
     width: 30,
     height: 30,
-    // marginBottom: 25.63,
     marginBottom: 104,
   },
   settingContainer: {
     flex: 1,
-    //flexDirection: "column",
     justifyContent: "flex-end",
     alignItems: "center",
   },
@@ -144,13 +140,11 @@ const style = StyleSheet.create({
   },
   font: {
     color: "#000",
-    // fontFamily: 'Inter',
     fontSize: 14,
     fontStyle: "normal",
     fontWeight: "600",
-    lineHeight: 14, // You might need to adjust this value based on your design
+    lineHeight: 14,
     letterSpacing: 0.28,
-    // justifyContent: "center",
   },
   bestMenu: {
     width: 293,
@@ -158,7 +152,7 @@ const style = StyleSheet.create({
     flexShrink: 0,
     borderRadius: 5,
     borderWidth: 0,
-    backgroundColor: "#FAFBFF", // Use a specific color value instead of var(--skyblue-01, #FAFBFF)
+    backgroundColor: "#FAFBFF",
     shadowColor: "#000",
     shadowOffset: {
       width: 2,
@@ -166,7 +160,7 @@ const style = StyleSheet.create({
     },
     shadowOpacity: 0.05,
     shadowRadius: 2,
-    elevation: 2, // For Android elevation shadow
+    elevation: 2,
 
     marginLeft: 11,
     marginBottom: 50,
@@ -174,17 +168,12 @@ const style = StyleSheet.create({
   stampContainer: {
     width: 238,
     height: 357,
-    // marginLeft: 11,
-    //justifyContent: "center",
-    // alignItems: "center",
     marginLeft: "auto",
     marginRight: "auto",
   },
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
-
-    // alignItems: "center",
   },
   blkStamp: {
     width: 67,
