@@ -1,7 +1,7 @@
 import { Text, TextInput, View, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import { boxStyle, textStyles } from "./Styles";
-import ClickButton from "./Components/ClickButton";
+import ClickButton from "../components/ClickButton";
 
 const SignUp = ({ navigation }) => {
   const [name, setName] = useState("");

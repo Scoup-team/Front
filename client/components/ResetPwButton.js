@@ -1,15 +1,15 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
-import { buttonStyle } from "../Styles";
+import { buttonStyle } from "../screens/Styles";
 
-const ClickButton = (props) => {
+const ResetPwButton = (props) => {
   return (
     <View style={buttonStyle.container}>
-      <TouchableOpacity style={buttonStyle.button}>
+      <TouchableOpacity style={buttonStyle.resetPwButton}>
         <Text style={buttonStyle.buttonText}>{props.text}</Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default ClickButton;
+export default ResetPwButton;

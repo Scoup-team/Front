@@ -1,6 +1,6 @@
 import { Text, TextInput, View, StyleSheet, Image } from "react-native";
 import { boxStyle, textStyles } from "./Styles";
-import ClickButton from "./Components/ClickButton";
+import ClickButton from "../components/ClickButton";
 import prevArrow from "../assets/icons/prevArrow.png";
 
 const ModifyInfo = ({ navigation }) => {

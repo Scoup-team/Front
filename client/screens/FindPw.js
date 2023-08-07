@@ -1,6 +1,6 @@
 import { Text, TextInput, View, StyleSheet } from "react-native";
 import { boxStyle, textStyles } from "./Styles";
-import ResetPwButton from "./Components/ResetPwButton";
+import ResetPwButton from "../components/ResetPwButton";
 
 const FindPw = () => {
   return (
@@ -24,8 +24,8 @@ const FindPw = () => {
           fontSize: 11,
           marginTop: 31,
           fontStyle: "normal",
-          letterSpacing: 0.22,   
-          marginBottom: 38       
+          letterSpacing: 0.22,
+          marginBottom: 38,
         }}
       >
         입력하신 이메일로 비밀번호 재설정 링크가 전송됩니다.

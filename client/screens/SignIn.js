@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Text, TextInput, View, Button, Image } from "react-native";
-import ClickButton from "./Components/ClickButton";
+import ClickButton from "../components/ClickButton";
 import { boxStyle, textStyles } from "./Styles";
 import logo from "../assets/icons/logo.png";
 // 로고는 추후에 수정 예정
