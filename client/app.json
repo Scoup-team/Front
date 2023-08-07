@@ -4,27 +4,25 @@
     "slug": "client",
     "version": "1.0.0",
     "orientation": "portrait",
-     "icon": "./assets/coffee.png",
+    "icon": "./assets/coffee.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/coffee.png",
+      "image": "./assets/icons/coffee.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/coffee.png",
+        "foregroundImage": "./assets/icons/coffee.png",
         "backgroundColor": "#ffffff"
       }
     },
     "web": {
-      "favicon": "./assets/coffee.png"
+      "favicon": "./assets/icons/coffee.png"
     }
   }
 }

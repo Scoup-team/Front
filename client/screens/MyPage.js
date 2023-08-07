@@ -2,16 +2,19 @@ import React from "react";
 import {
   View,
   Text,
+  Pressable,
   Button,
   TouchableOpacity,
   StyleSheet,
   Image,
 } from "react-native";
-
 import bluearrow from "../assets/icons/bluearrow.png";
 import coffee from "../assets/icons/coffee.png";
 
 const MyPage = ({ navigation }) => {
+  const CouponPageClick = () => {
+    navigation;
+  };
   return (
     <View>
       <Text style={styles.title}>마이 페이지</Text>
@@ -25,14 +28,12 @@ const MyPage = ({ navigation }) => {
       </View>
       <View style={styles.section}>
         <Text style={styles.topMenu}>내 쿠폰함</Text>
-        <Image source={bluearrow} style={styles.arrow} />
+        <Pressable onPress={() => navigation.navigate("CouponPage")}>
+          <Image source={bluearrow} style={styles.arrow} />
+        </Pressable>
       </View>
       <Text style={styles.BottomMenu}>로그아웃하기</Text>
       <Text style={styles.BottomMenu}>탈퇴하기</Text>
-      {/* <Button
-        title="Searchpage 열기"
-        onPress={() => navigation.navigate("Searchpage")}
-      /> */}
     </View>
   );
 };

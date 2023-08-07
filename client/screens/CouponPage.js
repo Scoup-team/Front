@@ -11,13 +11,13 @@ import {
   Image,
 } from "react-native";
 
-import Modal from "../components/coupon/Modal";
 import back from "../assets/icons/back.png";
+import AvailableCoupon from "../components/coupon/AvailableCoupon";
+import DisabledCoupon from "../components/coupon/DisabledCoupon";
 
 const CouponPage = ({ navigation }) => {
-  const [modalOpen, setModalOpen] = useState(false);
-
   const [availableCouponClick, setAvailableCouponClick] = useState(true);
+
   const click = () => {
     setAvailableCouponClick(!availableCouponClick);
   };
@@ -64,25 +64,11 @@ const CouponPage = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </View>
-      <Pressable style={styles.couponSection} onPress={couponClick}>
-        <ImageBackground
-          style={styles.couponComponent}
-          source={require("../assets/icons/couponFrame.png")}
-          resizeMode="stretch"
-        >
-          <View style={styles.top}>
-            <Text style={styles.name}>[카페코지]</Text>
-            <Text style={styles.date}>2023-06-30 까지</Text>
-          </View>
-
-          <Text style={styles.content}>아이스 아메리카노 1잔 무료</Text>
-        </ImageBackground>
-      </Pressable>
-      {modalOpen ? (
-          <Modal
-          open={modalOpen}
-          setOpen={setModalOpen} />
-        ) : null}
+      {availableCouponClick ? (
+        <AvailableCoupon></AvailableCoupon>
+      ) : (
+        <DisabledCoupon></DisabledCoupon>
+      )}
     </View>
   );
 };

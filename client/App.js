@@ -12,6 +12,8 @@ import SignUp from "./screens/SignUp";
 import Home from "./screens/Home";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
+import QrPage from "./screens/QrPage";
+import CameraPage from "./screens/CameraPage";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -70,7 +72,7 @@ const App = () => {
       <Stack.Navigator
         initialRouteName="Home"
         screenOptions={{ headerShown: false }}
-        initialRouteName="Main"
+        initialRouteName="CameraPage"
       >
         <Stack.Screen name="Home" component={Home} />
 
@@ -81,6 +83,9 @@ const App = () => {
         <Stack.Screen name="FindPw" component={FindPw} />
         <Stack.Screen name="ModifyInfo" component={ModifyInfo} />
         <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="CouponPage" component={CouponPage} />
+        <Stack.Screen name="QrPage" component={QrPage} />
+        <Stack.Screen name="CameraPage" component={CameraPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );
