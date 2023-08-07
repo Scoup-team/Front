@@ -1,6 +1,5 @@
 import { Text, TextInput, View, StyleSheet } from "react-native";
 import React, { useState } from "react";
-import { boxStyle, textStyles } from "./Styles";
 import ClickButton from "../components/ClickButton";
 
 const SignUp = ({ navigation }) => {
@@ -70,3 +69,31 @@ const SignUp = ({ navigation }) => {
 };
 
 export default SignUp;
+
+export const boxStyle = StyleSheet.create({
+  inputText: {
+    backgroundColor: "#E8E8E8",
+    width: 310,
+    height: 42,
+    fontSize: 20,
+    fontStyle: "normal",
+    fontWeight: "700",
+    letterSpacing: -0.4,
+    borderRadius: 8,
+    paddingLeft: 9,
+  },
+});
+
+export const textStyles = StyleSheet.create({
+  basicText: {
+    fontSize: 14,
+    fontStyle: "normal",
+  },
+  mainText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: 66,
+    fontStyle: "normal",
+  },
+});
