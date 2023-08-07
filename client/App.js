@@ -72,7 +72,7 @@ const App = () => {
       <Stack.Navigator
         initialRouteName="Home"
         screenOptions={{ headerShown: false }}
-        initialRouteName="CameraPage"
+        initialRouteName="MyPage"
       >
         <Stack.Screen name="Home" component={Home} />
 
