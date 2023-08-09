@@ -176,7 +176,7 @@ const style = StyleSheet.create({
   setting: {
     width: 30,
     height: 30,
-    marginBottom: 104,
+    marginBottom: 25.63,
   },
   settingContainer: {
     flex: 1,
@@ -267,7 +267,7 @@ const style = StyleSheet.create({
   },
   blkStamp: {
     width: 71,
-    height: 68, // 63으로 하는 경우 위에 부분이 짤림
+    height: 68,
     marginRight: 14,
     marginBottom: 33,
   },
@@ -284,10 +284,6 @@ const style = StyleSheet.create({
     borderRadius: 53,
     borderWidth: 1.5,
     borderColor: "#6E85B7",
-    //overflow: "hidden", // To clip the border within the circle
-    // resizeMode: "cover",
-    // justifyContent: "center",
-    // 위의 주석들 기능 다시 확인
 
     marginLeft: "auto",
     marginRight: "auto",
