@@ -1,6 +1,5 @@
 import { Text, TextInput, View, StyleSheet } from "react-native";
-import { boxStyle, textStyles } from "./Styles";
-import ResetPwButton from "./Components/ResetPwButton";
+import ResetPwButton from "../components/ResetPwButton";
 
 const FindPw = () => {
   return (
@@ -24,8 +23,8 @@ const FindPw = () => {
           fontSize: 11,
           marginTop: 31,
           fontStyle: "normal",
-          letterSpacing: 0.22,   
-          marginBottom: 38       
+          letterSpacing: 0.22,
+          marginBottom: 38,
         }}
       >
         입력하신 이메일로 비밀번호 재설정 링크가 전송됩니다.
@@ -37,3 +36,27 @@ const FindPw = () => {
 };
 
 export default FindPw;
+
+export const boxStyle = StyleSheet.create({
+  inputText: {
+    backgroundColor: "#E8E8E8",
+    width: 310,
+    height: 42,
+    fontSize: 20,
+    fontStyle: "normal",
+    fontWeight: "700",
+    letterSpacing: -0.4,
+    borderRadius: 8,
+    paddingLeft: 9,
+  },
+});
+
+export const textStyles = StyleSheet.create({
+  mainText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: 66,
+    fontStyle: "normal",
+  },
+});

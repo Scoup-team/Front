@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { Text, TextInput, View, Button, Image } from "react-native";
-import ClickButton from "./Components/ClickButton";
-import { boxStyle, textStyles } from "./Styles";
+import { Text, TextInput, View, Button, Image, StyleSheet } from "react-native";
+import ClickButton from "../components/ClickButton";
 import logo from "../assets/icons/logo.png";
 // 로고는 추후에 수정 예정
 
@@ -69,3 +68,24 @@ const SignIn = ({ navigation }) => {
 };
 
 export default SignIn;
+
+export const boxStyle = StyleSheet.create({
+  inputText: {
+    backgroundColor: "#E8E8E8",
+    width: 310,
+    height: 42,
+    fontSize: 20,
+    fontStyle: "normal",
+    fontWeight: "700",
+    letterSpacing: -0.4,
+    borderRadius: 8,
+    paddingLeft: 9,
+  },
+});
+
+export const textStyles = StyleSheet.create({
+  basicText: {
+    fontSize: 14,
+    fontStyle: "normal",
+  },
+});

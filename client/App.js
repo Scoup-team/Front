@@ -9,6 +9,7 @@ import SignIn from "./screens/SignIn";
 import FindPw from "./screens/FindPw";
 import ModifyInfo from "./screens/ModifyInfo";
 import SignUp from "./screens/SignUp";
+import Home from "./screens/Home";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import QrPage from "./screens/QrPage";
@@ -23,7 +24,7 @@ const MainTabNavigator = () => {
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
-          if (route.name === "CouponPage") {
+          if (route.name === "Home") {
             iconName = focused
               ? require("./assets/icons/redhome.png")
               : require("./assets/icons/home.png");
@@ -42,10 +43,15 @@ const MainTabNavigator = () => {
       })}
     >
       <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: false }}
+      />
+      {/* <Tab.Screen
         name="CouponPage"
         component={CouponPage}
         options={{ headerShown: false }}
-      />
+      /> */}
       <Tab.Screen
         name="QR"
         component={EventPage}
@@ -64,12 +70,16 @@ const App = () => {
   return (
     <NavigationContainer style={styles.container}>
       <Stack.Navigator
+        initialRouteName="Home"
         screenOptions={{ headerShown: false }}
-        initialRouteName="CameraPage"
+        initialRouteName="MyPage"
       >
+        <Stack.Screen name="Home" component={Home} />
+
         <Stack.Screen name="Main" component={MainTabNavigator} />
         <Stack.Screen name="SearchPage" component={SearchPage} />
         <Stack.Screen name="SignIn" component={SignIn} />
+
         <Stack.Screen name="FindPw" component={FindPw} />
         <Stack.Screen name="ModifyInfo" component={ModifyInfo} />
         <Stack.Screen name="SignUp" component={SignUp} />

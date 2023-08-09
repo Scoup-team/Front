@@ -1,6 +1,5 @@
 import { Text, TextInput, View, StyleSheet, Image } from "react-native";
-import { boxStyle, textStyles } from "./Styles";
-import ClickButton from "./Components/ClickButton";
+import ClickButton from "../components/ClickButton";
 import prevArrow from "../assets/icons/prevArrow.png";
 
 const ModifyInfo = ({ navigation }) => {
@@ -65,4 +64,36 @@ export default ModifyInfo;
 const styles = StyleSheet.create({
   notifyMargin: { marginTop: 36, marginLeft: 36 },
   boxMargin: { marginTop: 15, marginLeft: 40, marginTop: 18 },
+});
+
+export const boxStyle = StyleSheet.create({
+  inputText: {
+    backgroundColor: "#E8E8E8",
+    width: 310,
+    height: 42,
+    fontSize: 20,
+    fontStyle: "normal",
+    fontWeight: "700",
+    letterSpacing: -0.4,
+    borderRadius: 8,
+    paddingLeft: 9,
+  },
+});
+
+export const textStyles = StyleSheet.create({
+  notifyText: {
+    color: "#6E85B7",
+    fontSize: 20,
+    fontStyle: "normal",
+    fontWeight: "700",
+    letterSpacing: -0.4,
+  },
+
+  mainText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginTop: 66,
+    fontStyle: "normal",
+  },
 });
