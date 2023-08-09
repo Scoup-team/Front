@@ -9,11 +9,11 @@ import SignIn from "./screens/SignIn";
 import FindPw from "./screens/FindPw";
 import ModifyInfo from "./screens/ModifyInfo";
 import SignUp from "./screens/SignUp";
-import Home from "./screens/Home";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createStackNavigator } from "@react-navigation/stack";
 import QrPage from "./screens/QrPage";
 import CameraPage from "./screens/CameraPage";
+import Home from "./screens/Home";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -28,7 +28,7 @@ const MainTabNavigator = () => {
             iconName = focused
               ? require("./assets/icons/redhome.png")
               : require("./assets/icons/home.png");
-          } else if (route.name === "QR") {
+          } else if (route.name === "CameraPage") {
             iconName = focused
               ? require("./assets/icons/redqr.png")
               : require("./assets/icons/qr.png");
@@ -47,14 +47,9 @@ const MainTabNavigator = () => {
         component={Home}
         options={{ headerShown: false }}
       />
-      {/* <Tab.Screen
-        name="CouponPage"
-        component={CouponPage}
-        options={{ headerShown: false }}
-      /> */}
       <Tab.Screen
-        name="QR"
-        component={EventPage}
+        name="CameraPage"
+        component={CameraPage}
         options={{ headerShown: false }}
       />
       <Tab.Screen
@@ -70,16 +65,12 @@ const App = () => {
   return (
     <NavigationContainer style={styles.container}>
       <Stack.Navigator
-        initialRouteName="Home"
         screenOptions={{ headerShown: false }}
-        initialRouteName="MyPage"
+        initialRouteName="Main"
       >
-        <Stack.Screen name="Home" component={Home} />
-
         <Stack.Screen name="Main" component={MainTabNavigator} />
         <Stack.Screen name="SearchPage" component={SearchPage} />
         <Stack.Screen name="SignIn" component={SignIn} />
-
         <Stack.Screen name="FindPw" component={FindPw} />
         <Stack.Screen name="ModifyInfo" component={ModifyInfo} />
         <Stack.Screen name="SignUp" component={SignUp} />
