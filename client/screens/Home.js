@@ -149,7 +149,7 @@ const style = StyleSheet.create({
   },
   allStore: {
     width: 80,
-    height: "100%",
+    // height: "100%",
     backgroundColor: "#C4D7E0",
   },
 
