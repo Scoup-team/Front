@@ -27,7 +27,9 @@ const CouponPage = ({ navigation }) => {
   return (
     <View>
       <View style={styles.header}>
-        <Image source={back} style={styles.back} />
+        <Pressable onPress={() => navigation.pop()}>
+          <Image source={back} style={styles.back} />
+        </Pressable>
         <Text style={styles.title}>내 쿠폰함</Text>
       </View>
       <View style={styles.topMenu}>
@@ -79,6 +81,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 40,
+    marginTop: 20,
   },
 
   back: {

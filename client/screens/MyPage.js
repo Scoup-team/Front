@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontStyle: "normal",
     fontWeight: 700,
-    marginTop: 70,
+    marginTop: 20,
     marginBottom: 50,
   },
 
