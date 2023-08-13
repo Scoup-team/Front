@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     color: "#5A5858",
     fontSize: 9,
     fontWeight: 500,
-    litterSpacing: 0.18,
+    // litterSpacing: 0.18,
     fontStyle: "normal",
   },
   searchResultContainer: {

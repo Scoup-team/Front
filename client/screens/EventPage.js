@@ -12,39 +12,44 @@ import bluearrow from "../assets/icons/bluearrow.png";
 import coffee from "../assets/icons/coffee.png";
 import coffeebeen from "../assets/icons/coffeebeen.png";
 import back from "../assets/icons/back.png";
+import LeftSidebar from "../components/LeftSideBar";
 
 const EventPage = ({ navigation }) => {
+  const stores = [{ id: 1, name: "카페코지" }];
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Image source={back} style={styles.back} />
-        <Text style={styles.title}>카페코지</Text>
-      </View>
-      <View style={styles.EventSection}>
-        <View style={styles.EventComponent}>
-          <Text style={styles.date}>2023-06-13</Text>
-          <Text style={styles.content}>
-            오늘 개인사정으로로 휴무입니다. 다음주부터 정상적으로 운영합니다.
-          </Text>
-          <Image source={coffee} style={styles.coffee} />
+    <View style={styles.allContainer}>
+      <LeftSidebar navigation={navigation} stores={stores} />
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Image source={back} style={styles.back} />
+          <Text style={styles.title}>카페코지</Text>
         </View>
-      </View>
-      <View style={styles.EventSection}>
-        <View style={styles.EventComponent2}>
-          <Text style={styles.date}>2023-06-13</Text>
-          <Text style={styles.content}>
-            오늘 개인사정으로로 휴무입니다. 다음주부터 정상적으로 운영합니다.
-          </Text>
-          <Image source={coffeebeen} style={styles.coffeebeen} />
+        <View style={styles.EventSection}>
+          <View style={styles.EventComponent}>
+            <Text style={styles.date}>2023-06-13</Text>
+            <Text style={styles.content}>
+              오늘 개인사정으로로 휴무입니다. 다음주부터 정상적으로 운영합니다.
+            </Text>
+            <Image source={coffee} style={styles.coffee} />
+          </View>
         </View>
-      </View>
-      <View style={styles.EventSection}>
-        <View style={styles.EventComponent}>
-          <Text style={styles.date}>2023-06-13</Text>
-          <Text style={styles.content}>
-            오늘 개인사정으로로 휴무입니다. 다음주부터 정상적으로 운영합니다.
-          </Text>
-          <Image source={coffee} style={styles.coffee} />
+        <View style={styles.EventSection}>
+          <View style={styles.EventComponent2}>
+            <Text style={styles.date}>2023-06-13</Text>
+            <Text style={styles.content}>
+              오늘 개인사정으로로 휴무입니다. 다음주부터 정상적으로 운영합니다.
+            </Text>
+            <Image source={coffeebeen} style={styles.coffeebeen} />
+          </View>
+        </View>
+        <View style={styles.EventSection}>
+          <View style={styles.EventComponent}>
+            <Text style={styles.date}>2023-06-13</Text>
+            <Text style={styles.content}>
+              오늘 개인사정으로로 휴무입니다. 다음주부터 정상적으로 운영합니다.
+            </Text>
+            <Image source={coffee} style={styles.coffee} />
+          </View>
         </View>
       </View>
     </View>
@@ -52,8 +57,12 @@ const EventPage = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  allContainer: {
+    flexDirection: "row",
+    flex: 1,
+  },
   container: {
-    marginLeft: 50,
+    flexDirection: "column",
   },
 
   header: {
@@ -88,7 +97,7 @@ const styles = StyleSheet.create({
 
   EventSection: {
     flexDirection: "column",
-    marginLeft: 30,
+    marginLeft: 13,
     marginBottom: 23,
   },
 

@@ -77,6 +77,7 @@ const App = () => {
         <Stack.Screen name="CouponPage" component={CouponPage} />
         <Stack.Screen name="QrPage" component={QrPage} />
         <Stack.Screen name="CameraPage" component={CameraPage} />
+        <Stack.Screen name="EventPage" component={EventPage} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -7,26 +7,17 @@ import {
   Image,
   TouchableWithoutFeedback,
 } from "react-native";
-import SearchPage from "./SearchPage";
-import EventPage from "./EventPage";
 import notice from "../assets/icons/notice.png";
-import setting from "../assets/icons/setting.png";
 import shop from "../assets/icons/shop.png";
 import blkStamp from "../assets/icons/blkStamp.png";
-
-import stamp from "../assets/icons/stamp.png";
-import plusStore from "../assets/icons/plusStore.png";
-import removeStore from "../assets/icons/removeStore.png";
-import cozy from "../assets/icons/cozy.png";
 
 import cocoCoffee from "../assets/icons/cocoCoffee.png";
 import cocoMango from "../assets/icons/cocoMango.png";
 import twoOne from "../assets/icons/twoOne.png";
+import LeftSidebar from "../components/LeftSideBar";
 
 const Home = ({ navigation }) => {
-  const [stores, setStores] = useState([
-    { id: 1, name: "카페코지" }, // Image
-  ]);
+  const stores = [{ id: 1, name: "카페코지" }];
 
   const addStore = () => {};
 
@@ -39,52 +30,23 @@ const Home = ({ navigation }) => {
   const editMode = () => {
     setIsAddMode(!isAddMode);
   };
-  const navigateSearchPage = () => {
-    navigation.navigate("SearchPage");
-  };
-  const navigateEventPage = () => {
-    navigation.navigate("EventPage");
-  };
 
   return (
     <View style={style.Home}>
       <StatusBar backgroundColor="#F2F2F2" />
-      {/* 왼쪽 바 영역*/}
-      <View style={style.allStore}>
-        {/* store - 상단 */}
-        {stores.map((stores) => (
-          <TouchableWithoutFeedback
-            key={stores.id}
-            onPress={() => deleteStore(stores.id)}
-          >
-            <View>
-              <Image source={cozy} style={style.clkStore} />
-              {isAddMode && (
-                <Image source={removeStore} style={style.rmStore} />
-              )}
-            </View>
-          </TouchableWithoutFeedback>
-        ))}
-
-        {isAddMode && (
-          <TouchableWithoutFeedback onPress={navigateSearchPage}>
-            <View>
-              <Image source={plusStore} style={style.plsStore} />
-            </View>
-          </TouchableWithoutFeedback>
-        )}
-
-        {/* setting - 하단 */}
-        <TouchableWithoutFeedback onPress={editMode}>
-          <View style={style.settingContainer}>
-            <Image source={setting} style={style.setting} />
-          </View>
-        </TouchableWithoutFeedback>
-      </View>
+      <LeftSidebar
+        isAddMode={isAddMode}
+        stores={stores}
+        editMode={editMode}
+        deleteStore={deleteStore}
+        navigation={navigation}
+      ></LeftSidebar>
 
       {/* 오른쪽 영역*/}
       <View style={style.storeArea}>
-        <TouchableWithoutFeedback onPress={navigateEventPage}>
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate("EventPage")}
+        >
           <View style={style.noticeContainer}>
             <Image source={notice} style={style.notice} />
             <Text> 가게 공지란입니다.</Text>
