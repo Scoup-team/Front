@@ -24,7 +24,9 @@ const MyPage = ({ navigation }) => {
       </View>
       <View style={styles.section}>
         <Text style={styles.topMenu}>개인 정보 수정</Text>
-        <Image source={bluearrow} style={styles.arrow} />
+        <Pressable onPress={() => navigation.navigate("ModifyInfo")}>
+          <Image source={bluearrow} style={styles.arrow} />
+        </Pressable>
       </View>
       <View style={styles.section}>
         <Text style={styles.topMenu}>내 쿠폰함</Text>

@@ -14,7 +14,7 @@ const ModifyInfo = ({ navigation }) => {
       >
         <Image
           source={prevArrow}
-          style={{ marginTop: 66, marginLeft: 42 }}
+          style={{ marginTop: 66, marginLeft: 42, width: 32, height: 33 }}
           onPress={() => navigation.navigate("MyPage")}
         />
         <Text style={[textStyles.mainText]}>개인정보 수정</Text>
