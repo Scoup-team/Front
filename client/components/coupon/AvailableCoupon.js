@@ -13,8 +13,9 @@ import {
 
 import Modal from "./Modal";
 
-const AvailableCoupon = ({}) => {
+const AvailableCoupon = ({ data }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const couponId = 1;
   const couponClick = () => {
     setModalOpen(!modalOpen);
   };
@@ -31,10 +32,12 @@ const AvailableCoupon = ({}) => {
             <Text style={styles.date}>2023-06-30 까지</Text>
           </View>
 
-          <Text style={styles.content}>아이스 아메리카노 1잔 무료</Text>
+          <Text style={styles.content}>{data.message}</Text>
         </ImageBackground>
       </Pressable>
-      {modalOpen ? <Modal open={modalOpen} setOpen={setModalOpen} /> : null}
+      {modalOpen ? (
+        <Modal open={modalOpen} setOpen={setModalOpen} couponId={couponId} />
+      ) : null}
     </View>
   );
 };

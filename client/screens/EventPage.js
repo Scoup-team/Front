@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -14,40 +14,41 @@ import coffeebeen from "../assets/icons/coffeebeen.png";
 import back from "../assets/icons/back.png";
 import LeftSidebar from "../components/LeftSideBar";
 
+import { getEvent } from "../api/cafe";
+
 const EventPage = ({ navigation }) => {
+  const shopId = 1;
+
+  const [data, setData] = useState("");
+
+  useEffect(() => {
+    getEventData();
+  }, []);
+
+  const getEventData = async () => {
+    try {
+      const getData = await getEvent(shopId);
+      setData(getData);
+      console.log("data", data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const stores = [{ id: 1, name: "카페코지" }];
+
   return (
     <View style={styles.allContainer}>
       <LeftSidebar navigation={navigation} stores={stores} />
       <View style={styles.container}>
         <View style={styles.header}>
           <Image source={back} style={styles.back} />
-          <Text style={styles.title}>카페코지</Text>
+          <Text style={styles.title}>{data.message}</Text>
         </View>
         <View style={styles.EventSection}>
           <View style={styles.EventComponent}>
             <Text style={styles.date}>2023-06-13</Text>
-            <Text style={styles.content}>
-              오늘 개인사정으로로 휴무입니다. 다음주부터 정상적으로 운영합니다.
-            </Text>
-            <Image source={coffee} style={styles.coffee} />
-          </View>
-        </View>
-        <View style={styles.EventSection}>
-          <View style={styles.EventComponent2}>
-            <Text style={styles.date}>2023-06-13</Text>
-            <Text style={styles.content}>
-              오늘 개인사정으로로 휴무입니다. 다음주부터 정상적으로 운영합니다.
-            </Text>
-            <Image source={coffeebeen} style={styles.coffeebeen} />
-          </View>
-        </View>
-        <View style={styles.EventSection}>
-          <View style={styles.EventComponent}>
-            <Text style={styles.date}>2023-06-13</Text>
-            <Text style={styles.content}>
-              오늘 개인사정으로로 휴무입니다. 다음주부터 정상적으로 운영합니다.
-            </Text>
+            <Text style={styles.content}>{data.message}</Text>
             <Image source={coffee} style={styles.coffee} />
           </View>
         </View>

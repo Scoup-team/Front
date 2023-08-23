@@ -15,19 +15,53 @@ import back from "../assets/icons/back.png";
 import AvailableCoupon from "../components/coupon/AvailableCoupon";
 import DisabledCoupon from "../components/coupon/DisabledCoupon";
 
+import { getCoupon } from "../api/coupon";
+
 const CouponPage = ({ navigation }) => {
   const [availableCouponClick, setAvailableCouponClick] = useState(true);
+
+  const [data, setData] = useState("");
+  
+  const userId = 3;
+
+  useEffect(() => {
+    getCouponData();
+  }, []);
+
+  const getCouponData = async () => {
+    try {
+      const getData = await getCoupon(userId);
+      setData(getData);
+      console.log("data", data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // const useCouponData = async () => {
+  //   try {
+  //     const getData = await useCoupon(couponId);
+  //     setUseData(getData);
+  //     console.log("data", useData);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const click = () => {
     setAvailableCouponClick(!availableCouponClick);
   };
+
   const couponClick = () => {
     setModalOpen(!modalOpen);
   };
+
   return (
     <View>
       <View style={styles.header}>
-        <Image source={back} style={styles.back} />
+        <Pressable onPress={() => navigation.pop()}>
+          <Image source={back} style={styles.back} />
+        </Pressable>
         <Text style={styles.title}>내 쿠폰함</Text>
       </View>
       <View style={styles.topMenu}>
@@ -65,7 +99,7 @@ const CouponPage = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       {availableCouponClick ? (
-        <AvailableCoupon></AvailableCoupon>
+        <AvailableCoupon data={data}></AvailableCoupon>
       ) : (
         <DisabledCoupon></DisabledCoupon>
       )}
@@ -75,11 +109,11 @@ const CouponPage = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   header: {
-    marginTop: 60,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 40,
+    marginTop: 20,
   },
 
   back: {
