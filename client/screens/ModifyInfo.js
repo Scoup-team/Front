@@ -14,7 +14,7 @@ const ModifyInfo = ({ navigation }) => {
       >
         <Image
           source={prevArrow}
-          style={{ marginTop: 66, marginLeft: 42, width: 32, height: 33 }}
+          style={{ marginTop: 18, marginLeft: 42, width: 32, height: 33 }}
           onPress={() => navigation.navigate("MyPage")}
         />
         <Text style={[textStyles.mainText]}>개인정보 수정</Text>
@@ -93,7 +93,7 @@ export const textStyles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
-    marginTop: 66,
+    marginTop: 22,
     fontStyle: "normal",
   },
 });

@@ -75,7 +75,7 @@ const CouponPage = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   header: {
-    marginTop: 60,
+    marginTop: 18,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
