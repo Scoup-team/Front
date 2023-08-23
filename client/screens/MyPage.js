@@ -10,11 +10,29 @@ import {
 } from "react-native";
 import bluearrow from "../assets/icons/bluearrow.png";
 import coffee from "../assets/icons/coffee.png";
+import API from "../api";
 
 const MyPage = ({ navigation }) => {
   const CouponPageClick = () => {
     navigation;
   };
+
+  const deleteUser = async () => {
+    try {
+      const response = await API.delete("/user");
+
+      if (response.status === 200) {
+        console.log("회원 탈퇴 성공:", response.data.message);
+        alert("회원 탈퇴가 성공적으로 이루어졌습니다.");
+        navigation.navigate("SignIn");
+      } else {
+        console.error("회원 탈퇴 실패:", response.data.message);
+      }
+    } catch (error) {
+      console.error("회원 탈퇴 실패:", error);
+    }
+  };
+
   return (
     <View>
       <Text style={styles.title}>마이 페이지</Text>
@@ -35,7 +53,9 @@ const MyPage = ({ navigation }) => {
         </Pressable>
       </View>
       <Text style={styles.BottomMenu}>로그아웃하기</Text>
-      <Text style={styles.BottomMenu}>탈퇴하기</Text>
+      <TouchableOpacity onPress={deleteUser}>
+        <Text style={styles.BottomMenu}>탈퇴하기</Text>
+      </TouchableOpacity>
     </View>
   );
 };

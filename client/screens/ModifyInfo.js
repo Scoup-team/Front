@@ -1,8 +1,55 @@
 import { Text, TextInput, View, StyleSheet, Image } from "react-native";
 import ClickButton from "../components/ClickButton";
 import prevArrow from "../assets/icons/prevArrow.png";
+import API from "../api";
+import React, { useState, useEffect } from "react";
 
 const ModifyInfo = ({ navigation }) => {
+  const [nickname, setNickname] = useState("");
+  const [originPassword, setOriginPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  useEffect(() => {
+    async function getNickname() {
+      try {
+        const response = await API.get("/user");
+        setNickname(response.data.data.nickname);
+        console.log("닉네임 가져오기 성공:", response.data.data.nickname);
+      } catch (error) {
+        console.error("닉네임 가져오기 실패:", error);
+      }
+    }
+
+    getNickname();
+  }, []);
+
+  const changeNickname = async (nickname) => {
+    try {
+      const response = await API.patch("/user/nickname", {
+        nickname: nickname,
+      });
+      console.log(response.data.message);
+      alert("닉네임이 성공적으로 변경되었습니다.");
+    } catch (error) {
+      console.error("닉네임 변경 실패:", error);
+    }
+  };
+
+  const changePassword = async (originPassword, newPassword) => {
+    try {
+      const response = await API.patch("/user/password", {
+        originPassword: originPassword,
+        newPassword: newPassword,
+      });
+
+      console.log("비밀번호 변경 요청 성공:", response.data.message);
+      alert("성공적으로 변경되었습니다.");
+    } catch (error) {
+      // console.error("비밀번호 변경 요청 실패:", error);
+    }
+  };
+
   return (
     <View>
       <View
@@ -26,8 +73,13 @@ const ModifyInfo = ({ navigation }) => {
         </Text>
         <TextInput
           style={[boxStyle.inputText, styles.boxMargin, { marginBottom: 23 }]}
-        ></TextInput>
-        <ClickButton text={"변경하기"} />
+          value={nickname} // 가져온 닉네임을 표시합니다.
+          onChangeText={setNickname}
+        />
+        <ClickButton
+          text={"변경하기"}
+          onPress={() => changeNickname(nickname)}
+        />
       </View>
 
       <View>
@@ -39,21 +91,36 @@ const ModifyInfo = ({ navigation }) => {
           style={[boxStyle.inputText, styles.boxMargin]}
           placeholder="기존 비밀번호"
           secureTextEntry
+          value={originPassword}
+          onChangeText={setOriginPassword}
         ></TextInput>
 
         <TextInput
           style={[boxStyle.inputText, styles.boxMargin]}
           placeholder="새 비밀번호"
           secureTextEntry
+          value={newPassword}
+          onChangeText={setNewPassword}
         ></TextInput>
 
         <TextInput
           style={[boxStyle.inputText, styles.boxMargin, { marginBottom: 23 }]}
           placeholder=" 비밀번호 확인"
           secureTextEntry
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
         ></TextInput>
 
-        <ClickButton text={"변경하기"} />
+        <ClickButton
+          text={"변경하기"}
+          onPress={() => {
+            if (newPassword == confirmPassword) {
+              changePassword(originPassword, newPassword);
+            } else {
+              alert("새 비밀번호가 일치하지 않습니다.");
+            }
+          }}
+        />
       </View>
     </View>
   );
