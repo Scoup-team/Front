@@ -15,15 +15,47 @@ import back from "../assets/icons/back.png";
 import AvailableCoupon from "../components/coupon/AvailableCoupon";
 import DisabledCoupon from "../components/coupon/DisabledCoupon";
 
+import { getCoupon } from "../api/coupon";
+
 const CouponPage = ({ navigation }) => {
   const [availableCouponClick, setAvailableCouponClick] = useState(true);
+
+  const [data, setData] = useState("");
+  
+  const userId = 3;
+
+  useEffect(() => {
+    getCouponData();
+  }, []);
+
+  const getCouponData = async () => {
+    try {
+      const getData = await getCoupon(userId);
+      setData(getData);
+      console.log("data", data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // const useCouponData = async () => {
+  //   try {
+  //     const getData = await useCoupon(couponId);
+  //     setUseData(getData);
+  //     console.log("data", useData);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const click = () => {
     setAvailableCouponClick(!availableCouponClick);
   };
+
   const couponClick = () => {
     setModalOpen(!modalOpen);
   };
+
   return (
     <View>
       <View style={styles.header}>
@@ -67,7 +99,7 @@ const CouponPage = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       {availableCouponClick ? (
-        <AvailableCoupon></AvailableCoupon>
+        <AvailableCoupon data={data}></AvailableCoupon>
       ) : (
         <DisabledCoupon></DisabledCoupon>
       )}
