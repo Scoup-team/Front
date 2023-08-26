@@ -6,7 +6,7 @@ import React, { useState, useEffect } from "react";
 
 const ModifyInfo = ({ navigation }) => {
   const [nickname, setNickname] = useState("");
-  const [originPassword, setOriginPassword] = useState("");
+  const [originalPassword, setOriginalPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -36,17 +36,16 @@ const ModifyInfo = ({ navigation }) => {
     }
   };
 
-  const changePassword = async (originPassword, newPassword) => {
+  const changePassword = async (originalPassword, newPassword) => {
     try {
       const response = await API.patch("/user/password", {
-        originPassword: originPassword,
+        originalPassword: originalPassword,
         newPassword: newPassword,
       });
-
       console.log("비밀번호 변경 요청 성공:", response.data.message);
       alert("성공적으로 변경되었습니다.");
     } catch (error) {
-      // console.error("비밀번호 변경 요청 실패:", error);
+      console.error("비밀번호 변경 요청 실패:", error);
     }
   };
 
@@ -73,7 +72,7 @@ const ModifyInfo = ({ navigation }) => {
         </Text>
         <TextInput
           style={[boxStyle.inputText, styles.boxMargin, { marginBottom: 23 }]}
-          value={nickname} // 가져온 닉네임을 표시합니다.
+          value={nickname}
           onChangeText={setNickname}
         />
         <ClickButton
@@ -91,8 +90,8 @@ const ModifyInfo = ({ navigation }) => {
           style={[boxStyle.inputText, styles.boxMargin]}
           placeholder="기존 비밀번호"
           secureTextEntry
-          value={originPassword}
-          onChangeText={setOriginPassword}
+          value={originalPassword}
+          onChangeText={setOriginalPassword}
         ></TextInput>
 
         <TextInput
@@ -114,12 +113,12 @@ const ModifyInfo = ({ navigation }) => {
         <ClickButton
           text={"변경하기"}
           onPress={() => {
-            if (newPassword == confirmPassword) {
-              changePassword(originPassword, newPassword);
-            } else {
+            if(newPassword==confirmPassword){
+              changePassword(originalPassword, newPassword)
+            } else{
               alert("새 비밀번호가 일치하지 않습니다.");
             }
-          }}
+            }}
         />
       </View>
     </View>
