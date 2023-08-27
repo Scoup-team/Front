@@ -20,13 +20,14 @@ const CameraPage = () => {
       try {
         const photo = await cameraRef.takePictureAsync();
         console.log("photo", photo);
-        formData.append("photo", {
-          uri: photo.uri,
-          type: "image/jpeg",
-          name: "photo.jpg",
-        });
+        const formData = new FormData();
+        formData.append("file", photo);
+        // console.log("formData", formData);
+        // for (let pair of formData.entries()) {
+        //   console.log(pair[0] + ": " + pair[1]);
+        // }
         await postReceipt(formData);
-        console.log("formData", formData);
+        // console.log("photo.uri", photo.uri);
       } catch (error) {
         console.log("Error taking picture: ", error);
       }
@@ -57,8 +58,8 @@ const CameraPage = () => {
         >
           <TouchableOpacity
             style={{
-              width: 80,
-              height: 80,
+              width: 60,
+              height: 60,
               borderRadius: 40,
               backgroundColor: "white",
               justifyContent: "center",
@@ -67,7 +68,7 @@ const CameraPage = () => {
             }}
             onPress={takePicture}
           >
-            <Text style={{ fontSize: 18 }}>촬영</Text>
+            <Text style={{ fontSize: 14 }}>촬영</Text>
           </TouchableOpacity>
         </View>
       </Camera>
