@@ -10,14 +10,32 @@ import {
 } from "react-native";
 
 import close from "../../assets/icons/close.png";
+import { useCoupon } from "../../api/coupon";
 
-const Modal = ({ open, setOpen }) => {
+const Modal = ({ open, setOpen, couponId }) => {
+  const [data, setData] = useState("");
+
   const handleOpenModal = () => {
     setOpen(true);
   };
 
   const handleCloseModal = () => {
     setOpen(false);
+  };
+  
+  const click = () => {
+    useCouponData();
+  };
+
+  const useCouponData = async () => {
+    try {
+      const postData = await useCoupon(couponId);
+      setData(postData);
+      console.log("data", data);
+      console.log("쿠폰 사용 성공");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -27,8 +45,8 @@ const Modal = ({ open, setOpen }) => {
           style={{
             margin: 3,
             alignSelf: "flex-end",
-            marginRight:20,
-            marginBottom:30,
+            marginRight: 20,
+            marginBottom: 30,
           }}
           onPress={handleCloseModal}
         >
@@ -43,7 +61,9 @@ const Modal = ({ open, setOpen }) => {
           style={styles.btn}
           onPress={() => Alert.alert("Button with adjusted color pressed")}
         >
-          <Text style={styles.btnText}>사용하기</Text>
+          <Text style={styles.btnText} onPress={click}>
+            사용하기
+          </Text>
         </TouchableOpacity>
       </View>
     </View>

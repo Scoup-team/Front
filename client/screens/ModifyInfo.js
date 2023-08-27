@@ -1,8 +1,10 @@
 import { Text, TextInput, View, StyleSheet, Image } from "react-native";
 import ClickButton from "../components/ClickButton";
 import prevArrow from "../assets/icons/prevArrow.png";
-import API from "../api";
+// import API from "../api";
+import { changeNickname, changePassword } from "../api/userInfo";
 import React, { useState, useEffect } from "react";
+import client from "../api/client";
 
 const ModifyInfo = ({ navigation }) => {
   const [nickname, setNickname] = useState("");
@@ -13,7 +15,7 @@ const ModifyInfo = ({ navigation }) => {
   useEffect(() => {
     async function getNickname() {
       try {
-        const response = await API.get("/user");
+        const response = await client.get("/user");
         setNickname(response.data.data.nickname);
         console.log("닉네임 가져오기 성공:", response.data.data.nickname);
       } catch (error) {
@@ -23,31 +25,6 @@ const ModifyInfo = ({ navigation }) => {
 
     getNickname();
   }, []);
-
-  const changeNickname = async (nickname) => {
-    try {
-      const response = await API.patch("/user/nickname", {
-        nickname: nickname,
-      });
-      console.log(response.data.message);
-      alert("닉네임이 성공적으로 변경되었습니다.");
-    } catch (error) {
-      console.error("닉네임 변경 실패:", error);
-    }
-  };
-
-  const changePassword = async (originalPassword, newPassword) => {
-    try {
-      const response = await API.patch("/user/password", {
-        originalPassword: originalPassword,
-        newPassword: newPassword,
-      });
-      console.log("비밀번호 변경 요청 성공:", response.data.message);
-      alert("성공적으로 변경되었습니다.");
-    } catch (error) {
-      console.error("비밀번호 변경 요청 실패:", error);
-    }
-  };
 
   return (
     <View>
@@ -113,12 +90,12 @@ const ModifyInfo = ({ navigation }) => {
         <ClickButton
           text={"변경하기"}
           onPress={() => {
-            if(newPassword==confirmPassword){
-              changePassword(originalPassword, newPassword)
-            } else{
+            if (newPassword == confirmPassword) {
+              changePassword(originalPassword, newPassword);
+            } else {
               alert("새 비밀번호가 일치하지 않습니다.");
             }
-            }}
+          }}
         />
       </View>
     </View>
