@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Text, View, TouchableOpacity } from "react-native";
 import { Camera } from "expo-camera";
+import { postReceipt } from "../api/receipt";
 
 const CameraPage = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -17,7 +19,14 @@ const CameraPage = () => {
     if (cameraRef) {
       try {
         const photo = await cameraRef.takePictureAsync();
-        console.log(photo); // 여기에서 촬영된 사진 정보를 확인할 수 있습니다.
+        console.log("photo", photo);
+        formData.append("photo", {
+          uri: photo.uri,
+          type: "image/jpeg",
+          name: "photo.jpg",
+        });
+        await postReceipt(formData);
+        console.log("formData", formData);
       } catch (error) {
         console.log("Error taking picture: ", error);
       }

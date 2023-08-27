@@ -1,14 +1,60 @@
 import React, { useState } from "react";
-import { Text, TextInput, StyleSheet, Button, View, Image } from "react-native";
+import {
+  Text,
+  TextInput,
+  StyleSheet,
+  Button,
+  View,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import search from "../assets/icons/search.png";
 import addButton from "../assets/icons/addButton.png";
 import cafeProfile from "../assets/icons/cafeProfile.png";
+import { postSearchShop, postAddShop } from "../api/search";
 
 const SearchPage = ({ navigation }) => {
-  const [myTextInput, setMyTextInput] = useState(""); // Using useState hook for state
+  const [myTextInput, setMyTextInput] = useState("");
 
   const onChangeInput = (text) => {
     setMyTextInput(text);
+  };
+
+  const [searchData, setSearchData] = useState([]);
+  const [shopData, setShopData] = useState([]);
+
+  const userId = 2;
+  const shopId = 4;
+  const keyword = "가";
+
+  const postSearchData = async () => {
+    try {
+      const postData = await postSearchShop(userId, keyword);
+      setSearchData(postData);
+      console.log("searchData", searchData);
+      console.log("가게 검색 성공");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const postAddShopData = async () => {
+    try {
+      const postData = await postAddShop(shopId);
+      setShopData(postData);
+      console.log("shopData", shopData);
+      console.log("가게 추가 성공");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const handleSearchBtn = () => {
+    postSearchData();
+  };
+
+  const handleAddShopBtn = () => {
+    postAddShopData();
   };
 
   return (
@@ -20,8 +66,11 @@ const SearchPage = ({ navigation }) => {
           placeholder="가게를 입력하세요."
           onChangeText={onChangeInput}
         />
-        <Image source={search} style={styles.search} />
+        <TouchableOpacity onPress={handleSearchBtn}>
+          <Image source={search} style={styles.search} />
+        </TouchableOpacity>
       </View>
+
       <View style={styles.searchResultContainer}>
         <View style={styles.searchComponent}>
           <Image source={cafeProfile} style={styles.cafeProfile} />
@@ -29,15 +78,9 @@ const SearchPage = ({ navigation }) => {
             <Text style={styles.name}>카페코지 이대점</Text>
             <Text style={styles.address}>서울 서대문구 대현동 34-44</Text>
           </View>
-          <Image source={addButton} style={styles.addButton} />
-        </View>
-        <View style={styles.searchComponent}>
-          <Image source={cafeProfile} style={styles.cafeProfile} />
-          <View style={styles.textContainer}>
-            <Text style={styles.name}>카페코지 이대점</Text>
-            <Text style={styles.address}>서울 서대문구 대현동 34-44</Text>
-          </View>
-          <Image source={addButton} style={styles.addButton} />
+          <TouchableOpacity onPress={handleAddShopBtn}>
+            <Image source={addButton} style={styles.addButton} />
+          </TouchableOpacity>
         </View>
       </View>
     </View>
