@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import bluearrow from "../assets/icons/bluearrow.png";
 import coffee from "../assets/icons/coffee.png";
-import API from "../api";
 import { deleteUser } from "../api/userInfo";
 
 const MyPage = ({ navigation }) => {

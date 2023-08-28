@@ -1,7 +1,6 @@
 import { Text, TextInput, View, StyleSheet, Image } from "react-native";
 import ClickButton from "../components/ClickButton";
 import prevArrow from "../assets/icons/prevArrow.png";
-// import API from "../api";
 import { changeNickname, changePassword } from "../api/userInfo";
 import React, { useState, useEffect } from "react";
 import client from "../api/client";
