@@ -21,7 +21,7 @@ const CouponPage = ({ navigation }) => {
   const [availableCouponClick, setAvailableCouponClick] = useState(true);
 
   const [data, setData] = useState("");
-  
+
   const userId = 3;
 
   useEffect(() => {
@@ -109,11 +109,11 @@ const CouponPage = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   header: {
+    marginTop: 18,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 40,
-    marginTop: 20,
   },
 
   back: {

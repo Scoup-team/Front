@@ -1,8 +1,30 @@
 import { Text, TextInput, View, StyleSheet, Image } from "react-native";
 import ClickButton from "../components/ClickButton";
 import prevArrow from "../assets/icons/prevArrow.png";
+import { changeNickname, changePassword } from "../api/userInfo";
+import React, { useState, useEffect } from "react";
+import client from "../api/client";
 
 const ModifyInfo = ({ navigation }) => {
+  const [nickname, setNickname] = useState("");
+  const [originalPassword, setOriginalPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  useEffect(() => {
+    async function getNickname() {
+      try {
+        const response = await client.get("/user");
+        setNickname(response.data.data.nickname);
+        console.log("닉네임 가져오기 성공:", response.data.data.nickname);
+      } catch (error) {
+        console.error("닉네임 가져오기 실패:", error);
+      }
+    }
+
+    getNickname();
+  }, []);
+
   return (
     <View>
       <View
@@ -14,7 +36,7 @@ const ModifyInfo = ({ navigation }) => {
       >
         <Image
           source={prevArrow}
-          style={{ marginTop: 66, marginLeft: 42, width: 32, height: 33 }}
+          style={{ marginTop: 18, marginLeft: 42, width: 32, height: 33 }}
           onPress={() => navigation.navigate("MyPage")}
         />
         <Text style={[textStyles.mainText]}>개인정보 수정</Text>
@@ -26,8 +48,13 @@ const ModifyInfo = ({ navigation }) => {
         </Text>
         <TextInput
           style={[boxStyle.inputText, styles.boxMargin, { marginBottom: 23 }]}
-        ></TextInput>
-        <ClickButton text={"변경하기"} />
+          value={nickname}
+          onChangeText={setNickname}
+        />
+        <ClickButton
+          text={"변경하기"}
+          onPress={() => changeNickname(nickname)}
+        />
       </View>
 
       <View>
@@ -39,21 +66,36 @@ const ModifyInfo = ({ navigation }) => {
           style={[boxStyle.inputText, styles.boxMargin]}
           placeholder="기존 비밀번호"
           secureTextEntry
+          value={originalPassword}
+          onChangeText={setOriginalPassword}
         ></TextInput>
 
         <TextInput
           style={[boxStyle.inputText, styles.boxMargin]}
           placeholder="새 비밀번호"
           secureTextEntry
+          value={newPassword}
+          onChangeText={setNewPassword}
         ></TextInput>
 
         <TextInput
           style={[boxStyle.inputText, styles.boxMargin, { marginBottom: 23 }]}
           placeholder=" 비밀번호 확인"
           secureTextEntry
+          value={confirmPassword}
+          onChangeText={setConfirmPassword}
         ></TextInput>
 
-        <ClickButton text={"변경하기"} />
+        <ClickButton
+          text={"변경하기"}
+          onPress={() => {
+            if (newPassword == confirmPassword) {
+              changePassword(originalPassword, newPassword);
+            } else {
+              alert("새 비밀번호가 일치하지 않습니다.");
+            }
+          }}
+        />
       </View>
     </View>
   );
@@ -93,7 +135,7 @@ export const textStyles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     textAlign: "center",
-    marginTop: 66,
+    marginTop: 22,
     fontStyle: "normal",
   },
 });
