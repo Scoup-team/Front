@@ -25,14 +25,12 @@ const SearchPage = ({ navigation }) => {
 
   const userId = 2;
   const shopId = 4;
-  const keyword = "가";
 
   const postSearchData = async () => {
     try {
-      const postData = await postSearchShop(userId, keyword);
-      setSearchData(postData);
-      console.log("searchData", searchData);
-      console.log("가게 검색 성공");
+      const keyword = myTextInput;
+      const postData = await postSearchShop(keyword, userId);
+      setSearchData(postData.data);
     } catch (err) {
       console.log(err);
     }
@@ -72,16 +70,22 @@ const SearchPage = ({ navigation }) => {
       </View>
 
       <View style={styles.searchResultContainer}>
-        <View style={styles.searchComponent}>
-          <Image source={cafeProfile} style={styles.cafeProfile} />
-          <View style={styles.textContainer}>
-            <Text style={styles.name}>카페코지 이대점</Text>
-            <Text style={styles.address}>서울 서대문구 대현동 34-44</Text>
-          </View>
-          <TouchableOpacity onPress={handleAddShopBtn}>
-            <Image source={addButton} style={styles.addButton} />
-          </TouchableOpacity>
-        </View>
+        {searchData && searchData.length > 0 ? (
+          searchData.map((data) => (
+            <View style={styles.searchComponent} key={data.shopId}>
+              <Image source={cafeProfile} style={styles.cafeProfile} />
+              <View style={styles.textContainer}>
+                <Text style={styles.name}>{data.shopName}</Text>
+                <Text style={styles.address}>{data.shopAddress}</Text>
+              </View>
+              <TouchableOpacity onPress={handleAddShopBtn}>
+                <Image source={addButton} style={styles.addButton} />
+              </TouchableOpacity>
+            </View>
+          ))
+        ) : (
+          <View />
+        )}
       </View>
     </View>
   );

@@ -21,8 +21,8 @@ const CouponPage = ({ navigation }) => {
   const [availableCouponClick, setAvailableCouponClick] = useState(true);
 
   const [data, setData] = useState("");
-  
-  const userId = 3;
+
+  const userId = 4;
 
   useEffect(() => {
     getCouponData();

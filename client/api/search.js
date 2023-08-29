@@ -1,9 +1,15 @@
 import client from "./client";
 
 //카페 검색 API
-export const postSearchShop = async (userId, keyword) => {
+export const postSearchShop = async (keyword) => {
   try {
-    const res = await client.post(`/shop?page=${userId}&search=${keyword}`);
+    const config = {
+      headers: {
+        userId: 2,
+      },
+    };
+    const res = await client.get(`shop?keyword=${keyword}`, config);
+    console.log("res.data", res.data);
     return res.data;
   } catch (err) {
     throw err;
