@@ -21,10 +21,8 @@ const SearchPage = ({ navigation }) => {
   };
 
   const [searchData, setSearchData] = useState([]);
-  const [shopData, setShopData] = useState([]);
 
   const userId = 2;
-  const shopId = 4;
 
   const postSearchData = async () => {
     try {
@@ -36,12 +34,10 @@ const SearchPage = ({ navigation }) => {
     }
   };
 
-  const postAddShopData = async () => {
+  const postAddShopData = async (shopId) => {
     try {
-      const postData = await postAddShop(shopId);
-      setShopData(postData);
-      console.log("shopData", shopData);
-      console.log("가게 추가 성공");
+      const data = await postAddShop(userId, shopId);
+      console.log(data.message);
     } catch (err) {
       console.log(err);
     }
@@ -51,8 +47,8 @@ const SearchPage = ({ navigation }) => {
     postSearchData();
   };
 
-  const handleAddShopBtn = () => {
-    postAddShopData();
+  const handleAddShopBtn = (shopId) => {
+    postAddShopData(shopId);
   };
 
   return (
@@ -78,7 +74,7 @@ const SearchPage = ({ navigation }) => {
                 <Text style={styles.name}>{data.shopName}</Text>
                 <Text style={styles.address}>{data.shopAddress}</Text>
               </View>
-              <TouchableOpacity onPress={handleAddShopBtn}>
+              <TouchableOpacity onPress={() => handleAddShopBtn(data.shopId)}>
                 <Image source={addButton} style={styles.addButton} />
               </TouchableOpacity>
             </View>

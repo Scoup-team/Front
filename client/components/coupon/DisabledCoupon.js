@@ -11,22 +11,29 @@ import {
   Image,
 } from "react-native";
 
-const DisabledCoupon = ({}) => {
+const DisabledCoupon = ({ couponData }) => {
   return (
     <View>
       <View style={styles.couponSection}>
-        <ImageBackground
-          style={styles.couponComponent}
-          source={require("../../assets/icons/disabledCouponFrame.png")}
-          resizeMode="stretch"
-        >
-          <View style={styles.top}>
-            <Text style={styles.name}>[카페코지]</Text>
-            <Text style={styles.date}>2023-06-30 까지</Text>
-          </View>
+        {couponData && couponData.length > 0 ? (
+          couponData.map((data) => (
+            <ImageBackground
+              style={styles.couponComponent}
+              source={require("../../assets/icons/disabledCouponFrame.png")}
+              resizeMode="stretch"
+              key={data.id}
+            >
+              <View style={styles.top}>
+                <Text style={styles.name}>{data.shopName}</Text>
+                <Text style={styles.date}>{data.createdAt} 까지</Text>
+              </View>
 
-          <Text style={styles.content}>아이스 아메리카노 1잔 무료</Text>
-        </ImageBackground>
+              <Text style={styles.content}>아이스 아메리카노 1잔 무료</Text>
+            </ImageBackground>
+          ))
+        ) : (
+          <View />
+        )}
       </View>
     </View>
   );

@@ -17,9 +17,14 @@ export const postSearchShop = async (keyword) => {
 };
 
 //카페 추가 API
-export const postAddShop = async (shopId) => {
+export const postAddShop = async (userId, shopId) => {
   try {
-    const res = await client.post(`/shop/${shopId}`);
+    const config = {
+      headers: {
+        userId: userId,
+      },
+    };
+    const res = await client.post(`shop/${shopId}`, {}, config);
     return res.data;
   } catch (err) {
     throw err;

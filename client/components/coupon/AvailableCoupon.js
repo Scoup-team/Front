@@ -13,30 +13,48 @@ import {
 
 import Modal from "./Modal";
 
-const AvailableCoupon = ({ data }) => {
+const AvailableCoupon = ({ couponData }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const couponId = 1;
-  const couponClick = () => {
-    setModalOpen(!modalOpen);
+  const [selectedCouponId, setSelectedCouponId] = useState(null);
+
+  const couponClick = (couponId) => {
+    setSelectedCouponId(couponId);
+    setModalOpen(true);
   };
+
   return (
     <View>
-      <Pressable style={styles.couponSection} onPress={couponClick}>
-        <ImageBackground
-          style={styles.couponComponent}
-          source={require("../../assets/icons/couponFrame.png")}
-          resizeMode="stretch"
-        >
-          <View style={styles.top}>
-            <Text style={styles.name}>[카페코지]</Text>
-            <Text style={styles.date}>2023-06-30 까지</Text>
-          </View>
+      {couponData && couponData.length > 0 ? (
+        couponData.map((data) => (
+          <View key={data.id}>
+            <Pressable
+              style={styles.couponSection}
+              onPress={() => couponClick(data.id)}
+            >
+              <ImageBackground
+                style={styles.couponComponent}
+                source={require("../../assets/icons/couponFrame.png")}
+                resizeMode="stretch"
+              >
+                <View style={styles.top}>
+                  <Text style={styles.name}>{data.shopName}</Text>
+                  <Text style={styles.date}>{data.createdAt} 까지</Text>
+                </View>
 
-          <Text style={styles.content}>{data.message}</Text>
-        </ImageBackground>
-      </Pressable>
+                <Text style={styles.content}>{data.shopName}</Text>
+              </ImageBackground>
+            </Pressable>
+          </View>
+        ))
+      ) : (
+        <View />
+      )}
       {modalOpen ? (
-        <Modal open={modalOpen} setOpen={setModalOpen} couponId={couponId} />
+        <Modal
+          open={modalOpen}
+          setOpen={setModalOpen}
+          couponId={selectedCouponId}
+        />
       ) : null}
     </View>
   );

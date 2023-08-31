@@ -18,9 +18,8 @@ export const getCoupon = async (userId) => {
 //쿠폰 사용 API
 export const useCoupon = async (couponId) => {
   try {
-    const requestData = { used: true };
-    const res = await client.post(`mypage/coupon/${couponId}`, requestData);
-    // await client.post(`mypage/coupon/${couponId}`);
+    const res = await client.post(`mypage/coupon/${couponId}`);
+    return res.message;
   } catch (err) {
     throw err;
   }
