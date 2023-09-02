@@ -1,9 +1,8 @@
 import { Text, TextInput, View, StyleSheet, Image } from "react-native";
 import ClickButton from "../components/ClickButton";
 import prevArrow from "../assets/icons/prevArrow.png";
-import { changeNickname, changePassword } from "../api/userInfo";
+import { changeNickname, changePassword, getNickname } from "../api/userInfo";
 import React, { useState, useEffect } from "react";
-import client from "../api/client";
 
 const ModifyInfo = ({ navigation }) => {
   const [nickname, setNickname] = useState("");
@@ -12,18 +11,13 @@ const ModifyInfo = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   useEffect(() => {
-    async function getNickname() {
-      try {
-        const response = await client.get("/user");
-        setNickname(response.data.data.nickname);
-        console.log("닉네임 가져오기 성공:", response.data.data.nickname);
-      } catch (error) {
-        console.error("닉네임 가져오기 실패:", error);
-      }
-    }
-
-    getNickname();
+    getOriginNick();
   }, []);
+
+  const getOriginNick = async () => {
+    const nick = await getNickname();
+    setNickname(nick);
+  };
 
   return (
     <View>

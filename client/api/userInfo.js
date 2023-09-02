@@ -7,6 +7,18 @@ const config = {
   },
 };
 
+// 닉네임 불러오기
+export const getNickname = async () => {
+  try {
+    const response = await client.get("/user");
+    console.log("닉네임 가져오기 성공:", response.data.data.nickname);
+    return response.data.data.nickname;
+  } catch (error) {
+    console.error("닉네임 가져오기 실패:", error);
+    throw error;
+  }
+};
+
 // 닉네임 수정
 export const changeNickname = async (nickname) => {
   try {
