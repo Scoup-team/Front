@@ -15,6 +15,7 @@ import cocoCoffee from "../assets/icons/cocoCoffee.png";
 import cocoMango from "../assets/icons/cocoMango.png";
 import twoOne from "../assets/icons/twoOne.png";
 import LeftSidebar from "../components/LeftSideBar";
+import StampDetail from "./StampDetail";
 
 const Home = ({ navigation }) => {
   const stores = [{ id: 1, name: "카페코지" }];
@@ -23,6 +24,10 @@ const Home = ({ navigation }) => {
 
   const deleteStore = () => {
     alert("이후에 수정");
+  };
+
+  const goStampDetail = () => {
+    navigation.navigate(StampDetail);
   };
 
   const [isAddMode, setIsAddMode] = useState(false);
@@ -76,25 +81,50 @@ const Home = ({ navigation }) => {
 
         <View style={style.stampContainer}>
           {/* blkStamp 이미지를 한 줄에 3개씩 4줄로 표시 */}
+
           <View style={style.row}>
-            <Image source={blkStamp} style={style.blkStamp} />
-            <Image source={blkStamp} style={style.blkStamp} />
-            <Image source={blkStamp} style={style.blkStamp} />
+            <TouchableWithoutFeedback onPress={goStampDetail}>
+              <Image source={blkStamp} style={style.blkStamp} />
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={goStampDetail}>
+              <Image source={blkStamp} style={style.blkStamp} />
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={goStampDetail}>
+              <Image source={blkStamp} style={style.blkStamp} />
+            </TouchableWithoutFeedback>
           </View>
           <View style={style.row}>
-            <Image source={blkStamp} style={style.blkStamp} />
-            <Image source={blkStamp} style={style.blkStamp} />
-            <Image source={blkStamp} style={style.blkStamp} />
+            <TouchableWithoutFeedback onPress={goStampDetail}>
+              <Image source={blkStamp} style={style.blkStamp} />
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={goStampDetail}>
+              <Image source={blkStamp} style={style.blkStamp} />
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={goStampDetail}>
+              <Image source={blkStamp} style={style.blkStamp} />
+            </TouchableWithoutFeedback>
           </View>
           <View style={style.row}>
-            <Image source={blkStamp} style={style.blkStamp} />
-            <Image source={blkStamp} style={style.blkStamp} />
-            <Image source={blkStamp} style={style.blkStamp} />
+            <TouchableWithoutFeedback onPress={goStampDetail}>
+              <Image source={blkStamp} style={style.blkStamp} />
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={goStampDetail}>
+              <Image source={blkStamp} style={style.blkStamp} />
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={goStampDetail}>
+              <Image source={blkStamp} style={style.blkStamp} />
+            </TouchableWithoutFeedback>
           </View>
           <View style={style.row}>
-            <Image source={blkStamp} style={style.blkStamp} />
-            <Image source={blkStamp} style={style.blkStamp} />
-            <Image source={blkStamp} style={style.blkStamp} />
+            <TouchableWithoutFeedback onPress={goStampDetail}>
+              <Image source={blkStamp} style={style.blkStamp} />
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={goStampDetail}>
+              <Image source={blkStamp} style={style.blkStamp} />
+            </TouchableWithoutFeedback>
+            <TouchableWithoutFeedback onPress={goStampDetail}>
+              <Image source={blkStamp} style={style.blkStamp} />
+            </TouchableWithoutFeedback>
           </View>
         </View>
       </View>

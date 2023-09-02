@@ -14,6 +14,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import QrPage from "./screens/QrPage";
 import CameraPage from "./screens/CameraPage";
 import Home from "./screens/Home";
+import StampDetail from "./screens/StampDetail";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -66,7 +67,7 @@ const App = () => {
     <NavigationContainer style={styles.container}>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName="Main"
+        initialRouteName="Home"
       >
         <Stack.Screen name="Main" component={MainTabNavigator} />
         <Stack.Screen name="SearchPage" component={SearchPage} />
@@ -78,6 +79,7 @@ const App = () => {
         <Stack.Screen name="QrPage" component={QrPage} />
         <Stack.Screen name="CameraPage" component={CameraPage} />
         <Stack.Screen name="EventPage" component={EventPage} />
+        <Stack.Screen name="StampDetail" component={StampDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );
