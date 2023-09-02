@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -11,10 +11,23 @@ import {
 import bluearrow from "../assets/icons/bluearrow.png";
 import coffee from "../assets/icons/coffee.png";
 import { deleteUser } from "../api/userInfo";
+import { getNickname } from "../api/userInfo";
+import { useEffect } from "react";
 
 const MyPage = ({ navigation }) => {
+  const [nickname, setNickname] = useState("");
+
   const CouponPageClick = () => {
     navigation;
+  };
+
+  useEffect(() => {
+    getNick();
+  }, []);
+
+  const getNick = async () => {
+    const nick = await getNickname();
+    setNickname(nick);
   };
 
   return (
@@ -22,7 +35,7 @@ const MyPage = ({ navigation }) => {
       <Text style={styles.title}>마이 페이지</Text>
       <View style={styles.usersection}>
         <Image source={coffee} style={styles.coffee} />
-        <Text style={styles.nickname}>크림님</Text>
+        <Text style={styles.nickname}>{nickname}님</Text>
       </View>
       <View style={styles.section}>
         <Text style={styles.topMenu}>개인 정보 수정</Text>

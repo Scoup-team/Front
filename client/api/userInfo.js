@@ -1,16 +1,14 @@
 import client from "./client";
 
-const config = {
-  headers: {
-    userId: 3,
-    "Content-Type": "application/json",
-  },
-};
-
 // 닉네임 불러오기
 export const getNickname = async () => {
   try {
-    const response = await client.get("/user");
+    const config = {
+      headers: {
+        userId: 3,
+      },
+    };
+    const response = await client.get("/user", config);
     console.log("닉네임 가져오기 성공:", response.data.data.nickname);
     return response.data.data.nickname;
   } catch (error) {
@@ -22,6 +20,11 @@ export const getNickname = async () => {
 // 닉네임 수정
 export const changeNickname = async (nickname) => {
   try {
+    const config = {
+      headers: {
+        userId: 3,
+      },
+    };
     const response = await client.patch(
       "/user/nickname",
       {
@@ -39,6 +42,11 @@ export const changeNickname = async (nickname) => {
 // 비밀번호 수정
 export const changePassword = async (originalPassword, newPassword) => {
   try {
+    const config = {
+      headers: {
+        userId: 3,
+      },
+    };
     const response = await client.patch(
       "/user/password",
       {

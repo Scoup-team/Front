@@ -19,7 +19,6 @@ import receipt from "../assets/icons/receipt.png";
 import shopEx from "../assets/icons/shopEx.png";
 
 const StampDetail = ({ navigation }) => {
-  const [data, setData] = useState("");
   const stores = [{ id: 1, name: "카페코지" }];
   return (
     <View style={styles.allContainer}>
