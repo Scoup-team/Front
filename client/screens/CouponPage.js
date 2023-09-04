@@ -19,10 +19,11 @@ import { getCoupon } from "../api/coupon";
 
 const CouponPage = ({ navigation }) => {
   const [availableCouponClick, setAvailableCouponClick] = useState(true);
+  const [couponData, setCouponData] = useState([]);
+  const [availableCoupons, setAvailableCoupons] = useState([]);
+  const [usedCoupons, setUsedCoupons] = useState([]);
 
-  const [data, setData] = useState("");
-
-  const userId = 3;
+  const userId = 4;
 
   useEffect(() => {
     getCouponData();
@@ -31,29 +32,25 @@ const CouponPage = ({ navigation }) => {
   const getCouponData = async () => {
     try {
       const getData = await getCoupon(userId);
-      setData(getData);
-      console.log("data", data);
+      const formattedData = getData.data.map((data) => ({
+        ...data,
+        createdAt: data.createdAt.split("T")[0],
+      }));
+      setCouponData(formattedData);
+
+      // 쿠폰을 사용 가능한 쿠폰과 사용된 쿠폰으로 분리
+      const available = formattedData.filter((coupon) => !coupon.used);
+      const used = formattedData.filter((coupon) => coupon.used);
+
+      setAvailableCoupons(available);
+      setUsedCoupons(used);
     } catch (err) {
       console.log(err);
     }
   };
 
-  // const useCouponData = async () => {
-  //   try {
-  //     const getData = await useCoupon(couponId);
-  //     setUseData(getData);
-  //     console.log("data", useData);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
-
   const click = () => {
     setAvailableCouponClick(!availableCouponClick);
-  };
-
-  const couponClick = () => {
-    setModalOpen(!modalOpen);
   };
 
   return (
@@ -99,9 +96,9 @@ const CouponPage = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       {availableCouponClick ? (
-        <AvailableCoupon data={data}></AvailableCoupon>
+        <AvailableCoupon couponData={availableCoupons}></AvailableCoupon>
       ) : (
-        <DisabledCoupon></DisabledCoupon>
+        <DisabledCoupon couponData={usedCoupons}></DisabledCoupon>
       )}
     </View>
   );

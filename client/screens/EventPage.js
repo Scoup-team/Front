@@ -5,12 +5,11 @@ import {
   Button,
   TouchableOpacity,
   StyleSheet,
+  Pressable,
   Image,
 } from "react-native";
 
-import bluearrow from "../assets/icons/bluearrow.png";
 import coffee from "../assets/icons/coffee.png";
-import coffeebeen from "../assets/icons/coffeebeen.png";
 import back from "../assets/icons/back.png";
 import LeftSidebar from "../components/LeftSideBar";
 
@@ -18,8 +17,7 @@ import { getEvent } from "../api/cafe";
 
 const EventPage = ({ navigation }) => {
   const shopId = 1;
-
-  const [data, setData] = useState("");
+  const [eventData, setEventData] = useState([]);
 
   useEffect(() => {
     getEventData();
@@ -28,8 +26,11 @@ const EventPage = ({ navigation }) => {
   const getEventData = async () => {
     try {
       const getData = await getEvent(shopId);
-      setData(getData);
-      console.log("data", data);
+      const formattedData = getData.data.map((data) => ({
+        ...data,
+        createdAt: data.createdAt.split("T")[0],
+      }));
+      setEventData(formattedData);
     } catch (err) {
       console.log(err);
     }
@@ -42,15 +43,23 @@ const EventPage = ({ navigation }) => {
       <LeftSidebar navigation={navigation} stores={stores} />
       <View style={styles.container}>
         <View style={styles.header}>
-          <Image source={back} style={styles.back} />
-          <Text style={styles.title}>{data.message}</Text>
+          <Pressable onPress={() => navigation.pop()}>
+            <Image source={back} style={styles.back} />
+          </Pressable>
+          <Text style={styles.title}>카페코지</Text>
         </View>
         <View style={styles.EventSection}>
-          <View style={styles.EventComponent}>
-            <Text style={styles.date}>2023-06-13</Text>
-            <Text style={styles.content}>{data.message}</Text>
-            <Image source={coffee} style={styles.coffee} />
-          </View>
+          {eventData && eventData.length > 0 ? (
+            eventData.map((data) => (
+              <View style={styles.EventComponent} key={data.eventId}>
+                <Text style={styles.date}>{data.createdAt}</Text>
+                <Text style={styles.content}>{data.content}</Text>
+                <Image source={coffee} style={styles.coffee} />
+              </View>
+            ))
+          ) : (
+            <View />
+          )}
         </View>
       </View>
     </View>
@@ -62,20 +71,21 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     flex: 1,
   },
+
   container: {
     flexDirection: "column",
   },
 
   header: {
-    marginTop: 12,
+    marginTop: 10,
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 40,
   },
 
   back: {
-    width: 13,
-    height: 13,
+    width: 25,
+    height: 25,
     flexShrink: 0,
     marginLeft: 20,
   },
@@ -109,6 +119,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 8,
     backgroundColor: "#6E85B7",
+    marginBottom: 20,
   },
   EventComponent2: {
     flexDirection: "column",
@@ -122,7 +133,7 @@ const styles = StyleSheet.create({
   title: {
     color: "#000",
     textAlign: "center",
-    fontSize: 12,
+    fontSize: 18,
     fontStyle: "normal",
     fontWeight: 700,
     flexGrow: 1,
