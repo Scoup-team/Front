@@ -7,6 +7,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import search from "../assets/icons/search.png";
 import addButton from "../assets/icons/addButton.png";
@@ -21,29 +22,25 @@ const SearchPage = ({ navigation }) => {
   };
 
   const [searchData, setSearchData] = useState([]);
-  const [shopData, setShopData] = useState([]);
 
-  const userId = 2;
-  const shopId = 4;
-  const keyword = "가";
+  const userId = 3;
 
   const postSearchData = async () => {
     try {
-      const postData = await postSearchShop(userId, keyword);
-      setSearchData(postData);
-      console.log("searchData", searchData);
-      console.log("가게 검색 성공");
+      const keyword = myTextInput;
+      const postData = await postSearchShop(keyword, userId);
+      setSearchData(postData.data);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const postAddShopData = async () => {
+  const postAddShopData = async (shopId) => {
     try {
-      const postData = await postAddShop(shopId);
-      setShopData(postData);
-      console.log("shopData", shopData);
-      console.log("가게 추가 성공");
+      const data = await postAddShop(userId, shopId);
+      console.log(data.message);
+      Alert.alert("가게 추가에 성공했습니다.");
+      navigation.pop();
     } catch (err) {
       console.log(err);
     }
@@ -53,8 +50,8 @@ const SearchPage = ({ navigation }) => {
     postSearchData();
   };
 
-  const handleAddShopBtn = () => {
-    postAddShopData();
+  const handleAddShopBtn = (shopId) => {
+    postAddShopData(shopId);
   };
 
   return (
@@ -72,16 +69,22 @@ const SearchPage = ({ navigation }) => {
       </View>
 
       <View style={styles.searchResultContainer}>
-        <View style={styles.searchComponent}>
-          <Image source={cafeProfile} style={styles.cafeProfile} />
-          <View style={styles.textContainer}>
-            <Text style={styles.name}>카페코지 이대점</Text>
-            <Text style={styles.address}>서울 서대문구 대현동 34-44</Text>
-          </View>
-          <TouchableOpacity onPress={handleAddShopBtn}>
-            <Image source={addButton} style={styles.addButton} />
-          </TouchableOpacity>
-        </View>
+        {searchData && searchData.length > 0 ? (
+          searchData.map((data) => (
+            <View style={styles.searchComponent} key={data.shopId}>
+              <Image source={cafeProfile} style={styles.cafeProfile} />
+              <View style={styles.textContainer}>
+                <Text style={styles.name}>{data.shopName}</Text>
+                <Text style={styles.address}>{data.shopAddress}</Text>
+              </View>
+              <TouchableOpacity onPress={() => handleAddShopBtn(data.shopId)}>
+                <Image source={addButton} style={styles.addButton} />
+              </TouchableOpacity>
+            </View>
+          ))
+        ) : (
+          <View />
+        )}
       </View>
     </View>
   );

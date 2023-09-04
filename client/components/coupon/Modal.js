@@ -22,9 +22,10 @@ const Modal = ({ open, setOpen, couponId }) => {
   const handleCloseModal = () => {
     setOpen(false);
   };
-  
+
   const click = () => {
     useCouponData();
+    setOpen(!open);
   };
 
   const useCouponData = async () => {
