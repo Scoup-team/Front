@@ -26,10 +26,10 @@ const AvailableCoupon = ({ couponData }) => {
     <View>
       {couponData && couponData.length > 0 ? (
         couponData.map((data) => (
-          <View key={data.id}>
+          <View key={data.couponId}>
             <Pressable
               style={styles.couponSection}
-              onPress={() => couponClick(data.id)}
+              onPress={() => couponClick(data.couponId)}
             >
               <ImageBackground
                 style={styles.couponComponent}

@@ -7,6 +7,7 @@ import {
   View,
   Image,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import search from "../assets/icons/search.png";
 import addButton from "../assets/icons/addButton.png";
@@ -22,7 +23,7 @@ const SearchPage = ({ navigation }) => {
 
   const [searchData, setSearchData] = useState([]);
 
-  const userId = 2;
+  const userId = 3;
 
   const postSearchData = async () => {
     try {
@@ -38,9 +39,11 @@ const SearchPage = ({ navigation }) => {
     try {
       const data = await postAddShop(userId, shopId);
       console.log(data.message);
+      Alert.alert("가게 추가에 성공했습니다.");
+      navigation.pop();
     } catch (err) {
       console.log(err);
-    }
+    }df
   };
 
   const handleSearchBtn = () => {

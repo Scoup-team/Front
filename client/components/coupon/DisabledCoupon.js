@@ -28,7 +28,7 @@ const DisabledCoupon = ({ couponData }) => {
                 <Text style={styles.date}>{data.createdAt} 까지</Text>
               </View>
 
-              <Text style={styles.content}>아이스 아메리카노 1잔 무료</Text>
+              <Text style={styles.content}>{data.shopName}</Text>
             </ImageBackground>
           ))
         ) : (
