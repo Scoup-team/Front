@@ -43,7 +43,7 @@ const SearchPage = ({ navigation }) => {
       navigation.pop();
     } catch (err) {
       console.log(err);
-    }df
+    }
   };
 
   const handleSearchBtn = () => {
