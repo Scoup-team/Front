@@ -10,11 +10,13 @@ import {
 } from "react-native";
 import bluearrow from "../assets/icons/bluearrow.png";
 import coffee from "../assets/icons/coffee.png";
+import { deleteUser } from "../api/userInfo";
 
 const MyPage = ({ navigation }) => {
   const CouponPageClick = () => {
     navigation;
   };
+
   return (
     <View>
       <Text style={styles.title}>마이 페이지</Text>
@@ -35,7 +37,14 @@ const MyPage = ({ navigation }) => {
         </Pressable>
       </View>
       <Text style={styles.BottomMenu}>로그아웃하기</Text>
-      <Text style={styles.BottomMenu}>탈퇴하기</Text>
+      <TouchableOpacity
+        onPress={() => {
+          deleteUser();
+          navigation.navigate("SignIn");
+        }}
+      >
+        <Text style={styles.BottomMenu}>탈퇴하기</Text>
+      </TouchableOpacity>
     </View>
   );
 };
