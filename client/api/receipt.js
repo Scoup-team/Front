@@ -7,13 +7,12 @@ export const postReceipt = async (formData) => {
       headers: {
         "Content-Type": "multipart/form-data",
       },
-      transformRequest: [
-        function () {
-          return formData;
-        },
-      ],
+      // transformRequest를 수정하여 formData를 반환
+      transformRequest: [(data, headers) => formData],
     });
+    console.log("Response:", response.data);
   } catch (err) {
+    console.error("Error posting receipt: ", err);
     throw err;
   }
 };
