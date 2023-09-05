@@ -9,7 +9,7 @@ export const postReceipt = async (formData) => {
         "Content-Type": "multipart/form-data",
       },
     };
-    const response = await axios.post(`http://118.67.129.165/receipt`, formData, config);
+    const response = await AI_SPRING_URL.post(`receipt`, formData, config);
     console.log("Response:", response.data);
   } catch (err) {
     console.error("Error posting receipt: ", err);
