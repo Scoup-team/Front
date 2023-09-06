@@ -9,6 +9,8 @@ import {
   StyleSheet,
 } from "react-native";
 import { Camera } from "expo-camera";
+import { FileSystem as ExpoFileSystem } from "expo";
+import * as FileSystem from "expo-file-system";
 import { manipulateAsync, FlipType, SaveFormat } from "expo-image-manipulator";
 import { launchImageLibrary, launchCamera } from "react-native-image-picker";
 import * as ImagePicker from "expo-image-picker";
@@ -43,34 +45,71 @@ const CameraPage = () => {
     })();
   }, []);
 
+  // const takePicture = async () => {
+  //   if (cameraRef) {
+  //     try {
+  //       const photo = await cameraRef.takePictureAsync();
+  //       console.log("photo", photo);
+
+  //       // 이미지 압축
+  //       try {
+  //         const resizedImage = await manipulateAsync(
+  //           photo.uri,
+  //           [{ resize: { width: 300, height: 400 } }],
+  //           { compress: 0.7, format: SaveFormat.JPEG }
+  //         );
+  //         console.log("Resized image:", resizedImage);
+
+  //         let base64Image;
+
+  //         const fileExists = await FileSystem.getInfoAsync(resizedImage.uri);
+  //         if (fileExists.exists) {
+  //           // 파일이 존재하면 readAsStringAsync 사용
+  //           base64Image = await FileSystem.readAsStringAsync(resizedImage.uri, {
+  //             encoding: FileSystem.EncodingType.Base64,
+  //           });
+  //           console.log("Resized image base64:", base64Image);
+  //         } else {
+  //           console.error("File does not exist");
+  //         }
+
+  //         const formData = new FormData();
+  //         formData.append("file", {
+  //           uri: resizedImage.uri,
+  //           name: "photo.jpg",
+  //           type: "image/jpeg",
+  //           base64: base64Image, // FormData에 base64 데이터 추가
+  //         });
+
+  //         for (var pair of formData.entries()) {
+  //           console.log(pair[0] + ", " + pair[1]);
+  //         }
+  //         await postReceipt(formData);
+
+  //         console.log("Resized image.uri", resizedImage.uri);
+  //       } catch (error) {
+  //         console.error("Error resizing image: ", error);
+  //       }
+  //     } catch (error) {
+  //       console.log("Error taking picture: ", error);
+  //     }
+  //   }
+  // };
   const takePicture = async () => {
     if (cameraRef) {
       try {
         const photo = await cameraRef.takePictureAsync();
         console.log("photo", photo);
 
-        // 이미지 압축
-        try {
-          const resizedImage = await manipulateAsync(
-            photo.uri,
-            [{ resize: { width: 300, height: 400 } }],
-            { compress: 0.7, format: SaveFormat.JPEG }
-          );
-          console.log("Resized image:", resizedImage);
+        const formData = new FormData();
+        formData.append("file", {
+          uri: photo.uri,
+          name: "photo.jpg",
+          type: "image/jpeg",
+        });
 
-          const formData = new FormData();
-          formData.append("file", {
-            uri: resizedImage.uri,
-            name: "photo.jpg",
-            type: "image/jpeg",
-          });
+        await postReceipt(formData);
 
-          await postReceipt(formData);
-
-          console.log("Resized image.uri", resizedImage.uri);
-        } catch (error) {
-          console.error("Error resizing image: ", error);
-        }
       } catch (error) {
         console.log("Error taking picture: ", error);
       }
@@ -103,15 +142,10 @@ const CameraPage = () => {
         closeModal();
         return;
       }
-      const resizedImage = await manipulateAsync(
-        selectedImageAssets[0].uri,
-        [{ resize: { width: 300, height: 400 } }],
-        { compress: 0.7, format: SaveFormat.JPEG }
-      );
-      // 선택한 이미지를 서버로 업로드
+
       const formData = new FormData();
       formData.append("file", {
-        uri: resizedImage.uri,
+        uri: selectedImageAssets[0].uri,
         name: "photo.jpg",
         type: "image/jpeg",
       });
@@ -124,6 +158,59 @@ const CameraPage = () => {
       console.error("Error picking an image: ", error);
     }
   };
+  // const pickImageFromGallery = async () => {
+  //   const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+  //   console.log("status", status);
+
+  //   if (status !== "granted") {
+  //     console.log("Gallery permission denied");
+  //     return;
+  //   }
+
+  //   try {
+  //     const result = await ImagePicker.launchImageLibraryAsync(
+  //       imagePickerOption
+  //     );
+  //     const selectedImageAssets = result.assets;
+  //     if (!selectedImageAssets || selectedImageAssets.length === 0) {
+  //       closeModal();
+  //       return;
+  //     }
+  //     const resizedImage = await manipulateAsync(
+  //       selectedImageAssets[0].uri,
+  //       [{ resize: { width: 300, height: 400 } }],
+  //       { compress: 0.7, format: SaveFormat.JPEG }
+  //     );
+
+  //     let base64Image;
+
+  //     const fileExists = await FileSystem.getInfoAsync(resizedImage.uri);
+  //     if (fileExists.exists) {
+  //       // 파일이 존재하면 readAsStringAsync 사용
+  //       base64Image = await FileSystem.readAsStringAsync(resizedImage.uri, {
+  //         encoding: FileSystem.EncodingType.Base64,
+  //       });
+  //       console.log("Resized image base64:", base64Image);
+  //     } else {
+  //       console.error("File does not exist");
+  //     }
+
+  //     const formData = new FormData();
+  //     formData.append("file", {
+  //       uri: resizedImage.uri,
+  //       name: "photo.jpg",
+  //       type: "image/jpeg",
+  //       base64: base64Image, // FormData에 base64 데이터 추가
+  //     });
+
+  //     await postReceipt(formData);
+
+  //     console.log("Image uploaded successfully");
+  //     closeModal();
+  //   } catch (error) {
+  //     console.error("Error picking an image: ", error);
+  //   }
+  // };
 
   if (hasPermission === null) {
     return <View />;
