@@ -9,43 +9,41 @@ import removeStore from "../assets/icons/removeStore.png";
 import plusStore from "../assets/icons/plusStore.png";
 import cozy from "../assets/icons/cozy.png";
 import setting from "../assets/icons/setting.png";
+import { ScrollView } from "react-native";
 
-const LeftSidebar = ({
-  isAddMode,
-  stores,
-  editMode,
-  deleteStore,
-  navigation,
-}) => {
+const LeftSidebar = ({ isAddMode, stores, editMode, navigation, goStore }) => {
   return (
     <View style={styles.allStore}>
-      {stores.map((stores, index) => (
-        <TouchableWithoutFeedback
-          key={stores.shopId + "-" + index}
-          onPress={() => deleteStore(stores.shopId)}
-        >
-          <View>
-            <Image source={cozy} style={styles.clkStore} />
-            {isAddMode && <Image source={removeStore} style={styles.rmStore} />}
+      <ScrollView>
+        {stores.map((stores, index) => (
+          <TouchableWithoutFeedback key={stores.shopId + "_" + index}>
+            <View>
+              <TouchableWithoutFeedback onPress={() => goStore(index)}>
+                <Image source={cozy} style={styles.clkStore} />
+              </TouchableWithoutFeedback>
+              {isAddMode && (
+                <Image source={removeStore} style={styles.rmStore} />
+              )}
+            </View>
+          </TouchableWithoutFeedback>
+        ))}
+
+        {isAddMode && (
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate("SearchPage")}
+          >
+            <View>
+              <Image source={plusStore} style={styles.plsStore} />
+            </View>
+          </TouchableWithoutFeedback>
+        )}
+
+        <TouchableWithoutFeedback onPress={editMode}>
+          <View style={styles.settingContainer}>
+            <Image source={setting} style={styles.setting} />
           </View>
         </TouchableWithoutFeedback>
-      ))}
-
-      {isAddMode && (
-        <TouchableWithoutFeedback
-          onPress={() => navigation.navigate("SearchPage")}
-        >
-          <View>
-            <Image source={plusStore} style={styles.plsStore} />
-          </View>
-        </TouchableWithoutFeedback>
-      )}
-
-      <TouchableWithoutFeedback onPress={editMode}>
-        <View style={styles.settingContainer}>
-          <Image source={setting} style={styles.setting} />
-        </View>
-      </TouchableWithoutFeedback>
+      </ScrollView>
     </View>
   );
 };

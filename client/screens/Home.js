@@ -42,8 +42,11 @@ const Home = ({ navigation }) => {
     }
   };
 
-  const deleteStore = () => {
-    alert("이후에 수정");
+  const goStore = (index) => {
+    setStoreName(stores[index].name);
+    setMenus(stores[index].menu);
+    setStamps(stores[index].stamp);
+    setImages(stores[index].imageUrl);
   };
 
   const goStampDetail = () => {
@@ -125,8 +128,8 @@ const Home = ({ navigation }) => {
         isAddMode={isAddMode}
         stores={stores}
         editMode={editMode}
-        deleteStore={deleteStore}
         navigation={navigation}
+        goStore={goStore}
       ></LeftSidebar>
 
       {/* 오른쪽 영역*/}
@@ -198,17 +201,6 @@ const style = StyleSheet.create({
     paddingLeft: 12,
     marginTop: 9,
     flexDirection: "row",
-  },
-
-  setting: {
-    width: 30,
-    height: 30,
-    marginBottom: 25.63,
-  },
-  settingContainer: {
-    flex: 1,
-    justifyContent: "flex-end",
-    alignItems: "center",
   },
   storeArea: {
     flex: 1,

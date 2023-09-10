@@ -5,7 +5,7 @@ export const getHome = async () => {
   try {
     const config = {
       headers: {
-        userId: 2,
+        userId: 4,
       },
     };
     const response = await client.get("/home", config);
