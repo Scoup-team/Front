@@ -10,7 +10,7 @@ export const getEvent = async (shopId) => {
   }
 };
 
-//가게를 검색하는 API 
+//가게를 검색하는 API
 export const getShop = async (string) => {
   try {
     const res = await client.get(`shop?keyword=${String}`);

@@ -19,10 +19,10 @@ const LeftSidebar = ({
 }) => {
   return (
     <View style={styles.allStore}>
-      {stores.map((store) => (
+      {stores.map((stores, index) => (
         <TouchableWithoutFeedback
-          key={store.id}
-          onPress={() => deleteStore(store.id)}
+          key={stores.shopId + "-" + index}
+          onPress={() => deleteStore(stores.shopId)}
         >
           <View>
             <Image source={cozy} style={styles.clkStore} />

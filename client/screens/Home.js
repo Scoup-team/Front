@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Text,
   View,
@@ -10,30 +10,112 @@ import {
 import notice from "../assets/icons/notice.png";
 import shop from "../assets/icons/shop.png";
 import blkStamp from "../assets/icons/blkStamp.png";
-
 import cocoCoffee from "../assets/icons/cocoCoffee.png";
 import cocoMango from "../assets/icons/cocoMango.png";
 import twoOne from "../assets/icons/twoOne.png";
+import fullStamp from "../assets/icons/fullStamp.png";
 import LeftSidebar from "../components/LeftSideBar";
-import StampDetail from "./StampDetail";
+import { getHome } from "../api/homeInfo";
 
 const Home = ({ navigation }) => {
-  const stores = [{ id: 1, name: "카페코지" }];
+  const [stores, setStores] = useState([]);
+  const [storeName, setStoreName] = useState("");
+  const [menus, setMenus] = useState([]);
+  const [images, setImages] = useState([]);
+  const [stamps, setStamps] = useState("");
 
-  const addStore = () => {};
+  useEffect(() => {
+    getHomeData();
+  }, []);
+
+  const getHomeData = async () => {
+    try {
+      const home = await getHome();
+      setStores(home);
+      setStoreName(home[0].name);
+      setMenus(home[0].menu);
+      setStamps(home[0].stamp);
+      setImages(home[0].imageUrl);
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
 
   const deleteStore = () => {
     alert("이후에 수정");
   };
 
   const goStampDetail = () => {
-    navigation.navigate(StampDetail);
+    navigation.navigate("StampDetail");
   };
 
   const [isAddMode, setIsAddMode] = useState(false);
 
   const editMode = () => {
     setIsAddMode(!isAddMode);
+  };
+
+  const stampRendering = () => {
+    const isStamp = Array(12);
+
+    for (var i = 0; i < 12; i++) {
+      if (i < stamps) {
+        isStamp[i] = fullStamp;
+      } else {
+        isStamp[i] = blkStamp;
+      }
+    }
+
+    return (
+      <View>
+        {/* stamp 현황 */}
+        <View style={style.row}>
+          <TouchableWithoutFeedback onPress={goStampDetail}>
+            <Image source={isStamp[0]} style={style.blkStamp} />
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={goStampDetail}>
+            <Image source={isStamp[1]} style={style.blkStamp} />
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={goStampDetail}>
+            <Image source={isStamp[2]} style={style.blkStamp} />
+          </TouchableWithoutFeedback>
+        </View>
+        <View style={style.row}>
+          <TouchableWithoutFeedback onPress={goStampDetail}>
+            <Image source={isStamp[3]} style={style.blkStamp} />
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={goStampDetail}>
+            <Image source={isStamp[4]} style={style.blkStamp} />
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={goStampDetail}>
+            <Image source={isStamp[5]} style={style.blkStamp} />
+          </TouchableWithoutFeedback>
+        </View>
+        <View style={style.row}>
+          <TouchableWithoutFeedback onPress={goStampDetail}>
+            <Image source={isStamp[6]} style={style.blkStamp} />
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={goStampDetail}>
+            <Image source={isStamp[7]} style={style.blkStamp} />
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={goStampDetail}>
+            <Image source={isStamp[8]} style={style.blkStamp} />
+          </TouchableWithoutFeedback>
+        </View>
+        <View style={style.row}>
+          <TouchableWithoutFeedback onPress={goStampDetail}>
+            <Image source={isStamp[9]} style={style.blkStamp} />
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={goStampDetail}>
+            <Image source={isStamp[10]} style={style.blkStamp} />
+          </TouchableWithoutFeedback>
+          <TouchableWithoutFeedback onPress={goStampDetail}>
+            <Image source={isStamp[11]} style={style.blkStamp} />
+          </TouchableWithoutFeedback>
+        </View>
+      </View>
+    );
   };
 
   return (
@@ -60,72 +142,27 @@ const Home = ({ navigation }) => {
 
         <View style={style.storeName}>
           <Image source={shop} style={style.shop} />
-          <Text style={[style.font, { marginLeft: 3 }]}>카페코지</Text>
-          {/* {stores.name} */}
+          <Text style={[style.font, { marginLeft: 3 }]}>{storeName}</Text>
         </View>
 
         <View style={style.bestMenu}>
           <View style={style.first}>
             <Image source={cocoCoffee} style={style.menuImage} />
-            <Text style={style.menuFont}>코코넛커피스무디</Text>
+            <Text style={style.menuFont}>{menus[0]}</Text>
           </View>
           <View style={style.second}>
             <Image source={twoOne} style={style.menuImage} />
-            <Text style={style.menuFont}>두시 일분</Text>
+            <Text style={style.menuFont}>{menus[1]}</Text>
           </View>
           <View style={style.third}>
             <Image source={cocoMango} style={style.menuImage} />
-            <Text style={style.menuFont}>코코넛망고스무디</Text>
+            <Text style={style.menuFont}>{menus[2]}</Text>
           </View>
         </View>
 
         <View style={style.stampContainer}>
-          {/* blkStamp 이미지를 한 줄에 3개씩 4줄로 표시 */}
-
-          <View style={style.row}>
-            <TouchableWithoutFeedback onPress={goStampDetail}>
-              <Image source={blkStamp} style={style.blkStamp} />
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={goStampDetail}>
-              <Image source={blkStamp} style={style.blkStamp} />
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={goStampDetail}>
-              <Image source={blkStamp} style={style.blkStamp} />
-            </TouchableWithoutFeedback>
-          </View>
-          <View style={style.row}>
-            <TouchableWithoutFeedback onPress={goStampDetail}>
-              <Image source={blkStamp} style={style.blkStamp} />
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={goStampDetail}>
-              <Image source={blkStamp} style={style.blkStamp} />
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={goStampDetail}>
-              <Image source={blkStamp} style={style.blkStamp} />
-            </TouchableWithoutFeedback>
-          </View>
-          <View style={style.row}>
-            <TouchableWithoutFeedback onPress={goStampDetail}>
-              <Image source={blkStamp} style={style.blkStamp} />
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={goStampDetail}>
-              <Image source={blkStamp} style={style.blkStamp} />
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={goStampDetail}>
-              <Image source={blkStamp} style={style.blkStamp} />
-            </TouchableWithoutFeedback>
-          </View>
-          <View style={style.row}>
-            <TouchableWithoutFeedback onPress={goStampDetail}>
-              <Image source={blkStamp} style={style.blkStamp} />
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={goStampDetail}>
-              <Image source={blkStamp} style={style.blkStamp} />
-            </TouchableWithoutFeedback>
-            <TouchableWithoutFeedback onPress={goStampDetail}>
-              <Image source={blkStamp} style={style.blkStamp} />
-            </TouchableWithoutFeedback>
-          </View>
+          {/* stamp 현황 */}
+          {stampRendering()}
         </View>
       </View>
     </View>
@@ -141,7 +178,6 @@ const style = StyleSheet.create({
   },
   allStore: {
     width: 80,
-    // height: "100%",
     backgroundColor: "#C4D7E0",
   },
 
@@ -156,7 +192,6 @@ const style = StyleSheet.create({
     borderWidth: 0.4,
     borderColor: "#818181",
     backgroundColor: "#FBFBFB",
-    // justifyContent: "center",
     alignItems: "center",
     marginLeft: 10,
     marginTop: 9,
@@ -218,13 +253,10 @@ const style = StyleSheet.create({
   first: {
     width: 97,
     height: 133,
-    // marginLeft: 10,
   },
   second: {
     width: 97,
     height: 133,
-    // marginLeft: 19,
-    // marginRight: 21.85,
   },
   third: {
     width: 97,
