@@ -16,6 +16,7 @@ import twoOne from "../assets/icons/twoOne.png";
 import fullStamp from "../assets/icons/fullStamp.png";
 import LeftSidebar from "../components/LeftSideBar";
 import { getHome } from "../api/homeInfo";
+import { getEvent } from "../api/cafe";
 
 const Home = ({ navigation }) => {
   const [stores, setStores] = useState([]);
@@ -23,9 +24,12 @@ const Home = ({ navigation }) => {
   const [menus, setMenus] = useState([]);
   const [images, setImages] = useState([]);
   const [stamps, setStamps] = useState("");
+  const [event, setEvent] = useState("");
+  const [shopId, setShopId] = useState("1");
 
   useEffect(() => {
     getHomeData();
+    getResentEvent(shopId);
   }, []);
 
   const getHomeData = async () => {
@@ -36,17 +40,32 @@ const Home = ({ navigation }) => {
       setMenus(home[0].menu);
       setStamps(home[0].stamp);
       setImages(home[0].imageUrl);
+      // setShopId(home[0].shopId);
     } catch (error) {
       console.log(error);
       throw error;
     }
   };
 
-  const goStore = (index) => {
+  const getResentEvent = async (shopId) => {
+    try {
+      const getData = await getEvent(shopId);
+      const latest = getData.data.length - 1;
+      const lastEvent = getData.data[latest].content;
+      setEvent(lastEvent);
+      return lastEvent;
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const goStore = async (index) => {
+    setShopId(stores[index].shopId);
     setStoreName(stores[index].name);
     setMenus(stores[index].menu);
     setStamps(stores[index].stamp);
     setImages(stores[index].imageUrl);
+    setEvent(event);
   };
 
   const goStampDetail = () => {
@@ -139,7 +158,7 @@ const Home = ({ navigation }) => {
         >
           <View style={style.noticeContainer}>
             <Image source={notice} style={style.notice} />
-            <Text> 가게 공지란입니다.</Text>
+            <Text>{event}</Text>
           </View>
         </TouchableWithoutFeedback>
 

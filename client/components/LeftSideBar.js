@@ -11,14 +11,25 @@ import cozy from "../assets/icons/cozy.png";
 import setting from "../assets/icons/setting.png";
 import { ScrollView } from "react-native";
 
-const LeftSidebar = ({ isAddMode, stores, editMode, navigation, goStore }) => {
+const LeftSidebar = ({
+  isAddMode,
+  stores,
+  editMode,
+  navigation,
+  goStore,
+  // getResentEvent,
+}) => {
   return (
     <View style={styles.allStore}>
       <ScrollView>
         {stores.map((stores, index) => (
-          <TouchableWithoutFeedback key={stores.shopId + "_" + index}>
+          <TouchableWithoutFeedback key={stores.shopId}>
             <View>
-              <TouchableWithoutFeedback onPress={() => goStore(index)}>
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  goStore(index);
+                }}
+              >
                 <Image source={cozy} style={styles.clkStore} />
               </TouchableWithoutFeedback>
               {isAddMode && (
@@ -37,13 +48,13 @@ const LeftSidebar = ({ isAddMode, stores, editMode, navigation, goStore }) => {
             </View>
           </TouchableWithoutFeedback>
         )}
-
-        <TouchableWithoutFeedback onPress={editMode}>
-          <View style={styles.settingContainer}>
-            <Image source={setting} style={styles.setting} />
-          </View>
-        </TouchableWithoutFeedback>
       </ScrollView>
+
+      <TouchableWithoutFeedback onPress={editMode}>
+        <View style={styles.settingContainer}>
+          <Image source={setting} style={styles.setting} />
+        </View>
+      </TouchableWithoutFeedback>
     </View>
   );
 };
