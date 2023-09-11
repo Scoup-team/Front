@@ -49,7 +49,12 @@ const MyPage = ({ navigation }) => {
           <Image source={bluearrow} style={styles.arrow} />
         </Pressable>
       </View>
-      <Text style={styles.BottomMenu}>로그아웃하기</Text>
+      <Text
+        onPress={() => navigation.navigate("SignIn")}
+        style={styles.BottomMenu}
+      >
+        로그아웃하기
+      </Text>
       <TouchableOpacity
         onPress={() => {
           deleteUser();

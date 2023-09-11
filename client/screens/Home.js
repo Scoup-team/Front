@@ -10,42 +10,57 @@ import {
 import notice from "../assets/icons/notice.png";
 import shop from "../assets/icons/shop.png";
 import blkStamp from "../assets/icons/blkStamp.png";
-import cocoCoffee from "../assets/icons/cocoCoffee.png";
-import cocoMango from "../assets/icons/cocoMango.png";
-import twoOne from "../assets/icons/twoOne.png";
 import fullStamp from "../assets/icons/fullStamp.png";
 import LeftSidebar from "../components/LeftSideBar";
 import { getHome } from "../api/homeInfo";
 import { getEvent } from "../api/cafe";
+import { useIsFocused } from "@react-navigation/native";
 
 const Home = ({ navigation }) => {
   const [stores, setStores] = useState([]);
+
   const [storeName, setStoreName] = useState("");
   const [menus, setMenus] = useState([]);
   const [images, setImages] = useState([]);
   const [stamps, setStamps] = useState("");
   const [event, setEvent] = useState("");
-  const [shopId, setShopId] = useState("1");
+
+  const [shopId, setShopId] = useState(1);
+  const [storeIndex, setStoreIndex] = useState(0);
+
+  const isFocused = useIsFocused();
 
   useEffect(() => {
     getHomeData();
+  }, [isFocused]);
+
+  useEffect(() => {
     getResentEvent(shopId);
-  }, []);
+  }, [shopId]);
 
   const getHomeData = async () => {
     try {
       const home = await getHome();
       setStores(home);
-      setStoreName(home[0].name);
-      setMenus(home[0].menu);
-      setStamps(home[0].stamp);
-      setImages(home[0].imageUrl);
-      // setShopId(home[0].shopId);
     } catch (error) {
       console.log(error);
       throw error;
     }
   };
+
+  const goStore = (index) => {
+    setStoreIndex(index);
+  };
+
+  useEffect(() => {
+    if (storeIndex >= 0 && storeIndex < stores.length) {
+      setShopId(stores[storeIndex].shopId);
+      setStoreName(stores[storeIndex].name);
+      setMenus(stores[storeIndex].menu);
+      setStamps(stores[storeIndex].stamp);
+      setImages(stores[storeIndex].imageUrl);
+    }
+  }, [storeIndex, stores]);
 
   const getResentEvent = async (shopId) => {
     try {
@@ -53,19 +68,9 @@ const Home = ({ navigation }) => {
       const latest = getData.data.length - 1;
       const lastEvent = getData.data[latest].content;
       setEvent(lastEvent);
-      return lastEvent;
     } catch (err) {
       throw err;
     }
-  };
-
-  const goStore = async (index) => {
-    setShopId(stores[index].shopId);
-    setStoreName(stores[index].name);
-    setMenus(stores[index].menu);
-    setStamps(stores[index].stamp);
-    setImages(stores[index].imageUrl);
-    setEvent(event);
   };
 
   const goStampDetail = () => {
@@ -169,15 +174,15 @@ const Home = ({ navigation }) => {
 
         <View style={style.bestMenu}>
           <View style={style.first}>
-            <Image source={cocoCoffee} style={style.menuImage} />
+            <Image source={{ uri: images[0] }} style={style.menuImage} />
             <Text style={style.menuFont}>{menus[0]}</Text>
           </View>
           <View style={style.second}>
-            <Image source={twoOne} style={style.menuImage} />
+            <Image source={{ uri: images[1] }} style={style.menuImage} />
             <Text style={style.menuFont}>{menus[1]}</Text>
           </View>
           <View style={style.third}>
-            <Image source={cocoMango} style={style.menuImage} />
+            <Image source={{ uri: images[2] }} style={style.menuImage} />
             <Text style={style.menuFont}>{menus[2]}</Text>
           </View>
         </View>

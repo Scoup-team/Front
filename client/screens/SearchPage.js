@@ -23,7 +23,7 @@ const SearchPage = ({ navigation }) => {
 
   const [searchData, setSearchData] = useState([]);
 
-  const userId = 3;
+  const userId = 5;
 
   const postSearchData = async () => {
     try {
