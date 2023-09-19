@@ -1,14 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, TextInput, View, Button, Image, StyleSheet } from "react-native";
 import ClickButton from "../components/ClickButton";
 import logo from "../assets/icons/logo.png";
+import { getToken } from "../api/token";
 // 로고는 추후에 수정 예정
 
 const SignIn = ({ navigation }) => {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
+  const [isLogin, setIsLogin] = useState(false);
 
-  const Login = () => {};
+  // useEffect(() => {
+  //   // 토큰을 가져와서 유효한지 확인
+  //   const checkToken = async () => {
+  //     const token = await getToken();
+  //     if (token !== null) {
+  //       setIsLogin(true);
+  //     }
+  //   };
+  //   checkToken();
+  // }, []);
+
+  const Login = () => {
+    if (isLogin) {
+      navigation.navigate("Home");
+    } else {
+      alert("로그인 할 수 없습니다.");
+    }
+  };
 
   return (
     <View>

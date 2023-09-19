@@ -15,6 +15,8 @@ import QrPage from "./screens/QrPage";
 import CameraPage from "./screens/CameraPage";
 import Home from "./screens/Home";
 import StampDetail from "./screens/StampDetail";
+import { useState, useEffect } from "react";
+import { getToken } from "./api/token";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -63,23 +65,43 @@ const MainTabNavigator = () => {
 };
 
 const App = () => {
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    checkToken();
+  }, []);
+
+  const checkToken = async () => {
+    const isToken = await getToken();
+    if (isToken !== null) {
+      setIsLogin(true);
+    }
+  };
   return (
     <NavigationContainer style={styles.container}>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName="Home"
+        initialRouteName="SignUp"
       >
-        <Stack.Screen name="Main" component={MainTabNavigator} />
-        <Stack.Screen name="SearchPage" component={SearchPage} />
-        <Stack.Screen name="SignIn" component={SignIn} />
-        <Stack.Screen name="FindPw" component={FindPw} />
-        <Stack.Screen name="ModifyInfo" component={ModifyInfo} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="CouponPage" component={CouponPage} />
-        <Stack.Screen name="QrPage" component={QrPage} />
-        <Stack.Screen name="CameraPage" component={CameraPage} />
-        <Stack.Screen name="EventPage" component={EventPage} />
-        <Stack.Screen name="StampDetail" component={StampDetail} />
+        {isLogin ? (
+          <>
+            <Stack.Screen name="Main" component={MainTabNavigator} />
+            <Stack.Screen name="SearchPage" component={SearchPage} />
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="ModifyInfo" component={ModifyInfo} />
+            <Stack.Screen name="CouponPage" component={CouponPage} />
+            <Stack.Screen name="QrPage" component={QrPage} />
+            <Stack.Screen name="CameraPage" component={CameraPage} />
+            <Stack.Screen name="EventPage" component={EventPage} />
+            <Stack.Screen name="StampDetail" component={StampDetail} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="SignIn" component={SignIn} />
+            <Stack.Screen name="FindPw" component={FindPw} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

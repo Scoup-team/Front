@@ -1,6 +1,7 @@
 import { Text, TextInput, View, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import ClickButton from "../components/ClickButton";
+import { registerToken } from "../api/token";
 
 const SignUp = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -8,7 +9,14 @@ const SignUp = ({ navigation }) => {
   const [userPw, setUserPw] = useState("");
   const [nickname, setNickname] = useState("");
 
-  const Register = () => {};
+  const Register = async () => {
+    const responese = await registerToken(name, userId, userPw, nickname);
+
+    if (responese.data.status == 201) {
+      alert("회원가입 성공");
+      navigation.replace("Home");
+    }
+  };
 
   return (
     <View>
