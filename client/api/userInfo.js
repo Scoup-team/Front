@@ -3,11 +3,12 @@ import client from "./client";
 // 닉네임 불러오기
 export const getNickname = async () => {
   try {
-    const config = {
-      headers: {
-        userId: 3,
-      },
-    };
+    // const config = {
+    //   headers: {
+    //     userId: 3,
+    //   },
+    // };
+    const config = await handleGetToken();
     const response = await client.get("/user", config);
     console.log("닉네임 가져오기 성공:", response.data.data.nickname);
     return response.data.data.nickname;

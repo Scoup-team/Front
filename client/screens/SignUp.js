@@ -12,9 +12,9 @@ const SignUp = ({ navigation }) => {
   const Register = async () => {
     const responese = await registerToken(name, userId, userPw, nickname);
 
-    if (responese.data.status == 201) {
+    if (responese.status == 201) {
       alert("회원가입 성공");
-      navigation.replace("Home");
+      navigation.navigate("SignIn");
     }
   };
 

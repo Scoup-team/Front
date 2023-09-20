@@ -13,11 +13,13 @@ export const registerToken = async (name, userId, userPw, nickname) => {
     const tokenInfo = response.data;
     console.log(tokenInfo);
 
-    if (tokenInfo.accessToken && tokenInfo.refreshToken) {
+    if (tokenInfo.data.accessToken !== null) {
       await AsyncStorage.setItem(
         "AccessToken",
-        JSON.stringify(tokenInfo.accessToken)
+        JSON.stringify(tokenInfo.data.accessToken)
       );
+      const cktoken = await getToken();
+      console.log(cktoken);
     }
 
     return tokenInfo;
@@ -29,8 +31,7 @@ export const registerToken = async (name, userId, userPw, nickname) => {
 // 토큰 정보를 가져옴
 export const getToken = async () => {
   try {
-    const token = await AsyncStorage.getItem("AccessToken");
-    return token;
+    return await AsyncStorage.getItem("AccessToken");
   } catch (error) {
     console.log(error);
   }
@@ -46,13 +47,19 @@ export const removeToken = async () => {
 };
 
 export const handleGetToken = async () => {
-  const token = await getToken();
+  try {
+    const token = await getToken();
 
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-
-  return config;
+    if (token !== null) {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+      return config;
+    }
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };

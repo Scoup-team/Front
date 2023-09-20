@@ -81,7 +81,7 @@ const App = () => {
     <NavigationContainer style={styles.container}>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName="SignUp"
+        initialRouteName={isLogin ? "Home" : "SignIn"}
       >
         {isLogin ? (
           <>
@@ -94,6 +94,7 @@ const App = () => {
             <Stack.Screen name="CameraPage" component={CameraPage} />
             <Stack.Screen name="EventPage" component={EventPage} />
             <Stack.Screen name="StampDetail" component={StampDetail} />
+            <Stack.Screen name="SignIn" component={SignIn} />
           </>
         ) : (
           <>
