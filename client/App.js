@@ -22,6 +22,18 @@ const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const MainTabNavigator = () => {
+  const [isLogin, setIsLogin] = useState(false);
+
+  useEffect(() => {
+    checkToken();
+  }, []);
+
+  const checkToken = async () => {
+    const isToken = await getToken();
+    if (isToken !== null) {
+      setIsLogin(true);
+    }
+  };
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -45,21 +57,27 @@ const MainTabNavigator = () => {
         tabBarLabel: () => null,
       })}
     >
-      <Tab.Screen
-        name="Home"
-        component={Home}
-        options={{ headerShown: false }}
-      />
-      <Tab.Screen
-        name="CameraPage"
-        component={CameraPage}
-        options={{ headerShown: false }}
-      />
-      <Tab.Screen
-        name="MyPage"
-        component={MyPage}
-        options={{ headerShown: false }}
-      />
+      {isLogin ? (
+        <>
+          <Tab.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+          <Tab.Screen
+            name="CameraPage"
+            component={CameraPage}
+            options={{ headerShown: false }}
+          />
+          <Tab.Screen
+            name="MyPage"
+            component={MyPage}
+            options={{ headerShown: false }}
+          />
+        </>
+      ) : (
+        <></>
+      )}
     </Tab.Navigator>
   );
 };

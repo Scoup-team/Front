@@ -1,13 +1,12 @@
 import client from "./client";
+import { TokenToHeader } from "./token";
 
 //카페 검색 API
 export const postSearchShop = async (keyword) => {
   try {
-    const config = {
-      headers: {
-        userId: 2,
-      },
-    };
+    const config = await TokenToHeader();
+    console.log(config);
+    console.log(config.headers);
     const res = await client.get(`shop?keyword=${keyword}`, config);
     console.log("res.data", res.data);
     return res.data;

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, TextInput, View, Button, Image, StyleSheet } from "react-native";
 import ClickButton from "../components/ClickButton";
 import logo from "../assets/icons/logo.png";
+import { useIsFocused } from "@react-navigation/native";
 
 import { getToken } from "../api/token";
 // 로고는 추후에 수정 예정
@@ -9,26 +10,6 @@ import { getToken } from "../api/token";
 const SignIn = ({ navigation }) => {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
-
-  const [autoLogin, setAutoLogin] = useState(false);
-
-  useEffect(() => {
-    IsAutoLogin();
-  }, []);
-
-  const IsAutoLogin = async () => {
-    try {
-      const isToken = await getToken();
-      if (isToken !== null) {
-        navigation.navigate("Home");
-      } else {
-        console.log(isToken);
-        alert("회원가입을 진행해주세요.");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const Login = async () => {};
 

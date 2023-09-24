@@ -1,13 +1,36 @@
 import { Text, TextInput, View, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ClickButton from "../components/ClickButton";
-import { registerToken } from "../api/token";
+import { registerToken, getToken } from "../api/token";
+import { useIsFocused } from "@react-navigation/native";
 
 const SignUp = ({ navigation }) => {
   const [name, setName] = useState("");
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
   const [nickname, setNickname] = useState("");
+
+  const isFocused = useIsFocused();
+
+  // const [autoLogin, setAutoLogin] = useState(false);
+
+  useEffect(() => {
+    IsAutoLogin();
+  }, [isFocused]);
+
+  const IsAutoLogin = async () => {
+    try {
+      const isToken = await getToken();
+      if (isToken !== null) {
+        navigation.navigate("Home");
+      } else {
+        console.log(isToken);
+        // alert("회원가입을 진행해주세요.");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const Register = async () => {
     const responese = await registerToken(name, userId, userPw, nickname);
