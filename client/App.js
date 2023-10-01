@@ -16,24 +16,12 @@ import CameraPage from "./screens/CameraPage";
 import Home from "./screens/Home";
 import StampDetail from "./screens/StampDetail";
 import { useState, useEffect } from "react";
-import { getToken } from "./api/token";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 const MainTabNavigator = () => {
-  const [isLogin, setIsLogin] = useState(false);
-
-  useEffect(() => {
-    checkToken();
-  }, []);
-
-  const checkToken = async () => {
-    const isToken = await getToken();
-    if (isToken !== null) {
-      setIsLogin(true);
-    }
-  };
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -57,27 +45,21 @@ const MainTabNavigator = () => {
         tabBarLabel: () => null,
       })}
     >
-      {isLogin ? (
-        <>
-          <Tab.Screen
-            name="Home"
-            component={Home}
-            options={{ headerShown: false }}
-          />
-          <Tab.Screen
-            name="CameraPage"
-            component={CameraPage}
-            options={{ headerShown: false }}
-          />
-          <Tab.Screen
-            name="MyPage"
-            component={MyPage}
-            options={{ headerShown: false }}
-          />
-        </>
-      ) : (
-        <></>
-      )}
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="CameraPage"
+        component={CameraPage}
+        options={{ headerShown: false }}
+      />
+      <Tab.Screen
+        name="MyPage"
+        component={MyPage}
+        options={{ headerShown: false }}
+      />
     </Tab.Navigator>
   );
 };
@@ -90,7 +72,7 @@ const App = () => {
   }, []);
 
   const checkToken = async () => {
-    const isToken = await getToken();
+    const isToken = await AsyncStorage.getItem("AccessToken");
     if (isToken !== null) {
       setIsLogin(true);
     }
@@ -99,7 +81,7 @@ const App = () => {
     <NavigationContainer style={styles.container}>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName={isLogin ? "Home" : "SignIn"}
+        initialRouteName="SignIn"
       >
         {isLogin ? (
           <>
@@ -113,12 +95,14 @@ const App = () => {
             <Stack.Screen name="EventPage" component={EventPage} />
             <Stack.Screen name="StampDetail" component={StampDetail} />
             <Stack.Screen name="SignIn" component={SignIn} />
+            <Stack.Screen name="SignUp" component={SignUp} />
           </>
         ) : (
           <>
             <Stack.Screen name="SignUp" component={SignUp} />
             <Stack.Screen name="SignIn" component={SignIn} />
             <Stack.Screen name="FindPw" component={FindPw} />
+            <Stack.Screen name="Home" component={Home} />
           </>
         )}
       </Stack.Navigator>

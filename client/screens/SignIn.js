@@ -4,7 +4,6 @@ import ClickButton from "../components/ClickButton";
 import logo from "../assets/icons/logo.png";
 import { useIsFocused } from "@react-navigation/native";
 
-import { getToken } from "../api/token";
 // 로고는 추후에 수정 예정
 
 const SignIn = ({ navigation }) => {

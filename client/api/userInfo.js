@@ -1,4 +1,26 @@
 import client from "./client";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+// 회원가입
+export const registerToken = async (name, userId, userPw, nickname) => {
+  try {
+    const response = await client.post("/auth/signup", {
+      name: name,
+      email: userId,
+      password: userPw,
+      nickname: nickname,
+    });
+    const tokenInfo = response.data;
+    console.log(tokenInfo);
+
+    await AsyncStorage.setItem("AccessToken", tokenInfo.data.accessToken);
+    await AsyncStorage.setItem("RefreshToken", tokenInfo.data.refreshToken);
+
+    return tokenInfo;
+  } catch (error) {
+    console.log("회원가입 에러: ", error);
+  }
+};
 
 // 닉네임 불러오기
 export const getNickname = async () => {

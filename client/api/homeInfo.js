@@ -1,20 +1,21 @@
 import client from "./client";
-import { TokenToHeader } from "./token";
 
 // home 데이터 가져오기
 export const getHome = async () => {
   try {
-    const config = await TokenToHeader();
-    console.log(config);
-    console.log(config.headers);
-    const response = await client.get("/home", config);
+    const response = await client.get("/home");
     if (response.data.status == 200) {
       console.log("로그인 성공");
-      const storesInfo = response.data.data;
-      return storesInfo;
+
+      if (response.data.data) {
+        const storesInfo = response.data.data;
+        return storesInfo;
+      }
+    } else {
+      console.log("로그인 실패: ", response.data.status);
     }
   } catch (error) {
-    console.error(error);
+    console.error("home 조회 실패: ", error);
     throw error;
   }
 };

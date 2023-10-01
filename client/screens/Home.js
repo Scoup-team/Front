@@ -43,7 +43,7 @@ const Home = ({ navigation }) => {
       const home = await getHome();
       setStores(home);
     } catch (error) {
-      console.log(error);
+      console.log("홈화면 조회 에러: ", error);
       throw error;
     }
   };
