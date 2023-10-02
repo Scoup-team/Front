@@ -21,7 +21,7 @@ const DisabledCoupon = ({ couponData }) => {
               style={styles.couponComponent}
               source={require("../../assets/icons/disabledCouponFrame.png")}
               resizeMode="stretch"
-              key={data.id}
+              key={data.couponId}
             >
               <View style={styles.top}>
                 <Text style={styles.name}>{data.shopName}</Text>
