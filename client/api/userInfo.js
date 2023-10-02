@@ -1,15 +1,53 @@
 import client from "./client";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const config = {
-  headers: {
-    userId: 3,
-    "Content-Type": "application/json",
-  },
+// 회원가입
+export const registerToken = async (name, userId, userPw, nickname) => {
+  try {
+    const response = await client.post("/auth/signup", {
+      name: name,
+      email: userId,
+      password: userPw,
+      nickname: nickname,
+    });
+    const tokenInfo = response.data;
+    console.log(tokenInfo);
+
+    await AsyncStorage.setItem("AccessToken", tokenInfo.data.accessToken);
+    await AsyncStorage.setItem("RefreshToken", tokenInfo.data.refreshToken);
+
+    return tokenInfo;
+  } catch (error) {
+    console.log("회원가입 에러: ", error);
+  }
+};
+
+// 닉네임 불러오기
+export const getNickname = async () => {
+  try {
+    // const config = {
+    //   headers: {
+    //     userId: 3,
+    //   },
+    // };
+    const config = await handleGetToken();
+    const response = await client.get("/user", config);
+    console.log("닉네임 가져오기 성공:", response.data.data.nickname);
+    return response.data.data.nickname;
+  } catch (error) {
+    console.error("닉네임 가져오기 실패:", error);
+    throw error;
+  }
 };
 
 // 닉네임 수정
 export const changeNickname = async (nickname) => {
   try {
+    const config = {
+      headers: {
+        userId: 3,
+      },
+    };
     const response = await client.patch(
       "/user/nickname",
       {
@@ -27,6 +65,11 @@ export const changeNickname = async (nickname) => {
 // 비밀번호 수정
 export const changePassword = async (originalPassword, newPassword) => {
   try {
+    const config = {
+      headers: {
+        userId: 3,
+      },
+    };
     const response = await client.patch(
       "/user/password",
       {

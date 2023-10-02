@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, TextInput, View, Button, Image, StyleSheet } from "react-native";
 import ClickButton from "../components/ClickButton";
 import logo from "../assets/icons/logo.png";
+import { useIsFocused } from "@react-navigation/native";
+
 // 로고는 추후에 수정 예정
 
 const SignIn = ({ navigation }) => {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
 
-  const Login = () => {};
+  const Login = async () => {};
 
   return (
     <View>

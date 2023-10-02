@@ -9,37 +9,46 @@ import removeStore from "../assets/icons/removeStore.png";
 import plusStore from "../assets/icons/plusStore.png";
 import cozy from "../assets/icons/cozy.png";
 import setting from "../assets/icons/setting.png";
+import { ScrollView } from "react-native";
 
 const LeftSidebar = ({
   isAddMode,
   stores,
   editMode,
-  deleteStore,
   navigation,
+  goStore,
+  // getResentEvent,
 }) => {
   return (
     <View style={styles.allStore}>
-      {stores.map((store) => (
-        <TouchableWithoutFeedback
-          key={store.id}
-          onPress={() => deleteStore(store.id)}
-        >
-          <View>
-            <Image source={cozy} style={styles.clkStore} />
-            {isAddMode && <Image source={removeStore} style={styles.rmStore} />}
-          </View>
-        </TouchableWithoutFeedback>
-      ))}
+      <ScrollView>
+        {stores.map((stores, index) => (
+          <TouchableWithoutFeedback key={stores.shopId}>
+            <View>
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  goStore(index);
+                }}
+              >
+                <Image source={cozy} style={styles.clkStore} />
+              </TouchableWithoutFeedback>
+              {isAddMode && (
+                <Image source={removeStore} style={styles.rmStore} />
+              )}
+            </View>
+          </TouchableWithoutFeedback>
+        ))}
 
-      {isAddMode && (
-        <TouchableWithoutFeedback
-          onPress={() => navigation.navigate("SearchPage")}
-        >
-          <View>
-            <Image source={plusStore} style={styles.plsStore} />
-          </View>
-        </TouchableWithoutFeedback>
-      )}
+        {isAddMode && (
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate("SearchPage")}
+          >
+            <View>
+              <Image source={plusStore} style={styles.plsStore} />
+            </View>
+          </TouchableWithoutFeedback>
+        )}
+      </ScrollView>
 
       <TouchableWithoutFeedback onPress={editMode}>
         <View style={styles.settingContainer}>

@@ -1,6 +1,9 @@
 import { Text, TextInput, View, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import ClickButton from "../components/ClickButton";
+import { registerToken } from "../api/userInfo";
+import { useIsFocused } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SignUp = ({ navigation }) => {
   const [name, setName] = useState("");
@@ -8,7 +11,41 @@ const SignUp = ({ navigation }) => {
   const [userPw, setUserPw] = useState("");
   const [nickname, setNickname] = useState("");
 
-  const Register = () => {};
+  const isFocused = useIsFocused();
+
+  // const [autoLogin, setAutoLogin] = useState(false);
+
+  useEffect(() => {
+    IsAutoLogin();
+  }, [isFocused]);
+
+  const IsAutoLogin = async () => {
+    try {
+      const isToken = await AsyncStorage.getItem("AccessToken");
+      if (isToken !== null) {
+        // console.log(isToken);
+        navigation.navigate("Home");
+      } else {
+        console.log(isToken);
+        // alert("회원가입을 진행해주세요.");
+      }
+    } catch (error) {
+      console.log("자동 로그인 실패", error);
+    }
+  };
+
+  const Register = async () => {
+    try {
+      const responese = await registerToken(name, userId, userPw, nickname);
+
+      if (responese.status == 201) {
+        alert("회원가입 성공");
+        navigation.navigate("SignIn");
+      }
+    } catch (error) {
+      console.log("회원가입 오류: ", error);
+    }
+  };
 
   return (
     <View>

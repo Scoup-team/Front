@@ -23,12 +23,14 @@ const SearchPage = ({ navigation }) => {
 
   const [searchData, setSearchData] = useState([]);
 
-  const userId = 3;
+  // const userId = 5;
 
   const postSearchData = async () => {
     try {
       const keyword = myTextInput;
-      const postData = await postSearchShop(keyword, userId);
+      // const postData = await postSearchShop(keyword, userId);
+      const postData = await postSearchShop(keyword);
+
       setSearchData(postData.data);
     } catch (err) {
       console.log(err);
@@ -42,7 +44,7 @@ const SearchPage = ({ navigation }) => {
       Alert.alert("가게 추가에 성공했습니다.");
       navigation.pop();
     } catch (err) {
-      console.log(err);
+      console.log("가게 추가 오류: ", err);
     }
   };
 
