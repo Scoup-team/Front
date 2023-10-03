@@ -10,35 +10,51 @@ import plusStore from "../assets/icons/plusStore.png";
 import cozy from "../assets/icons/cozy.png";
 import setting from "../assets/icons/setting.png";
 import { ScrollView } from "react-native";
+import RightStore from "./RightStore";
+import { useState } from "react";
 
 const LeftSidebar = ({
-  isAddMode,
-  stores,
-  editMode,
-  navigation,
-  goStore,
+  data,
+  // isAddMode,
+  // stores,
+  // editMode,
+  // navigation,
+  // goStore,
   // getResentEvent,
 }) => {
-  return (
-    <View style={styles.allStore}>
-      <ScrollView>
-        {stores.map((stores, index) => (
-          <TouchableWithoutFeedback key={stores.shopId}>
-            <View>
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  goStore(index);
-                }}
-              >
-                <Image source={cozy} style={styles.clkStore} />
-              </TouchableWithoutFeedback>
-              {isAddMode && (
-                <Image source={removeStore} style={styles.rmStore} />
-              )}
-            </View>
-          </TouchableWithoutFeedback>
-        ))}
+  console.log("data", data);
 
+  const [shopId, setShopId] = useState(0);
+  const [shopData, setShopData] = useState([]);
+
+  const goStore = (id) => {
+    setShopId(id);
+    const filterdata = data.filter((x) => x.shoptId == id);
+    setShopData(filterdata);
+    console.log("shopData", shopData);
+  };
+
+  return (
+    <View>
+      <View style={styles.allStore}>
+        <ScrollView>
+          {data.map((store) => (
+            <TouchableWithoutFeedback key={store.shopId}>
+              <View>
+                <TouchableWithoutFeedback
+                  onPress={() => {
+                    goStore(store.shopId);
+                  }}
+                >
+                  <Image source={cozy} style={styles.clkStore} />
+                </TouchableWithoutFeedback>
+                {/* {isAddMode && (
+                <Image source={removeStore} style={styles.rmStore} />
+              )} */}
+              </View>
+            </TouchableWithoutFeedback>
+          ))}
+          {/* 
         {isAddMode && (
           <TouchableWithoutFeedback
             onPress={() => navigation.navigate("SearchPage")}
@@ -47,14 +63,16 @@ const LeftSidebar = ({
               <Image source={plusStore} style={styles.plsStore} />
             </View>
           </TouchableWithoutFeedback>
-        )}
-      </ScrollView>
-
+        )} */}
+        </ScrollView>
+        {/* 
       <TouchableWithoutFeedback onPress={editMode}>
         <View style={styles.settingContainer}>
           <Image source={setting} style={styles.setting} />
         </View>
-      </TouchableWithoutFeedback>
+      </TouchableWithoutFeedback> */}
+      </View>
+      <RightStore shopData={shopData}></RightStore>
     </View>
   );
 };
