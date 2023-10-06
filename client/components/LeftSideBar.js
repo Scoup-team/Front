@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Image,
@@ -11,7 +11,6 @@ import cozy from "../assets/icons/cozy.png";
 import setting from "../assets/icons/setting.png";
 import { ScrollView } from "react-native";
 import RightStore from "./RightStore";
-import { useState } from "react";
 
 const LeftSidebar = ({
   data,
@@ -22,20 +21,30 @@ const LeftSidebar = ({
   // goStore,
   // getResentEvent,
 }) => {
-  console.log("data", data);
-
-  const [shopId, setShopId] = useState(0);
+  const [shopId, setShopId] = useState(-1);
   const [shopData, setShopData] = useState([]);
+
+  useEffect(() => {
+    if (shopId == -1) {
+      setShopData(data[0]);
+      setShopId(data[0].shopId);
+    }
+    console.log("data", data);
+  }, []);
+
+  useEffect(() => {
+    console.log("새로운 shopData: ", shopData);
+  }, [shopData]);
 
   const goStore = (id) => {
     setShopId(id);
-    const filterdata = data.filter((x) => x.shoptId == id);
+    const filterdata = data.filter((x) => x.shopId == id);
     setShopData(filterdata);
     console.log("shopData", shopData);
   };
 
   return (
-    <View>
+    <View style={styles.Home}>
       <View style={styles.allStore}>
         <ScrollView>
           {data.map((store) => (
@@ -78,6 +87,10 @@ const LeftSidebar = ({
 };
 
 const styles = StyleSheet.create({
+  Home: {
+    flex: 1,
+    flexDirection: "row",
+  },
   allStore: {
     width: 80,
     height: "100%",

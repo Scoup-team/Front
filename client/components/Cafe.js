@@ -4,44 +4,45 @@ import LeftSidebar from "../components/LeftSideBar";
 import RightStore from "./RightStore";
 import { getHome } from "../api/homeInfo";
 import { useIsFocused } from "@react-navigation/native";
-import { homeData } from "./Data/homeData";
+
+// import { homeData } from "./Data/homeData";
 
 const Cafe = (navigation) => {
-  //   const [stores, setStores] = useState([]);
-  //   const [shopId, setShopId] = useState();
-  //   const [storeIndex, setStoreIndex] = useState(0);
+  const [stores, setStores] = useState([]);
+  const [shopId, setShopId] = useState();
+  const [storeIndex, setStoreIndex] = useState(0);
 
-  //   const isFocused = useIsFocused();
+  const isFocused = useIsFocused();
 
-  //   useEffect(() => {
-  //     getHomeData();
-  //   }, [isFocused]);
+  useEffect(() => {
+    getHomeData();
+  }, [isFocused]);
 
-  //   const getHomeData = async () => {
-  //     try {
-  //       const home = await getHome();
-  //       if (home) {
-  //         setStores(home);
-  //       } else {
-  //         console.log("가게 없음");
-  //         navigation.navigate("SearchPage");
-  //       }
-  //     } catch (error) {
-  //       console.log("홈화면 조회 에러: ", error);
-  //       throw error;
-  //     }
-  //   };
+  const getHomeData = async () => {
+    try {
+      const home = await getHome();
+      if (home) {
+        setStores(home);
+      } else {
+        console.log("가게 없음");
+        navigation.navigate("SearchPage");
+      }
+    } catch (error) {
+      console.log("홈화면 조회 에러: ", error);
+      throw error;
+    }
+  };
 
-  //   const goStore = (index) => {
-  //     setStoreIndex(index);
-  //     setShopId(stores[index].shopId);
-  //   };
+  const goStore = (index) => {
+    setStoreIndex(index);
+    setShopId(stores[index].shopId);
+  };
 
-  //   const [isAddMode, setIsAddMode] = useState(false);
+  const [isAddMode, setIsAddMode] = useState(false);
 
-  //   const editMode = () => {
-  //     setIsAddMode(!isAddMode);
-  //   };
+  const editMode = () => {
+    setIsAddMode(!isAddMode);
+  };
 
   return (
     <View style={style.Home}>

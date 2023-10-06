@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Text, TextInput, View, Button, Image, StyleSheet } from "react-native";
 import ClickButton from "../components/ClickButton";
 import logo from "../assets/icons/logo.png";
+import { loginToken } from "../api/userInfo";
+
 import { useIsFocused } from "@react-navigation/native";
 
 // 로고는 추후에 수정 예정
@@ -10,7 +12,16 @@ const SignIn = ({ navigation }) => {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
 
-  const Login = async () => {};
+  const Login = async () => {
+    try {
+      const response = await loginToken(userId, userPw);
+
+      if (response.status == 201) {
+      }
+    } catch (error) {
+      console.log("로그인 오류: ", error);
+    }
+  };
 
   return (
     <View>

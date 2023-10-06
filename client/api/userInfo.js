@@ -10,16 +10,27 @@ export const registerToken = async (name, userId, userPw, nickname) => {
       password: userPw,
       nickname: nickname,
     });
-    const tokenInfo = response.data;
-    console.log(tokenInfo);
+    if (response.status == 201) {
+      const tokenInfo = response.data;
+      console.log(tokenInfo);
 
-    await AsyncStorage.setItem("AccessToken", tokenInfo.data.accessToken);
-    await AsyncStorage.setItem("RefreshToken", tokenInfo.data.refreshToken);
+      await AsyncStorage.setItem("AccessToken", tokenInfo.data.accessToken);
+      await AsyncStorage.setItem("RefreshToken", tokenInfo.data.refreshToken);
 
-    return tokenInfo;
+      return tokenInfo;
+    } else {
+      console.log(respone);
+    }
   } catch (error) {
     console.log("회원가입 에러: ", error);
   }
+};
+
+// 로그인
+export const loginToken = async () => {
+  try {
+    const response = await client.post("/auth/signin", {});
+  } catch (error) {}
 };
 
 // 닉네임 불러오기

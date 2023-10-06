@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
@@ -8,43 +8,69 @@ import {
 } from "react-native";
 import notice from "../assets/icons/notice.png";
 import shop from "../assets/icons/shop.png";
+// import StampRendering from "../components/StampRendering";
 
 const RightStore = (shopData) => {
+  const [shopInfo, setShopInfo] = useState({
+    cafeImageUrl: "",
+    menu: [],
+    menuImageUrl: [],
+    name: "",
+    shopId: 0,
+    stamp: [],
+  });
+
+  useEffect(() => {
+    if (shopData) {
+      setShopInfo(shopData.shopData[0]);
+    }
+    console.log("R_받은 shopInfo:", shopInfo);
+  }, []);
+
+  console.log("R_받은 shopInfo:", shopInfo.name);
+
   return (
     <View style={style.Home}>
       <View style={style.storeArea}>
         <TouchableWithoutFeedback
-          onPress={() => navigation.navigate("EventPage")}
+        // onPress={() => navigation.navigate("EventPage")}
         >
           <View style={style.noticeContainer}>
             <Image source={notice} style={style.notice} />
             <Text>이벤트</Text>
           </View>
         </TouchableWithoutFeedback>
-        {/* 
+
         <View style={style.storeName}>
           <Image source={shop} style={style.shop} />
-          <Text style={[style.font, { marginLeft: 3 }]}>
-            {stores[shopId].name}
-          </Text>
+          <Text style={[style.font, { marginLeft: 3 }]}>{shopInfo.name}</Text>
         </View>
 
         <View style={style.bestMenu}>
           <View style={style.first}>
-            <Image source={{ uri: images[0] }} style={style.menuImage} />
-            <Text style={style.menuFont}>{stores[shopId].menu[0]}</Text>
+            <Image
+              source={{ uri: shopInfo.menuImageUrl[0] }}
+              style={style.menuImage}
+            />
+            <Text style={style.menuFont}>{shopInfo.menu[0]}</Text>
           </View>
           <View style={style.second}>
-            <Image source={{ uri: images[1] }} style={style.menuImage} />
-            <Text style={style.menuFont}>{stores[shopId].menu[1]}</Text>
+            <Image
+              source={{ uri: shopInfo.menuImageUrl[1] }}
+              style={style.menuImage}
+            />
+            <Text style={style.menuFont}>{shopInfo.menu[1]}</Text>
           </View>
           <View style={style.third}>
-            <Image source={{ uri: images[2] }} style={style.menuImage} />
-            <Text style={style.menuFont}>{stores[storeIndex].menu[2]}</Text>
+            <Image
+              source={{ uri: shopInfo.menuImageUrl[2] }}
+              style={style.menuImage}
+            />
+            <Text style={style.menuFont}>{shopInfo.menu[2]}</Text>
           </View>
-        </View> */}
+        </View>
 
-        {/* <View style={style.stampContainer}>{stampRendering()}</View> */}
+        <View style={style.stampContainer}>{/* <StampRendering /> */}</View>
       </View>
     </View>
   );
