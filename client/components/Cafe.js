@@ -9,8 +9,6 @@ import { homeData } from "./Data/homeData";
 
 const Cafe = (navigation) => {
   const [stores, setStores] = useState([]);
-  const [shopId, setShopId] = useState();
-  const [storeIndex, setStoreIndex] = useState(0);
 
   const isFocused = useIsFocused();
 
@@ -33,11 +31,6 @@ const Cafe = (navigation) => {
     }
   };
 
-  const goStore = (index) => {
-    setStoreIndex(index);
-    setShopId(stores[index].shopId);
-  };
-
   const [isAddMode, setIsAddMode] = useState(false);
 
   const editMode = () => {
@@ -47,9 +40,11 @@ const Cafe = (navigation) => {
   return (
     <View style={style.Home}>
       <StatusBar backgroundColor="#F2F2F2" />
-      <LeftSidebar data={homeData}></LeftSidebar>
-
-      {/* <RightStore shopId={stores[storeIndex].shopId}></RightStore> */}
+      <LeftSidebar
+        data={homeData}
+        isAddMode={isAddMode}
+        editMode={editMode}
+      ></LeftSidebar>
     </View>
   );
 };

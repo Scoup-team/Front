@@ -12,7 +12,7 @@ import setting from "../assets/icons/setting.png";
 import { ScrollView } from "react-native";
 import RightStore from "./RightStore";
 
-const LeftSidebar = ({ data }) => {
+const LeftSidebar = ({ data, isAddMode, editMode }) => {
   const [shopId, setShopId] = useState(-1);
   const [shopData, setShopData] = useState([]);
 
@@ -30,9 +30,6 @@ const LeftSidebar = ({ data }) => {
 
   const goStore = (id) => {
     setShopId(id);
-    // const filterdata = data.filter((x) => x.shopId == id);
-    // setShopData(filterdata);
-    // console.log("shopData: ", shopData);
   };
 
   return (
@@ -49,29 +46,29 @@ const LeftSidebar = ({ data }) => {
                 >
                   <Image source={cozy} style={styles.clkStore} />
                 </TouchableWithoutFeedback>
-                {/* {isAddMode && (
-                <Image source={removeStore} style={styles.rmStore} />
-              )} */}
+                {isAddMode && (
+                  <Image source={removeStore} style={styles.rmStore} />
+                )}
               </View>
             </TouchableWithoutFeedback>
           ))}
-          {/* 
-        {isAddMode && (
-          <TouchableWithoutFeedback
-            onPress={() => navigation.navigate("SearchPage")}
-          >
-            <View>
-              <Image source={plusStore} style={styles.plsStore} />
-            </View>
-          </TouchableWithoutFeedback>
-        )} */}
+
+          {isAddMode && (
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate("SearchPage")}
+            >
+              <View>
+                <Image source={plusStore} style={styles.plsStore} />
+              </View>
+            </TouchableWithoutFeedback>
+          )}
         </ScrollView>
-        {/* 
-      <TouchableWithoutFeedback onPress={editMode}>
-        <View style={styles.settingContainer}>
-          <Image source={setting} style={styles.setting} />
-        </View>
-      </TouchableWithoutFeedback> */}
+
+        <TouchableWithoutFeedback onPress={editMode}>
+          <View style={styles.settingContainer}>
+            <Image source={setting} style={styles.setting} />
+          </View>
+        </TouchableWithoutFeedback>
       </View>
       <RightStore shopData={shopData}></RightStore>
     </View>

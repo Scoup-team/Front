@@ -9,12 +9,30 @@ import {
 import notice from "../assets/icons/notice.png";
 import shop from "../assets/icons/shop.png";
 import StampRendering from "../components/StampRendering";
+import getEvent from "../api/cafe";
 
 const RightStore = ({ shopData }) => {
   console.log("RightStore_shopData: ", shopData);
 
   const shopInfo = shopData[0];
   console.log("shopInfo.stamp: ", shopInfo.stamp);
+
+  const [event, setEvent] = useState("");
+
+  // useEffect(() => {
+  //   getResentEvent(shopInfo.shopId);
+  // }, [shopInfo.shopId]);
+
+  const getResentEvent = async (shopId) => {
+    try {
+      const getData = await getEvent(shopId);
+      const latest = getData.data.length - 1;
+      const lastEvent = getData.data[latest].content;
+      setEvent(lastEvent);
+    } catch (err) {
+      throw err;
+    }
+  };
 
   return (
     <View style={style.Home}>
@@ -24,6 +42,7 @@ const RightStore = ({ shopData }) => {
         >
           <View style={style.noticeContainer}>
             <Image source={notice} style={style.notice} />
+            {/* <Text>{event}</Text> // 실제 api 연결 후*/}
             <Text>이벤트</Text>
           </View>
         </TouchableWithoutFeedback>
@@ -57,9 +76,7 @@ const RightStore = ({ shopData }) => {
           </View>
         </View>
 
-        <View style={style.stampContainer}>
-          <StampRendering stamps={shopInfo.stamp} />
-        </View>
+        <StampRendering stamps={shopInfo.stamp} />
       </View>
     </View>
   );
