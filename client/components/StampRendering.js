@@ -1,30 +1,33 @@
-import { TouchableWithoutFeedback } from "react-native";
+import {
+  TouchableWithoutFeedback,
+  StyleSheet,
+  View,
+  Image,
+} from "react-native";
 import blkStamp from "../assets/icons/blkStamp.png";
 import fullStamp from "../assets/icons/fullStamp.png";
 
-export const stampRendering = ({ stamp }) => {
+const stampRendering = ({ stamps }) => {
+  // console.log("StampRendering_stamps: ", stamps);
   const isStamp = Array(12);
-
   for (var i = 0; i < 12; i++) {
-    if (i < stamps) {
+    if (i < stamps.length) {
       isStamp[i] = fullStamp;
     } else {
       isStamp[i] = blkStamp;
     }
   }
-
   const goStampDetail = () => {
     navigation.navigate("StampDetail");
   };
 
   return (
     <View>
-      {isStamp.map((stamp) => {
+      {/* {isStamp.map((stamp) => {
         <TouchableWithoutFeedback key={stamp.stampId} onPress={goStampDetail}>
-          <Image source={isStamp[stampId]} style={style.blkStamp} />
+          <Image source={isStamp[stamp.stampId]} style={style.blkStamp} />
         </TouchableWithoutFeedback>;
-      })}
-
+      })} */}
       {/* stamp 현황 */}
       <View style={style.row}>
         <TouchableWithoutFeedback onPress={goStampDetail}>
@@ -73,3 +76,18 @@ export const stampRendering = ({ stamp }) => {
     </View>
   );
 };
+
+export default stampRendering;
+
+const style = StyleSheet.create({
+  blkStamp: {
+    width: 71,
+    height: 68,
+    marginRight: 14,
+    marginBottom: 33,
+  },
+  row: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+});

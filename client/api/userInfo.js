@@ -19,7 +19,7 @@ export const registerToken = async (name, userId, userPw, nickname) => {
 
       return tokenInfo;
     } else {
-      console.log(respone);
+      console.log(response);
     }
   } catch (error) {
     console.log("회원가입 에러: ", error);
@@ -27,10 +27,24 @@ export const registerToken = async (name, userId, userPw, nickname) => {
 };
 
 // 로그인
-export const loginToken = async () => {
+export const loginToken = async (userId, userPw) => {
   try {
-    const response = await client.post("/auth/signin", {});
-  } catch (error) {}
+    const response = await client.post("/auth/signin", {
+      email: userId,
+      password: userPw,
+    });
+    if (response.status == 201) {
+      const tokenInfo = response.data;
+      console.log(tokenInfo);
+
+      await AsyncStorage.setItem("AccessToken", tokenInfo.data.accessToken);
+      await AsyncStorage.setItem("RefreshToken", tokenInfo.data.refreshToken);
+    }
+
+    return response;
+  } catch (error) {
+    console.log("login api_로그인 실패");
+  }
 };
 
 // 닉네임 불러오기

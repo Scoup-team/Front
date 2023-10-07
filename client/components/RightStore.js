@@ -8,26 +8,13 @@ import {
 } from "react-native";
 import notice from "../assets/icons/notice.png";
 import shop from "../assets/icons/shop.png";
-// import StampRendering from "../components/StampRendering";
+import StampRendering from "../components/StampRendering";
 
-const RightStore = (shopData) => {
-  const [shopInfo, setShopInfo] = useState({
-    cafeImageUrl: "",
-    menu: [],
-    menuImageUrl: [],
-    name: "",
-    shopId: 0,
-    stamp: [],
-  });
+const RightStore = ({ shopData }) => {
+  console.log("RightStore_shopData: ", shopData);
 
-  useEffect(() => {
-    if (shopData) {
-      setShopInfo(shopData.shopData[0]);
-    }
-    console.log("R_받은 shopInfo:", shopInfo);
-  }, []);
-
-  console.log("R_받은 shopInfo:", shopInfo.name);
+  const shopInfo = shopData[0];
+  console.log("shopInfo.stamp: ", shopInfo.stamp);
 
   return (
     <View style={style.Home}>
@@ -70,7 +57,9 @@ const RightStore = (shopData) => {
           </View>
         </View>
 
-        <View style={style.stampContainer}>{/* <StampRendering /> */}</View>
+        <View style={style.stampContainer}>
+          <StampRendering stamps={shopInfo.stamp} />
+        </View>
       </View>
     </View>
   );

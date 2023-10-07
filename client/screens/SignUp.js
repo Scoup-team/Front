@@ -15,24 +15,24 @@ const SignUp = ({ navigation }) => {
 
   // const [autoLogin, setAutoLogin] = useState(false);
 
-  useEffect(() => {
-    IsAutoLogin();
-  }, [isFocused]);
+  // useEffect(() => {
+  //   IsAutoLogin();
+  // }, [isFocused]);
 
-  const IsAutoLogin = async () => {
-    try {
-      const isToken = await AsyncStorage.getItem("AccessToken");
-      if (isToken !== null) {
-        // console.log(isToken);
-        navigation.navigate("Home");
-      } else {
-        console.log(isToken);
-        // alert("회원가입을 진행해주세요.");
-      }
-    } catch (error) {
-      console.log("자동 로그인 실패", error);
-    }
-  };
+  // const IsAutoLogin = async () => {
+  //   try {
+  //     const isToken = await AsyncStorage.getItem("AccessToken");
+  //     if (isToken !== null) {
+  //       // console.log(isToken);
+  //       navigation.navigate("Home");
+  //     } else {
+  //       console.log(isToken);
+  //       // alert("회원가입을 진행해주세요.");
+  //     }
+  //   } catch (error) {
+  //     console.log("자동 로그인 실패", error);
+  //   }
+  // };
 
   const Register = async () => {
     try {

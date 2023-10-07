@@ -15,8 +15,9 @@ const SignIn = ({ navigation }) => {
   const Login = async () => {
     try {
       const response = await loginToken(userId, userPw);
-
       if (response.status == 201) {
+        console.log("Login_로그인 성공");
+        navigation.navigate("Home");
       }
     } catch (error) {
       console.log("로그인 오류: ", error);

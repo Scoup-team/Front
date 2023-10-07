@@ -12,35 +12,27 @@ import setting from "../assets/icons/setting.png";
 import { ScrollView } from "react-native";
 import RightStore from "./RightStore";
 
-const LeftSidebar = ({
-  data,
-  // isAddMode,
-  // stores,
-  // editMode,
-  // navigation,
-  // goStore,
-  // getResentEvent,
-}) => {
+const LeftSidebar = ({ data }) => {
   const [shopId, setShopId] = useState(-1);
   const [shopData, setShopData] = useState([]);
 
   useEffect(() => {
-    if (shopId == -1) {
-      setShopData(data[0]);
+    if (data && shopId == -1) {
       setShopId(data[0].shopId);
     }
-    console.log("data", data);
   }, []);
 
   useEffect(() => {
-    console.log("새로운 shopData: ", shopData);
-  }, [shopData]);
+    const filterdata = data.filter((x) => x.shopId == shopId);
+    setShopData(filterdata);
+    console.log("shopData: ", filterdata);
+  }, [shopId]);
 
   const goStore = (id) => {
     setShopId(id);
-    const filterdata = data.filter((x) => x.shopId == id);
-    setShopData(filterdata);
-    console.log("shopData", shopData);
+    // const filterdata = data.filter((x) => x.shopId == id);
+    // setShopData(filterdata);
+    // console.log("shopData: ", shopData);
   };
 
   return (
