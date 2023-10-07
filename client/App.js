@@ -81,21 +81,30 @@ const App = () => {
     <NavigationContainer style={styles.container}>
       <Stack.Navigator
         screenOptions={{ headerShown: false }}
-        initialRouteName="Home"
+        initialRouteName="SignIn"
       >
-        <Stack.Screen name="Main" component={MainTabNavigator} />
-        <Stack.Screen name="SearchPage" component={SearchPage} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="ModifyInfo" component={ModifyInfo} />
-        <Stack.Screen name="CouponPage" component={CouponPage} />
-        <Stack.Screen name="QrPage" component={QrPage} />
-        <Stack.Screen name="CameraPage" component={CameraPage} />
-        <Stack.Screen name="EventPage" component={EventPage} />
-        <Stack.Screen name="StampDetail" component={StampDetail} />
-        <Stack.Screen name="SignIn" component={SignIn} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-
-        <Stack.Screen name="FindPw" component={FindPw} />
+        {isLogin ? (
+          <>
+            <Stack.Screen name="Main" component={MainTabNavigator} />
+            <Stack.Screen name="SearchPage" component={SearchPage} />
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="ModifyInfo" component={ModifyInfo} />
+            <Stack.Screen name="CouponPage" component={CouponPage} />
+            <Stack.Screen name="QrPage" component={QrPage} />
+            <Stack.Screen name="CameraPage" component={CameraPage} />
+            <Stack.Screen name="EventPage" component={EventPage} />
+            <Stack.Screen name="StampDetail" component={StampDetail} />
+            <Stack.Screen name="SignIn" component={SignIn} />
+            <Stack.Screen name="SignUp" component={SignUp} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="SignIn" component={SignIn} />
+            <Stack.Screen name="FindPw" component={FindPw} />
+            <Stack.Screen name="Home" component={Home} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );

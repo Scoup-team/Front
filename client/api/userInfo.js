@@ -43,7 +43,7 @@ export const loginToken = async (userId, userPw) => {
 
     return response;
   } catch (error) {
-    console.log("login api_로그인 실패");
+    console.log("login api_로그인 실패", error);
   }
 };
 
