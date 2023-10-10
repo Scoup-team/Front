@@ -27,15 +27,15 @@ export const registerToken = async (name, userId, userPw, nickname) => {
 };
 
 // 로그인
-export const loginToken = async (userId, userPw) => {
+export const loginToken = async (id, pw) => {
   try {
     const response = await client.post("/auth/signin", {
-      email: userId,
-      password: userPw,
+      email: id,
+      password: pw,
     });
-    if (response.status == 201) {
+    if (response.status / 100 == 2) {
       const tokenInfo = response.data;
-      console.log(tokenInfo);
+      console.log("tokenInfo: ", tokenInfo);
 
       await AsyncStorage.setItem("AccessToken", tokenInfo.data.accessToken);
       await AsyncStorage.setItem("RefreshToken", tokenInfo.data.refreshToken);

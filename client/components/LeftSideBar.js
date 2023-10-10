@@ -12,13 +12,15 @@ import setting from "../assets/icons/setting.png";
 import { ScrollView } from "react-native";
 import RightStore from "./RightStore";
 
-const LeftSidebar = ({ data, isAddMode, editMode }) => {
+const LeftSidebar = ({ data, isAddMode, editMode, navigation }) => {
   const [shopId, setShopId] = useState(-1);
   const [shopData, setShopData] = useState([]);
 
   useEffect(() => {
-    if (data && shopId == -1) {
-      setShopId(data[0].shopId);
+    if (data) {
+      if (shopId == -1) {
+        setShopId(data[0].shopId);
+      }
     }
   }, []);
 
@@ -70,7 +72,7 @@ const LeftSidebar = ({ data, isAddMode, editMode }) => {
           </View>
         </TouchableWithoutFeedback>
       </View>
-      <RightStore shopData={shopData}></RightStore>
+      <RightStore shopData={shopData} navigation={navigation}></RightStore>
     </View>
   );
 };

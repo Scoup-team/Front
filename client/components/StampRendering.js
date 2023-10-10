@@ -8,11 +8,13 @@ import {
 import blkStamp from "../assets/icons/blkStamp.png";
 import fullStamp from "../assets/icons/fullStamp.png";
 
-const stampRendering = ({ stamps }) => {
+const stampRendering = ({ stamps, navigation }) => {
   const isStamp = Array(12).fill(blkStamp);
 
-  for (var i = 1; i <= stamps.length; i++) {
-    isStamp[i] = fullStamp;
+  if (stamps) {
+    for (var i = 1; i <= stamps.length; i++) {
+      isStamp[i] = fullStamp;
+    }
   }
 
   const goStampDetail = () => {
@@ -20,12 +22,12 @@ const stampRendering = ({ stamps }) => {
   };
 
   // 남은 스탬프의 개수 계산
-  const remainingStamps = 12 - stamps.length;
+  const remainingStamps = 12 - stamps?.length;
 
   return (
     <View style={style.row}>
       {/* stamp의 개수만큼 렌더링 */}
-      {stamps.map((stamp) => (
+      {stamps?.map((stamp) => (
         <TouchableWithoutFeedback key={stamp.stampId} onPress={goStampDetail}>
           <View style={style.stampContainer}>
             <Image source={isStamp[stamp.stampId]} style={style.stampImage} />

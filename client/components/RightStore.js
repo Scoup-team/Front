@@ -11,11 +11,13 @@ import shop from "../assets/icons/shop.png";
 import StampRendering from "../components/StampRendering";
 import getEvent from "../api/cafe";
 
-const RightStore = ({ shopData }) => {
+const RightStore = ({ shopData, navigation }) => {
   console.log("RightStore_shopData: ", shopData);
 
+  // if (shopData) {
   const shopInfo = shopData[0];
-  console.log("shopInfo.stamp: ", shopInfo.stamp);
+  // }
+  // console.log("shopInfo.stamp: ", shopInfo.stamp);
 
   const [event, setEvent] = useState("");
 
@@ -49,34 +51,34 @@ const RightStore = ({ shopData }) => {
 
         <View style={style.storeName}>
           <Image source={shop} style={style.shop} />
-          <Text style={[style.font, { marginLeft: 3 }]}>{shopInfo.name}</Text>
+          <Text style={[style.font, { marginLeft: 3 }]}>{shopInfo?.name}</Text>
         </View>
 
         <View style={style.bestMenu}>
           <View style={style.first}>
             <Image
-              source={{ uri: shopInfo.menuImageUrl[0] }}
+              source={{ uri: shopInfo?.menuImageUrl[0] }}
               style={style.menuImage}
             />
-            <Text style={style.menuFont}>{shopInfo.menu[0]}</Text>
+            <Text style={style.menuFont}>{shopInfo?.menu[0]}</Text>
           </View>
           <View style={style.second}>
             <Image
-              source={{ uri: shopInfo.menuImageUrl[1] }}
+              source={{ uri: shopInfo?.menuImageUrl[1] }}
               style={style.menuImage}
             />
-            <Text style={style.menuFont}>{shopInfo.menu[1]}</Text>
+            <Text style={style.menuFont}>{shopInfo?.menu[1]}</Text>
           </View>
           <View style={style.third}>
             <Image
-              source={{ uri: shopInfo.menuImageUrl[2] }}
+              source={{ uri: shopInfo?.menuImageUrl[2] }}
               style={style.menuImage}
             />
-            <Text style={style.menuFont}>{shopInfo.menu[2]}</Text>
+            <Text style={style.menuFont}>{shopInfo?.menu[2]}</Text>
           </View>
         </View>
 
-        <StampRendering stamps={shopInfo.stamp} />
+        <StampRendering stamps={shopInfo?.stamp} navigation={navigation} />
       </View>
     </View>
   );

@@ -7,7 +7,7 @@ import { useIsFocused } from "@react-navigation/native";
 
 // import { homeData } from "./Data/homeData";
 
-const Cafe = (navigation) => {
+const Cafe = ({ navigation }) => {
   const [stores, setStores] = useState([]);
 
   const isFocused = useIsFocused();
@@ -45,6 +45,7 @@ const Cafe = (navigation) => {
         data={stores}
         isAddMode={isAddMode}
         editMode={editMode}
+        navigate={navigation}
       ></LeftSidebar>
     </View>
   );

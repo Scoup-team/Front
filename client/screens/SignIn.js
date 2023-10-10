@@ -12,10 +12,10 @@ const SignIn = ({ navigation }) => {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
 
-  const Login = async (userId, userPw) => {
+  const Login = async () => {
     try {
       const response = await loginToken(userId, userPw);
-      if (response.status == 201) {
+      if (response && response.status / 100 == 2) {
         console.log("Login_로그인 성공");
         navigation.navigate("Home");
       }
@@ -37,7 +37,7 @@ const SignIn = ({ navigation }) => {
           <TextInput
             placeholder="이메일 주소"
             value={userId}
-            onChangeText={(text) => setUserId(text)}
+            onChangeText={setUserId}
             style={boxStyle.inputText}
           />
 
@@ -50,7 +50,7 @@ const SignIn = ({ navigation }) => {
             placeholder="영문, 숫자 포함 8자 이상"
             secureTextEntry
             value={userPw}
-            onChangeText={(text) => setUserPw(text)}
+            onChangeText={setUserPw}
             style={boxStyle.inputText}
           />
 
