@@ -9,7 +9,7 @@ client.defaults.headers["Content-Type"] = "application/json";
 
 client.interceptors.request.use(
   async (config) => {
-    if (config.url !== "/auth/signin") {
+    if (config.url !== "/auth/signin" || config.url !== "/auth/signup") {
       const accessToken = await AsyncStorage.getItem("AccessToken");
 
       config.headers["Authorization"] = accessToken;
@@ -28,7 +28,7 @@ client.interceptors.request.use(
 // 응답 인터셉터 추가
 client.interceptors.response.use(
   (response) => {
-    if (response.url !== "/auth/signin") {
+    if (response.url !== "/auth/signin" || response.url !== "/auth/signup") {
       return response;
     }
   },

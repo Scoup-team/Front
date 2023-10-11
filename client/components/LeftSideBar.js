@@ -17,17 +17,20 @@ const LeftSidebar = ({ data, isAddMode, editMode, navigation }) => {
   const [shopData, setShopData] = useState([]);
 
   useEffect(() => {
-    if (data) {
+    // console.log("Changed shopId");
+    console.log("Left_ stores: ", data);
+    if (data.length !== 0) {
+      console.log("Not Empty store");
       if (shopId == -1) {
         setShopId(data[0].shopId);
+      } else {
+        const filterdata = data.filter((x) => x.shopId == shopId);
+        setShopData(filterdata);
+        console.log("shopData: ", filterdata);
       }
+    } else {
+      console.log("Empty store");
     }
-  }, []);
-
-  useEffect(() => {
-    const filterdata = data.filter((x) => x.shopId == shopId);
-    setShopData(filterdata);
-    console.log("shopData: ", filterdata);
   }, [shopId]);
 
   const goStore = (id) => {
@@ -39,7 +42,7 @@ const LeftSidebar = ({ data, isAddMode, editMode, navigation }) => {
       <View style={styles.allStore}>
         <ScrollView>
           {data.map((store) => (
-            <TouchableWithoutFeedback key={store.shopId}>
+            <TouchableWithoutFeedback key={store?.shopId}>
               <View>
                 <TouchableWithoutFeedback
                   onPress={() => {

@@ -10,7 +10,7 @@ export const registerToken = async (name, userId, userPw, nickname) => {
       password: userPw,
       nickname: nickname,
     });
-    if (response.status == 201) {
+    if (response.status / 100 == 2) {
       const tokenInfo = response.data;
       console.log(tokenInfo);
 

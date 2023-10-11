@@ -38,7 +38,7 @@ const SignUp = ({ navigation }) => {
     try {
       const responese = await registerToken(name, userId, userPw, nickname);
 
-      if (responese.status == 201) {
+      if (responese && responese.status == 201) {
         alert("회원가입 성공");
         navigation.navigate("SignIn");
       }

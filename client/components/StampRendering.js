@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   TouchableWithoutFeedback,
   StyleSheet,
@@ -11,8 +11,14 @@ import fullStamp from "../assets/icons/fullStamp.png";
 const stampRendering = ({ stamps, navigation }) => {
   const isStamp = Array(12).fill(blkStamp);
 
-  if (stamps) {
-    for (var i = 1; i <= stamps.length; i++) {
+  if (stamps === undefined) {
+    stamps = [];
+  }
+
+  console.log("stamps: ", stamps);
+
+  if (stamps?.length > 0) {
+    for (var i = 1; i <= stamps?.length; i++) {
       isStamp[i] = fullStamp;
     }
   }
@@ -22,7 +28,7 @@ const stampRendering = ({ stamps, navigation }) => {
   };
 
   // 남은 스탬프의 개수 계산
-  const remainingStamps = 12 - stamps?.length;
+  const remainingStamps = 12 - stamps?.length ?? 0;
 
   return (
     <View style={style.row}>

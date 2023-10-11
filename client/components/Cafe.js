@@ -19,7 +19,7 @@ const Cafe = ({ navigation }) => {
   const getHomeData = async () => {
     try {
       const home = await getHome();
-      if (home) {
+      if (!home.empty) {
         setStores(home);
       } else {
         console.log("가게 없음");
@@ -45,7 +45,7 @@ const Cafe = ({ navigation }) => {
         data={stores}
         isAddMode={isAddMode}
         editMode={editMode}
-        navigate={navigation}
+        navigation={navigation}
       ></LeftSidebar>
     </View>
   );

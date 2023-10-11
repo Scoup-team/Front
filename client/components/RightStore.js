@@ -14,9 +14,8 @@ import getEvent from "../api/cafe";
 const RightStore = ({ shopData, navigation }) => {
   console.log("RightStore_shopData: ", shopData);
 
-  // if (shopData) {
   const shopInfo = shopData[0];
-  // }
+
   // console.log("shopInfo.stamp: ", shopInfo.stamp);
 
   const [event, setEvent] = useState("");
@@ -40,7 +39,7 @@ const RightStore = ({ shopData, navigation }) => {
     <View style={style.Home}>
       <View style={style.storeArea}>
         <TouchableWithoutFeedback
-        // onPress={() => navigation.navigate("EventPage")}
+          onPress={() => navigation.navigate("EventPage")}
         >
           <View style={style.noticeContainer}>
             <Image source={notice} style={style.notice} />
