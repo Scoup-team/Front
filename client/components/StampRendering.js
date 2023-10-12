@@ -9,19 +9,11 @@ import blkStamp from "../assets/icons/blkStamp.png";
 import fullStamp from "../assets/icons/fullStamp.png";
 
 const stampRendering = ({ stamps, navigation }) => {
-  const isStamp = Array(12).fill(blkStamp);
-
   if (stamps === undefined) {
     stamps = [];
   }
 
   console.log("stamps: ", stamps);
-
-  if (stamps?.length > 0) {
-    for (var i = 1; i <= stamps?.length; i++) {
-      isStamp[i] = fullStamp;
-    }
-  }
 
   const goStampDetail = () => {
     navigation.navigate("StampDetail");
@@ -36,7 +28,7 @@ const stampRendering = ({ stamps, navigation }) => {
       {stamps?.map((stamp) => (
         <TouchableWithoutFeedback key={stamp.stampId} onPress={goStampDetail}>
           <View style={style.stampContainer}>
-            <Image source={isStamp[stamp.stampId]} style={style.stampImage} />
+            <Image source={fullStamp} style={style.stampImage} />
           </View>
         </TouchableWithoutFeedback>
       ))}
