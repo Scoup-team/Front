@@ -20,14 +20,15 @@ export const postReceipt = async (formData) => {
 
 //영수증 정보를 서버로 보내는 API
 export const postReceiptData = async (receiptInfo) => {
-  const config = {
-    headers: {
-      data: receiptInfo,
-    },
+  console.log(receiptInfo);
+  const data = {
+    receiptInfo,
   };
   try {
-    const res = await client.post(`home/receipt`, {}, config);
-    console.log("Response:", res);
+    const res = await client.post(`home/receipt`, receiptInfo, {
+      headers: { "Content-Type": `application/json` },
+    });
+    console.log("Response:", res.data);
   } catch (err) {
     console.error("Error posting receipt: ", err);
     throw err;
