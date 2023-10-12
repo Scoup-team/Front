@@ -44,7 +44,7 @@ export const boxStyle = StyleSheet.create({
     height: 42,
     fontSize: 20,
     fontStyle: "normal",
-    fontWeight: "700",
+    // fontWeight: 700,
     letterSpacing: -0.4,
     borderRadius: 8,
     paddingLeft: 9,
@@ -54,7 +54,7 @@ export const boxStyle = StyleSheet.create({
 export const textStyles = StyleSheet.create({
   mainText: {
     fontSize: 20,
-    fontWeight: "bold",
+    // fontWeight: "bold",
     textAlign: "center",
     marginTop: 66,
     fontStyle: "normal",

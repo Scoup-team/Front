@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     fontStyle: "normal",
-    fontWeight: 700,
+    // fontWeight: 700,
     flexGrow: 1,
     marginRight: 31,
   },
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   availabletext: {
     // color: "#6E85B7",
     fontSize: 20,
-    fontWeight: 500,
+    // fontWeight: 500,
     textAlign: "center",
     alignItems: "center",
     alignSelf: "center",
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
   disabledtext: {
     color: "#C4C4C4",
     fontSize: 20,
-    fontWeight: 500,
+    // fontWeight: 500,
     textAlign: "center",
     alignItems: "center",
     alignSelf: "center",
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     fontStyle: "normal",
-    fontWeight: 400,
+    // fontWeight: 400,
     flexGrow: 1,
   },
 
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 15,
     fontStyle: "normal",
-    fontWeight: 500,
+    // fontWeight: 500,
     flexGrow: 1,
     marginRight: 15,
     marginTop: 4,
@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     fontStyle: "normal",
-    fontWeight: 600,
+    // fontWeight: 600,
     flexGrow: 1,
   },
 });

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { SPRING_URL } from "./url";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Linking } from "react-native";
 
 const client = axios.create();
 client.defaults.baseURL = `${SPRING_URL}`;
@@ -52,10 +53,9 @@ client.interceptors.response.use(
       } else {
         console.error("인터셉터_Non-Axios Error:", error.message);
       }
+    } else {
+      Linking.openURL("SignIn");
     }
-    // else {
-    //   console.log("401에러 아님_인터셉터에서 처리 안됨", error);
-    // }
     return Promise.reject(error);
   }
 );
