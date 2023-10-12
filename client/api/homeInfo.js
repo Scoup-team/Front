@@ -19,3 +19,15 @@ export const getHome = async () => {
     throw error;
   }
 };
+
+// 가게 데이터 삭제하기
+export const rmStoreData = async (id) => {
+  try {
+    const response = await client.delete("/home", {
+      data: id,
+    });
+    return response;
+  } catch (error) {
+    console.log("가게 삭제 error: ", error);
+  }
+};
