@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Text, TextInput, View, Button, Image, StyleSheet } from "react-native";
 import ClickButton from "../components/ClickButton";
 import logo from "../assets/icons/logo.png";
+import { loginToken } from "../api/userInfo";
+
 import { useIsFocused } from "@react-navigation/native";
 
 // 로고는 추후에 수정 예정
@@ -10,7 +12,17 @@ const SignIn = ({ navigation }) => {
   const [userId, setUserId] = useState("");
   const [userPw, setUserPw] = useState("");
 
-  const Login = async () => {};
+  const Login = async () => {
+    try {
+      const response = await loginToken(userId, userPw);
+      if (response && response.status / 100 == 2) {
+        console.log("Login_로그인 성공");
+        navigation.navigate("Home");
+      }
+    } catch (error) {
+      console.log("로그인 오류: ", error);
+    }
+  };
 
   return (
     <View>
@@ -78,7 +90,7 @@ export const boxStyle = StyleSheet.create({
     height: 42,
     fontSize: 20,
     fontStyle: "normal",
-    fontWeight: "700",
+    // fontWeight: 700,
     letterSpacing: -0.4,
     borderRadius: 8,
     paddingLeft: 9,

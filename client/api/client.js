@@ -1,22 +1,24 @@
 import axios from "axios";
 import { SPRING_URL } from "./url";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Linking } from "react-native";
 
 const client = axios.create();
 client.defaults.baseURL = `${SPRING_URL}`;
 client.defaults.withCredentials = true;
 client.defaults.headers["Content-Type"] = "application/json";
 
-// const token = AsyncStorage.getItem("AccessToken");
-// client.defaults.headers.common["Authorization"] = token;
-
 client.interceptors.request.use(
   async (config) => {
-    const accessToken = await AsyncStorage.getItem("AccessToken");
+    if (config.url !== "/auth/signin" || config.url !== "/auth/signup") {
+      const accessToken = await AsyncStorage.getItem("AccessToken");
 
-    config.headers["Authorization"] = accessToken;
+      config.headers["Authorization"] = accessToken;
 
-    return config;
+      return config;
+    } else {
+      return config;
+    }
   },
   (error) => {
     console.log("요청 interceptor 오류", error);
@@ -27,7 +29,9 @@ client.interceptors.request.use(
 // 응답 인터셉터 추가
 client.interceptors.response.use(
   (response) => {
-    return response;
+    if (response.url !== "/auth/signin" || response.url !== "/auth/signup") {
+      return response;
+    }
   },
   async (error) => {
     if (axios.isAxiosError(error)) {
@@ -40,7 +44,6 @@ client.interceptors.response.use(
         console.log("재발급 받은 AccessToken: ", accessToken);
 
         error.config.headers = {
-          // "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
         };
 
@@ -51,7 +54,7 @@ client.interceptors.response.use(
         console.error("인터셉터_Non-Axios Error:", error.message);
       }
     } else {
-      console.log("401에러 아님_인터셉터에서 처리 안됨", error);
+      Linking.openURL("SignIn");
     }
     return Promise.reject(error);
   }
@@ -69,17 +72,14 @@ export const tokenRefresh = async (acToken, rfToken) => {
         },
       }
     );
-    // console.log("토큰 재발급 response: ", response.data);
 
     if (response.data.status == 201) {
-      //   console.log("재발급_201");
       await AsyncStorage.setItem("AccessToken", response.data.data.accessToken);
       await AsyncStorage.setItem(
         "RefreshToken",
         response.data.data.refreshToken
       );
     } else if (response.data.status == 403) {
-      //   console.log("재발급_403");
       if (
         response.data.message == "토큰이 모두 유효하여 재발급 받을 수 없습니다"
       ) {
@@ -90,7 +90,6 @@ export const tokenRefresh = async (acToken, rfToken) => {
         window.location.replace("SignIn");
       }
     } else if (response.data.status == 404) {
-      //   console.log("재발급_404");
       window.location.replace("SignIn");
     } else {
       console.log("재발급_error", response.data.status);

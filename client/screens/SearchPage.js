@@ -39,7 +39,7 @@ const SearchPage = ({ navigation }) => {
 
   const postAddShopData = async (shopId) => {
     try {
-      const data = await postAddShop(userId, shopId);
+      const data = await postAddShop(shopId);
       console.log(data.message);
       Alert.alert("가게 추가에 성공했습니다.");
       navigation.pop();
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
     fontFamily: "Inter",
     fontSize: 9,
     fontStyle: "normal",
-    fontWeight: 500,
+    // fontWeight: 500,
   },
   address: {
     paddingTop: 5,
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     color: "#5A5858",
     fontSize: 9,
-    fontWeight: 500,
+    // fontWeight: 500,
     // litterSpacing: 0.18,
     fontStyle: "normal",
   },

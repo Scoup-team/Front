@@ -10,28 +10,47 @@ export const registerToken = async (name, userId, userPw, nickname) => {
       password: userPw,
       nickname: nickname,
     });
-    const tokenInfo = response.data;
-    console.log(tokenInfo);
+    if (response.status / 100 == 2) {
+      const tokenInfo = response.data;
+      console.log(tokenInfo);
 
-    await AsyncStorage.setItem("AccessToken", tokenInfo.data.accessToken);
-    await AsyncStorage.setItem("RefreshToken", tokenInfo.data.refreshToken);
+      await AsyncStorage.setItem("AccessToken", tokenInfo.data.accessToken);
+      await AsyncStorage.setItem("RefreshToken", tokenInfo.data.refreshToken);
 
-    return tokenInfo;
+      return tokenInfo;
+    } else {
+      console.log(response);
+    }
   } catch (error) {
     console.log("회원가입 에러: ", error);
+  }
+};
+
+// 로그인
+export const loginToken = async (id, pw) => {
+  try {
+    const response = await client.post("/auth/signin", {
+      email: id,
+      password: pw,
+    });
+    if (response.status / 100 == 2) {
+      const tokenInfo = response.data;
+      console.log("tokenInfo: ", tokenInfo);
+
+      await AsyncStorage.setItem("AccessToken", tokenInfo.data.accessToken);
+      await AsyncStorage.setItem("RefreshToken", tokenInfo.data.refreshToken);
+    }
+
+    return response;
+  } catch (error) {
+    console.log("login api_로그인 실패", error);
   }
 };
 
 // 닉네임 불러오기
 export const getNickname = async () => {
   try {
-    // const config = {
-    //   headers: {
-    //     userId: 3,
-    //   },
-    // };
-    const config = await handleGetToken();
-    const response = await client.get("/user", config);
+    const response = await client.get("/user");
     console.log("닉네임 가져오기 성공:", response.data.data.nickname);
     return response.data.data.nickname;
   } catch (error) {

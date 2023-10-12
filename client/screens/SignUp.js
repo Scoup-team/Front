@@ -15,30 +15,30 @@ const SignUp = ({ navigation }) => {
 
   // const [autoLogin, setAutoLogin] = useState(false);
 
-  useEffect(() => {
-    IsAutoLogin();
-  }, [isFocused]);
+  // useEffect(() => {
+  //   IsAutoLogin();
+  // }, [isFocused]);
 
-  const IsAutoLogin = async () => {
-    try {
-      const isToken = await AsyncStorage.getItem("AccessToken");
-      if (isToken !== null) {
-        // console.log(isToken);
-        navigation.navigate("Home");
-      } else {
-        console.log(isToken);
-        // alert("회원가입을 진행해주세요.");
-      }
-    } catch (error) {
-      console.log("자동 로그인 실패", error);
-    }
-  };
+  // const IsAutoLogin = async () => {
+  //   try {
+  //     const isToken = await AsyncStorage.getItem("AccessToken");
+  //     if (isToken !== null) {
+  //       // console.log(isToken);
+  //       navigation.navigate("Home");
+  //     } else {
+  //       console.log(isToken);
+  //       // alert("회원가입을 진행해주세요.");
+  //     }
+  //   } catch (error) {
+  //     console.log("자동 로그인 실패", error);
+  //   }
+  // };
 
   const Register = async () => {
     try {
       const responese = await registerToken(name, userId, userPw, nickname);
 
-      if (responese.status == 201) {
+      if (responese && responese.status == 201) {
         alert("회원가입 성공");
         navigation.navigate("SignIn");
       }
@@ -114,7 +114,7 @@ export const boxStyle = StyleSheet.create({
     height: 42,
     fontSize: 20,
     fontStyle: "normal",
-    fontWeight: "700",
+    // fontWeight: 700,
     letterSpacing: -0.4,
     borderRadius: 8,
     paddingLeft: 9,
@@ -128,7 +128,7 @@ export const textStyles = StyleSheet.create({
   },
   mainText: {
     fontSize: 20,
-    fontWeight: "bold",
+    // fontWeight: "bold",
     textAlign: "center",
     marginTop: 66,
     fontStyle: "normal",

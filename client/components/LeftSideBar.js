@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Image,
@@ -10,56 +10,81 @@ import plusStore from "../assets/icons/plusStore.png";
 import cozy from "../assets/icons/cozy.png";
 import setting from "../assets/icons/setting.png";
 import { ScrollView } from "react-native";
+import RightStore from "./RightStore";
 
-const LeftSidebar = ({
-  isAddMode,
-  stores,
-  editMode,
-  navigation,
-  goStore,
-  // getResentEvent,
-}) => {
+const LeftSidebar = ({ data, isAddMode, editMode, navigation }) => {
+  const [shopId, setShopId] = useState(-1);
+  const [shopData, setShopData] = useState([]);
+
+  useEffect(() => {
+    // console.log("Changed shopId");
+    console.log("Left_ stores: ", data);
+    if (data.length !== 0) {
+      console.log("Not Empty store");
+      if (shopId == -1) {
+        setShopId(data[0].shopId);
+      } else {
+        const filterdata = data.filter((x) => x.shopId == shopId);
+        setShopData(filterdata);
+        console.log("shopData: ", filterdata);
+      }
+    } else {
+      console.log("Empty store");
+    }
+  }, [shopId]);
+
+  const goStore = (id) => {
+    setShopId(id);
+  };
+
   return (
-    <View style={styles.allStore}>
-      <ScrollView>
-        {stores.map((stores, index) => (
-          <TouchableWithoutFeedback key={stores.shopId}>
-            <View>
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  goStore(index);
-                }}
-              >
-                <Image source={cozy} style={styles.clkStore} />
-              </TouchableWithoutFeedback>
-              {isAddMode && (
-                <Image source={removeStore} style={styles.rmStore} />
-              )}
-            </View>
-          </TouchableWithoutFeedback>
-        ))}
+    <View style={styles.Home}>
+      <View style={styles.allStore}>
+        <ScrollView>
+          {data.map((store) => (
+            <TouchableWithoutFeedback key={store?.shopId}>
+              <View>
+                <TouchableWithoutFeedback
+                  onPress={() => {
+                    goStore(store.shopId);
+                  }}
+                >
+                  <Image source={cozy} style={styles.clkStore} />
+                </TouchableWithoutFeedback>
+                {isAddMode && (
+                  <Image source={removeStore} style={styles.rmStore} />
+                )}
+              </View>
+            </TouchableWithoutFeedback>
+          ))}
 
-        {isAddMode && (
-          <TouchableWithoutFeedback
-            onPress={() => navigation.navigate("SearchPage")}
-          >
-            <View>
-              <Image source={plusStore} style={styles.plsStore} />
-            </View>
-          </TouchableWithoutFeedback>
-        )}
-      </ScrollView>
+          {isAddMode && (
+            <TouchableWithoutFeedback
+              onPress={() => navigation.navigate("SearchPage")}
+            >
+              <View>
+                <Image source={plusStore} style={styles.plsStore} />
+              </View>
+            </TouchableWithoutFeedback>
+          )}
+        </ScrollView>
 
-      <TouchableWithoutFeedback onPress={editMode}>
-        <View style={styles.settingContainer}>
-          <Image source={setting} style={styles.setting} />
-        </View>
-      </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={editMode}>
+          <View style={styles.settingContainer}>
+            <Image source={setting} style={styles.setting} />
+          </View>
+        </TouchableWithoutFeedback>
+      </View>
+      <RightStore shopData={shopData} navigation={navigation}></RightStore>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  Home: {
+    flex: 1,
+    flexDirection: "row",
+  },
   allStore: {
     width: 80,
     height: "100%",
