@@ -34,3 +34,13 @@ export const postReceiptData = async (receiptInfo) => {
     throw err;
   }
 };
+
+// 상세 페이지 정보 불러오기
+export const detailPage = async (stampId) => {
+  try {
+    const response = await client.get(`/home/${stampId}`);
+    return response;
+  } catch (error) {
+    console.log("상세 페이지 정보 불러오기 오류: ", error);
+  }
+};

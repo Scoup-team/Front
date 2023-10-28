@@ -36,14 +36,9 @@ const stampRendering = ({ stamps, navigation }) => {
       {Array(remainingStamps)
         .fill()
         .map((_, index) => (
-          <TouchableWithoutFeedback
-            key={`remaining-${index}`}
-            onPress={goStampDetail}
-          >
-            <View style={style.stampContainer}>
-              <Image source={blkStamp} style={style.stampImage} />
-            </View>
-          </TouchableWithoutFeedback>
+          <View style={style.stampContainer} key={`remaining-${index}`}>
+            <Image source={blkStamp} style={style.stampImage} />
+          </View>
         ))}
     </View>
   );
