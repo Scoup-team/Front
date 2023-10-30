@@ -11,13 +11,13 @@ import cozy from "../assets/icons/cozy.png";
 import setting from "../assets/icons/setting.png";
 import { ScrollView } from "react-native";
 import RightStore from "./RightStore";
+import { rmStoreData } from "../api/homeInfo";
 
 const LeftSidebar = ({ data, isAddMode, editMode, navigation }) => {
   const [shopId, setShopId] = useState(-1);
   const [shopData, setShopData] = useState([]);
 
   useEffect(() => {
-    // console.log("Changed shopId");
     console.log("Left_ stores: ", data);
     if (data.length !== 0) {
       console.log("Not Empty store");
@@ -37,6 +37,19 @@ const LeftSidebar = ({ data, isAddMode, editMode, navigation }) => {
     setShopId(id);
   };
 
+  const deleteStore = async (id) => {
+    try {
+      if (isAddMode) {
+        const response = await rmStoreData(id);
+        if (response.status == 200) {
+          alert("가게 삭제 성공");
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <View style={styles.Home}>
       <View style={styles.allStore}>
@@ -52,7 +65,13 @@ const LeftSidebar = ({ data, isAddMode, editMode, navigation }) => {
                   <Image source={cozy} style={styles.clkStore} />
                 </TouchableWithoutFeedback>
                 {isAddMode && (
-                  <Image source={removeStore} style={styles.rmStore} />
+                  <TouchableWithoutFeedback
+                    onPress={() => {
+                      deleteStore(store.shopId);
+                    }}
+                  >
+                    <Image source={removeStore} style={styles.rmStore} />
+                  </TouchableWithoutFeedback>
                 )}
               </View>
             </TouchableWithoutFeedback>

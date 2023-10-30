@@ -13,9 +13,11 @@ import coffee from "../assets/icons/coffee.png";
 import { deleteUser } from "../api/userInfo";
 import { getNickname } from "../api/userInfo";
 import { useEffect } from "react";
+import { useIsFocused } from "@react-navigation/native";
 
 const MyPage = ({ navigation }) => {
   const [nickname, setNickname] = useState("");
+  const isFocused = useIsFocused();
 
   const CouponPageClick = () => {
     navigation;
@@ -23,7 +25,7 @@ const MyPage = ({ navigation }) => {
 
   useEffect(() => {
     getNick();
-  }, []);
+  }, [isFocused]);
 
   const getNick = async () => {
     const nick = await getNickname();
