@@ -17,12 +17,28 @@ import order from "../assets/icons/order.png";
 import card from "../assets/icons/card.png";
 import receipt from "../assets/icons/receipt.png";
 import shopEx from "../assets/icons/shopEx.png";
+import { detailPage } from "../api/receipt";
 
-const StampDetail = ({ navigation }) => {
-  const stores = [{ id: 1, name: "카페코지" }];
+const StampDetail = ({ navigation, route }) => {
+  const { stampId } = route.params;
+  const [detailData, setDetailData] = useState({});
+
+  useEffect(() => {
+    getDetailData();
+  }, []);
+
+  const getDetailData = async () => {
+    try {
+      const response = await detailPage(stampId);
+      setDetailData(response.data);
+    } catch (error) {
+      console.log("getDetailData 에러", error);
+    }
+  };
+
   return (
     <View style={styles.allContainer}>
-      <LeftSidebar navigation={navigation} stores={stores} />
+      {/* <LeftSidebar navigation={navigation} stores={stores} /> */}
       <View style={styles.storeSection}>
         <View style={styles.header}>
           <Image source={back} style={styles.back} />
@@ -32,7 +48,7 @@ const StampDetail = ({ navigation }) => {
           <Image source={shopEx} style={styles.shopEx} />
           <View style={styles.sectionName}>
             <Image source={shop} style={styles.shopIcon} />
-            <Text style={styles.storeName}>카페코지</Text>
+            <Text style={styles.storeName}>{detailData.cafeName}</Text>
           </View>
 
           <View style={styles.orderSection}>
@@ -43,12 +59,12 @@ const StampDetail = ({ navigation }) => {
             {/* 주문 내역 */}
             <View style={styles.orderMenuSection}>
               <View style={styles.orderMenu}>
-                <Text style={styles.orderText}>리얼두부칩</Text>
-                <Text style={styles.orderText}>3,400</Text>
+                <Text style={styles.orderText}>{detailData.menu[0].name}</Text>
+                <Text style={styles.orderText}>{detailData.menu[0].price}</Text>
               </View>
               <View style={styles.orderMenu}>
-                <Text style={styles.orderText}>I-F{")"}DCF 아메리카노</Text>
-                <Text style={styles.orderText}>4,800</Text>
+                <Text style={styles.orderText}>{detailData.menu[1].name}</Text>
+                <Text style={styles.orderText}>{detailData.menu[1].price}</Text>
               </View>
             </View>
             {/* 결제 카드 정보 */}
@@ -58,11 +74,11 @@ const StampDetail = ({ navigation }) => {
             <View style={styles.cardSection}>
               <View style={styles.card}>
                 <Text style={styles.orderText}>카드 종류</Text>
-                <Text style={styles.orderText}>하나카드</Text>
+                <Text style={styles.orderText}>{detailData.cardName}</Text>
               </View>
               <View style={styles.card}>
                 <Text style={styles.orderText}>카드 번호</Text>
-                <Text style={styles.orderText}>53274011***111</Text>
+                <Text style={styles.orderText}>{detailData.cardNum}</Text>
               </View>
             </View>
           </View>

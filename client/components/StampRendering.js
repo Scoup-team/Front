@@ -15,8 +15,8 @@ const stampRendering = ({ stamps, navigation }) => {
 
   console.log("stamps: ", stamps);
 
-  const goStampDetail = () => {
-    navigation.navigate("StampDetail");
+  const goStampDetail = (stampId) => {
+    navigation.navigate("StampDetail", { stampId: stampId });
   };
 
   // 남은 스탬프의 개수 계산
@@ -26,7 +26,10 @@ const stampRendering = ({ stamps, navigation }) => {
     <View style={style.row}>
       {/* stamp의 개수만큼 렌더링 */}
       {stamps?.map((stamp) => (
-        <TouchableWithoutFeedback key={stamp.stampId} onPress={goStampDetail}>
+        <TouchableWithoutFeedback
+          key={stamp.stampId}
+          onPress={() => goStampDetail(stamp.stampId)}
+        >
           <View style={style.stampContainer}>
             <Image source={fullStamp} style={style.stampImage} />
           </View>
