@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Image,
@@ -18,9 +18,9 @@ const LeftSidebar = ({ data, isAddMode, editMode, navigation }) => {
   const [shopData, setShopData] = useState([]);
 
   useEffect(() => {
-    console.log("Left_ stores: ", data);
+    // console.log("Left_ stores: ", data);
     if (data.length !== 0) {
-      console.log("Not Empty store");
+      // 처음 홈화면에 들어갔을 때, index[0]의 가게 정보가 출력
       if (shopId == -1) {
         setShopId(data[0].shopId);
       } else {
@@ -33,10 +33,12 @@ const LeftSidebar = ({ data, isAddMode, editMode, navigation }) => {
     }
   }, [shopId]);
 
+  // 가게 이동
   const goStore = (id) => {
     setShopId(id);
   };
 
+  // 가게 삭제
   const deleteStore = async (id) => {
     try {
       if (isAddMode) {
@@ -55,26 +57,24 @@ const LeftSidebar = ({ data, isAddMode, editMode, navigation }) => {
       <View style={styles.allStore}>
         <ScrollView>
           {data.map((store) => (
-            <TouchableWithoutFeedback key={store?.shopId}>
-              <View>
+            <View key={store?.shopId}>
+              <TouchableWithoutFeedback
+                onPress={() => {
+                  goStore(store.shopId);
+                }}
+              >
+                <Image source={cozy} style={styles.clkStore} />
+              </TouchableWithoutFeedback>
+              {isAddMode && (
                 <TouchableWithoutFeedback
                   onPress={() => {
-                    goStore(store.shopId);
+                    deleteStore(store.shopId);
                   }}
                 >
-                  <Image source={cozy} style={styles.clkStore} />
+                  <Image source={removeStore} style={styles.rmStore} />
                 </TouchableWithoutFeedback>
-                {isAddMode && (
-                  <TouchableWithoutFeedback
-                    onPress={() => {
-                      deleteStore(store.shopId);
-                    }}
-                  >
-                    <Image source={removeStore} style={styles.rmStore} />
-                  </TouchableWithoutFeedback>
-                )}
-              </View>
-            </TouchableWithoutFeedback>
+              )}
+            </View>
           ))}
 
           {isAddMode && (
@@ -94,7 +94,7 @@ const LeftSidebar = ({ data, isAddMode, editMode, navigation }) => {
           </View>
         </TouchableWithoutFeedback>
       </View>
-      <RightStore shopData={shopData} navigation={navigation}></RightStore>
+      <RightStore shopData={shopData} navigation={navigation} />
     </View>
   );
 };

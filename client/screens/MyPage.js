@@ -52,7 +52,7 @@ const MyPage = ({ navigation }) => {
         </Pressable>
       </View>
       <Text
-        onPress={() => navigation.navigate("SignIn")}
+        // onPress={() => navigation.navigate("SignIn")}
         style={styles.BottomMenu}
       >
         로그아웃하기

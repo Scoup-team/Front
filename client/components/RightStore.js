@@ -10,15 +10,24 @@ import notice from "../assets/icons/notice.png";
 import shop from "../assets/icons/shop.png";
 import StampRendering from "../components/StampRendering";
 import getEvent from "../api/cafe";
+import StampDetail from "../screens/StampDetail";
 
 const RightStore = ({ shopData, navigation }) => {
-  console.log("RightStore_shopData: ", shopData);
+
+  useEffect(() => {
+    setSelectedStampId(null);
+  }, [shopData])
 
   const shopInfo = shopData[0];
 
-  // console.log("shopInfo.stamp: ", shopInfo.stamp);
 
   const [event, setEvent] = useState("");
+  const [selectedStampId, setSelectedStampId] = useState(null);
+
+  const onStampPress = (stampId) => {
+    // console.log("Setting selectedStampId", stampId);
+    setSelectedStampId(stampId);
+  };
 
   // useEffect(() => {
   //   getResentEvent(shopInfo.shopId);
@@ -35,50 +44,56 @@ const RightStore = ({ shopData, navigation }) => {
     }
   };
 
+
+
   return (
     <View style={style.Home}>
-      <View style={style.storeArea}>
-        <TouchableWithoutFeedback
-          onPress={() => navigation.navigate("EventPage")}
-        >
-          <View style={style.noticeContainer}>
-            <Image source={notice} style={style.notice} />
-            {/* <Text>{event}</Text> // 실제 api 연결 후*/}
-            <Text>이벤트</Text>
-          </View>
-        </TouchableWithoutFeedback>
+      {selectedStampId ? (
+        <StampDetail stampId={selectedStampId} onStampPress={onStampPress} />
+      ) : (
+        <View style={style.storeArea}>
+          <TouchableWithoutFeedback
+            onPress={() => navigation.navigate("EventPage")}
+          >
+            <View style={style.noticeContainer}>
+              <Image source={notice} style={style.notice} />
+              {/* <Text>{event}</Text> // 실제 api 연결 후*/}
+              <Text>이벤트</Text>
+            </View>
+          </TouchableWithoutFeedback>
 
-        <View style={style.storeName}>
-          <Image source={shop} style={style.shop} />
-          <Text style={[style.font, { marginLeft: 3 }]}>{shopInfo?.name}</Text>
+          <View style={style.storeName}>
+            <Image source={shop} style={style.shop} />
+            <Text style={[style.font, { marginLeft: 3 }]}>{shopInfo?.name}</Text>
+          </View>
+
+          <View style={style.bestMenu}>
+            <View style={style.first}>
+              <Image
+                source={{ uri: shopInfo?.menuImageUrl[0] }}
+                style={style.menuImage}
+              />
+              <Text style={style.menuFont}>{shopInfo?.menu[0]}</Text>
+            </View>
+            <View style={style.second}>
+              <Image
+                source={{ uri: shopInfo?.menuImageUrl[1] }}
+                style={style.menuImage}
+              />
+              <Text style={style.menuFont}>{shopInfo?.menu[1]}</Text>
+            </View>
+            <View style={style.third}>
+              <Image
+                source={{ uri: shopInfo?.menuImageUrl[2] }}
+                style={style.menuImage}
+              />
+              <Text style={style.menuFont}>{shopInfo?.menu[2]}</Text>
+            </View>
+          </View>
+
+          <StampRendering stamps={shopInfo?.stamp} onStampPress={onStampPress} />
         </View>
-
-        <View style={style.bestMenu}>
-          <View style={style.first}>
-            <Image
-              source={{ uri: shopInfo?.menuImageUrl[0] }}
-              style={style.menuImage}
-            />
-            <Text style={style.menuFont}>{shopInfo?.menu[0]}</Text>
-          </View>
-          <View style={style.second}>
-            <Image
-              source={{ uri: shopInfo?.menuImageUrl[1] }}
-              style={style.menuImage}
-            />
-            <Text style={style.menuFont}>{shopInfo?.menu[1]}</Text>
-          </View>
-          <View style={style.third}>
-            <Image
-              source={{ uri: shopInfo?.menuImageUrl[2] }}
-              style={style.menuImage}
-            />
-            <Text style={style.menuFont}>{shopInfo?.menu[2]}</Text>
-          </View>
-        </View>
-
-        <StampRendering stamps={shopInfo?.stamp} navigation={navigation} />
-      </View>
+      )}
     </View>
   );
 };

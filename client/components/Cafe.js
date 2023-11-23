@@ -5,8 +5,6 @@ import RightStore from "./RightStore";
 import { getHome } from "../api/homeInfo";
 import { useIsFocused } from "@react-navigation/native";
 
-// import { homeData } from "./Data/homeData";
-
 const Cafe = ({ navigation }) => {
   const [stores, setStores] = useState([]);
 
@@ -41,7 +39,6 @@ const Cafe = ({ navigation }) => {
     <View style={style.Home}>
       <StatusBar backgroundColor="#F2F2F2" />
       <LeftSidebar
-        // data={homeData}
         data={stores}
         isAddMode={isAddMode}
         editMode={editMode}

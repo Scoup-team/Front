@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Image,
   ScrollView,
+  BackHandler
 } from "react-native";
 
 import back from "../assets/icons/back.png";
@@ -18,9 +19,25 @@ import card from "../assets/icons/card.png";
 import receipt from "../assets/icons/receipt.png";
 import shopEx from "../assets/icons/shopEx.png";
 import { detailPage } from "../api/receipt";
+import Cafe from "../components/Cafe";
+import { useNavigation } from "@react-navigation/native";
 
-const StampDetail = ({ navigation, route }) => {
-  const { stampId } = route.params;
+const StampDetail = ({ stampId, onStampPress }) => {
+
+  useEffect(() => {
+    const handleBackPress = () => {
+      onStampPress(null);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackPress
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
   const [detailData, setDetailData] = useState({});
 
   useEffect(() => {
@@ -38,7 +55,6 @@ const StampDetail = ({ navigation, route }) => {
 
   return (
     <View style={styles.allContainer}>
-      <LeftSidebar data={[]} navigation={navigation} />
       <View style={styles.storeSection}>
         <View style={styles.header}>
           <Image source={back} style={styles.back} />

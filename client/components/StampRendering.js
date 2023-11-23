@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   TouchableWithoutFeedback,
   StyleSheet,
@@ -7,8 +7,10 @@ import {
 } from "react-native";
 import blkStamp from "../assets/icons/blkStamp.png";
 import fullStamp from "../assets/icons/fullStamp.png";
+import StampDetail from "../screens/StampDetail";
 
-const stampRendering = ({ stamps, navigation }) => {
+const stampRendering = ({ stamps, onStampPress }) => {
+
   if (stamps === undefined) {
     stamps = [];
   }
@@ -16,7 +18,7 @@ const stampRendering = ({ stamps, navigation }) => {
   console.log("stamps: ", stamps);
 
   const goStampDetail = (stampId) => {
-    navigation.navigate("StampDetail", { stampId: stampId });
+    onStampPress(stampId);
   };
 
   // 남은 스탬프의 개수 계산
