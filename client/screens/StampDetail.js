@@ -10,7 +10,7 @@ import {
 } from "react-native";
 
 import back from "../assets/icons/back.png";
-// import LeftSidebar from "../components/LeftSideBar";
+import LeftSidebar from "../components/LeftSideBar";
 
 import shop from "../assets/icons/shop.png";
 import order from "../assets/icons/order.png";
@@ -38,7 +38,7 @@ const StampDetail = ({ navigation, route }) => {
 
   return (
     <View style={styles.allContainer}>
-      {/*<LeftSidebar navigation={navigation} stores={stores} /> */}
+      <LeftSidebar data={[]} navigation={navigation} />
       <View style={styles.storeSection}>
         <View style={styles.header}>
           <Image source={back} style={styles.back} />
@@ -115,9 +115,11 @@ const styles = StyleSheet.create({
   allContainer: {
     flexDirection: "row",
     flex: 1,
+    backgroundColor: "white"
   },
   storeSection: {
     flexDirection: "column",
+    backgroundColor: "white",
   },
   storeName: {
     color: "#000",
