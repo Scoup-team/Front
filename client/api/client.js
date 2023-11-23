@@ -1,7 +1,6 @@
 import axios from "axios";
 import { SPRING_URL } from "./url";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Linking } from "react-native";
 
 const client = axios.create();
 client.defaults.baseURL = `${SPRING_URL}`;
@@ -50,11 +49,7 @@ client.interceptors.response.use(
         // 중단된 요청을(에러난 요청)을 토큰 갱신 후 재요청
         const response = await client.request(error.config);
         return response;
-      } else {
-        console.error("인터셉터_Non-Axios Error:", error.message);
       }
-    } else {
-      Linking.openURL("SignIn");
     }
     return Promise.reject(error);
   }
