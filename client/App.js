@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import * as React from "react";
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, LogBox } from "react-native";
 import MyPage from "./screens/MyPage";
 import SearchPage from "./screens/SearchPage";
 import EventPage from "./screens/EventPage";
@@ -15,6 +15,10 @@ import QrPage from "./screens/QrPage";
 import CameraPage from "./screens/CameraPage";
 import Home from "./screens/Home";
 import StampDetail from "./screens/StampDetail";
+
+LogBox.ignoreLogs(["Require cycle: components"]);
+LogBox.ignoreLogs(["Sending `onAnimatedValueUpdate`"]);
+LogBox.ignoreLogs(["Could not find image file:"]);
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -71,7 +75,7 @@ const App = () => {
       >
         <Stack.Screen name="Main" component={MainTabNavigator} />
         <Stack.Screen name="SearchPage" component={SearchPage} />
-        {/* <Stack.Screen name="SignIn" component={SignIn} /> */}
+        <Stack.Screen name="SignIn" component={SignIn} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="FindPw" component={FindPw} />
         <Stack.Screen name="ModifyInfo" component={ModifyInfo} />

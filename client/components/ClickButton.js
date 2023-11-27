@@ -18,13 +18,14 @@ export const buttonStyle = StyleSheet.create({
     //flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 53
   },
   button: {
-    width: 107,
-    height: 31,
-    borderRadius: 38.75,
-    backgroundColor: "#EC0A0A",
-    justifyContent: "center",
+    width: 306,
+    height: 40,
+    flexShrink: 0,
+    borderRadius: 7,
+    backgroundColor: '#1D2D4F',
   },
   buttonText: {
     textAlign: "center",
@@ -33,5 +34,7 @@ export const buttonStyle = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: "600",
     letterSpacing: 0.31,
+    // justifyContent: "center",
+    paddingTop: 8,
   },
 });

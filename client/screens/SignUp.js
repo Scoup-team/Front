@@ -65,18 +65,18 @@ const SignUp = ({ navigation }) => {
         ></TextInput>
 
         <TextInput
-          style={[boxStyle.inputText, { marginTop: 45 }]}
+          style={[boxStyle.inputText, { marginTop: 18 }]}
           placeholder="아이디(이메일 주소)"
           value={userId}
           onChangeText={setUserId}
         ></TextInput>
 
-        <Text style={[textStyles.basicText, { marginTop: 48 }]}>
+        <Text style={[textStyles.basicText, { marginTop: 56 }]}>
           영문, 숫자 포함 8자 이상
         </Text>
 
         <TextInput
-          style={[boxStyle.inputText, { marginTop: 16 }]}
+          style={[boxStyle.inputText, { marginTop: 8 }]}
           placeholder="비밀번호 입력"
           value={userPw}
           onChangeText={setUserPw}
@@ -84,14 +84,14 @@ const SignUp = ({ navigation }) => {
         ></TextInput>
 
         <TextInput
-          style={[boxStyle.inputText, { marginTop: 32 }]}
+          style={[boxStyle.inputText, { marginTop: 24 }]}
           placeholder="비밀번호 재입력"
           // value={checkPw}
           secureTextEntry
         ></TextInput>
 
         <TextInput
-          style={[boxStyle.inputText, { marginTop: 48, marginBottom: 66 }]}
+          style={[boxStyle.inputText, { marginTop: 78, marginBottom: 3 }]}
           placeholder="닉네임 입력"
           value={nickname}
           onChangeText={setNickname}

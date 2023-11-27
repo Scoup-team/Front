@@ -27,10 +27,10 @@ const SignIn = ({ navigation }) => {
   return (
     <View>
       <View style={{ marginTop: 78, alignItems: "center" }}>
-        <Image source={logo} style={{ width: "80%", height: "20%" }} />
+        <Image source={logo} style={{ width: 258, height: 257 }} />
         <View>
           <Text
-            style={[textStyles.basicText, { marginTop: 39, marginBottom: 13 }]}
+            style={[textStyles.basicText, { marginTop: -7, marginBottom: 13 }]}
           >
             아이디
           </Text>
@@ -54,13 +54,15 @@ const SignIn = ({ navigation }) => {
             style={boxStyle.inputText}
           />
 
+          <ClickButton text={"로그인"} onPress={Login} style={{ marginTop: 53, marginBottom: 39 }} />
+
+
           <View
             style={{
               flexDirection: "row",
               justifyContent: "space-between",
               width: 310,
-              marginTop: 35,
-              marginBottom: 84,
+              marginTop: 39,
             }}
           >
             <Text
@@ -76,7 +78,6 @@ const SignIn = ({ navigation }) => {
         </View>
       </View>
 
-      <ClickButton text={"로그인"} onPress={Login} />
     </View>
   );
 };

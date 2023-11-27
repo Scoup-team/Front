@@ -9,36 +9,47 @@ import {
 import notice from "../assets/icons/notice.png";
 import shop from "../assets/icons/shop.png";
 import StampRendering from "../components/StampRendering";
-import getEvent from "../api/cafe";
+import { getEvent } from "../api/cafe";
 import StampDetail from "../screens/StampDetail";
 
 const RightStore = ({ shopData, navigation }) => {
+  if (!shopData || shopData.length === 0) {
+    return null; // 또는 다른 처리 방법을 선택할 수 있음
+  }
 
   useEffect(() => {
     setSelectedStampId(null);
   }, [shopData])
 
   const shopInfo = shopData[0];
+  if (!shopInfo) {
+    return null; // 또는 다른 처리 방법을 선택할 수 있음
+  }
 
+  const shopId = shopInfo.shopId;
 
   const [event, setEvent] = useState("");
-  const [selectedStampId, setSelectedStampId] = useState(null);
+  const [selectedStampId, setSelectedStampId] = useState("");
 
   const onStampPress = (stampId) => {
     // console.log("Setting selectedStampId", stampId);
     setSelectedStampId(stampId);
   };
 
-  // useEffect(() => {
-  //   getResentEvent(shopInfo.shopId);
-  // }, [shopInfo.shopId]);
+  useEffect(() => {
+    // console.log("shopInfo: ", shopInfo.shopId);
+    getResentEvent(shopId);
+  }, [shopId]);
 
   const getResentEvent = async (shopId) => {
     try {
       const getData = await getEvent(shopId);
-      const latest = getData.data.length - 1;
-      const lastEvent = getData.data[latest].content;
-      setEvent(lastEvent);
+      if (getData.data.length !== 0) {
+        const latest = getData.data.length - 1;
+        const lastEvent = getData.data[latest].content;
+        setEvent(lastEvent);
+      }
+
     } catch (err) {
       throw err;
     }
@@ -57,8 +68,8 @@ const RightStore = ({ shopData, navigation }) => {
           >
             <View style={style.noticeContainer}>
               <Image source={notice} style={style.notice} />
-              {/* <Text>{event}</Text> // 실제 api 연결 후*/}
-              <Text>이벤트</Text>
+              <Text>{event}</Text>
+              {/* <Text>이벤트</Text> */}
             </View>
           </TouchableWithoutFeedback>
 
