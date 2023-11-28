@@ -15,7 +15,6 @@ import QrPage from "./screens/QrPage";
 import CameraPage from "./screens/CameraPage";
 import Home from "./screens/Home";
 import StampDetail from "./screens/StampDetail";
-import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 LogBox.ignoreLogs(["Require cycle: "]);
@@ -107,6 +106,8 @@ const App = () => {
             screenOptions={{ headerShown: false }}
             initialRouteName="SignIn"
           >
+            <Stack.Screen name="SearchPage" component={SearchPage} />
+            <Stack.Screen name="Main" component={MainTabNavigator} />
             <Stack.Screen name="SignIn" component={SignIn} />
             <Stack.Screen name="FindPw" component={FindPw} />
             <Stack.Screen name="SignUp" component={SignUp} />

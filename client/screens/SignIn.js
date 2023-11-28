@@ -17,7 +17,7 @@ const SignIn = ({ navigation }) => {
       const response = await loginToken(userId, userPw);
       if (response && response.status / 100 == 2) {
         console.log("Login_로그인 성공");
-        navigation.navigate("Home");
+        navigation.navigate("Main");
       }
     } catch (error) {
       console.log("로그인 오류: ", error);
@@ -54,8 +54,11 @@ const SignIn = ({ navigation }) => {
             style={boxStyle.inputText}
           />
 
-          <ClickButton text={"로그인"} onPress={Login} style={{ marginTop: 53, marginBottom: 39 }} />
-
+          <ClickButton
+            text={"로그인"}
+            onPress={Login}
+            style={{ marginTop: 53, marginBottom: 39 }}
+          />
 
           <View
             style={{
@@ -77,7 +80,6 @@ const SignIn = ({ navigation }) => {
           </View>
         </View>
       </View>
-
     </View>
   );
 };

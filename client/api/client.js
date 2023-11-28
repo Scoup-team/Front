@@ -33,6 +33,11 @@ client.interceptors.response.use(
     }
   },
   async (error) => {
+    const logout = await AsyncStorage.getItem("logout");
+    if (logout === "true") {
+      // 로그아웃을 통해 로그인 페이지로 넘어간 경우 => 응답 인터셉터 무시
+      return Promise.reject(error);
+    }
     if (axios.isAxiosError(error)) {
       if (error.response.data.status === 401) {
         const acToken = await AsyncStorage.getItem("AccessToken");
