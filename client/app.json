@@ -4,10 +4,10 @@
     "slug": "client",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icons/coffee.png",
+    "icon": "./assets/icons/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/icons/coffee.png",
+      "image": "./assets/icons/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,7 +17,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/icons/coffee.png",
+        "foregroundImage": "./assets/icons/logo.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": [
@@ -27,7 +27,7 @@
       ]
     },
     "web": {
-      "favicon": "./assets/icons/coffee.png"
+      "favicon": "./assets/icons/logo.png"
     }
   }
 }

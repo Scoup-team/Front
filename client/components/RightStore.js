@@ -5,35 +5,42 @@ import {
   StyleSheet,
   Image,
   TouchableWithoutFeedback,
+  TouchableOpacity,
 } from "react-native";
 import notice from "../assets/icons/notice.png";
 import shop from "../assets/icons/shop.png";
 import StampRendering from "../components/StampRendering";
 import { getEvent } from "../api/cafe";
 import StampDetail from "../screens/StampDetail";
+import EventPage from "../screens/EventPage";
 
 const RightStore = ({ shopData, navigation }) => {
   if (!shopData || shopData.length === 0) {
-    return null; // 또는 다른 처리 방법을 선택할 수 있음
+    return null;
   }
 
   useEffect(() => {
     setSelectedStampId(null);
-  }, [shopData])
+  }, [shopData]);
 
   const shopInfo = shopData[0];
   if (!shopInfo) {
-    return null; // 또는 다른 처리 방법을 선택할 수 있음
+    return null;
   }
 
   const shopId = shopInfo.shopId;
 
   const [event, setEvent] = useState("");
+  const [eventMode, setEventMode] = useState(false);
   const [selectedStampId, setSelectedStampId] = useState("");
 
   const onStampPress = (stampId) => {
     // console.log("Setting selectedStampId", stampId);
     setSelectedStampId(stampId);
+  };
+
+  const onEventPress = (b) => {
+    setEventMode(b);
   };
 
   useEffect(() => {
@@ -49,33 +56,35 @@ const RightStore = ({ shopData, navigation }) => {
         const lastEvent = getData.data[latest].content;
         setEvent(lastEvent);
       }
-
     } catch (err) {
       throw err;
     }
   };
 
-
-
   return (
     <View style={style.Home}>
       {selectedStampId ? (
         <StampDetail stampId={selectedStampId} onStampPress={onStampPress} />
+      ) : eventMode ? (
+        <EventPage shopId={shopId} onEventPress={onEventPress} />
       ) : (
         <View style={style.storeArea}>
           <TouchableWithoutFeedback
-            onPress={() => navigation.navigate("EventPage")}
+            // onPress={() => navigation.navigate("EventPage", { shopId: shopId })}
+            // onPress={() => setEventMode(true)}
+            onPress={() => onEventPress(true)}
           >
             <View style={style.noticeContainer}>
               <Image source={notice} style={style.notice} />
               <Text>{event}</Text>
-              {/* <Text>이벤트</Text> */}
             </View>
           </TouchableWithoutFeedback>
 
           <View style={style.storeName}>
             <Image source={shop} style={style.shop} />
-            <Text style={[style.font, { marginLeft: 3 }]}>{shopInfo?.name}</Text>
+            <Text style={[style.font, { marginLeft: 3 }]}>
+              {shopInfo?.name}
+            </Text>
           </View>
 
           <View style={style.bestMenu}>
@@ -102,7 +111,10 @@ const RightStore = ({ shopData, navigation }) => {
             </View>
           </View>
 
-          <StampRendering stamps={shopInfo?.stamp} onStampPress={onStampPress} />
+          <StampRendering
+            stamps={shopInfo?.stamp}
+            onStampPress={onStampPress}
+          />
         </View>
       )}
     </View>
@@ -124,6 +136,7 @@ const style = StyleSheet.create({
   notice: {
     width: 20,
     height: 16,
+    marginRight: 10,
   },
   noticeContainer: {
     width: "95%",
@@ -157,7 +170,7 @@ const style = StyleSheet.create({
     color: "#000",
     fontSize: 14,
     fontStyle: "normal",
-    fontWeight: "600",
+    // fontWeight: 600,
     lineHeight: 14,
     letterSpacing: 0.28,
   },
@@ -195,7 +208,7 @@ const style = StyleSheet.create({
     color: "#000",
     fontSize: 11,
     fontStyle: "normal",
-    fontWeight: "600",
+    // fontWeight: 600,
     width: 85,
     marginTop: 8,
     textAlign: "center",

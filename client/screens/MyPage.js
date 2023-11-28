@@ -14,10 +14,15 @@ import { deleteUser } from "../api/userInfo";
 import { getNickname } from "../api/userInfo";
 import { useEffect } from "react";
 import { useIsFocused } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const MyPage = ({ navigation }) => {
   const [nickname, setNickname] = useState("");
   const isFocused = useIsFocused();
+
+  const logout = async () => {
+    await AsyncStorage.removeItem("AccessToken");
+  };
 
   const CouponPageClick = () => {
     navigation;
@@ -51,10 +56,7 @@ const MyPage = ({ navigation }) => {
           <Image source={bluearrow} style={styles.arrow} />
         </Pressable>
       </View>
-      <Text
-        // onPress={() => navigation.navigate("SignIn")}
-        style={styles.BottomMenu}
-      >
+      <Text onPress={logout} style={styles.BottomMenu}>
         로그아웃하기
       </Text>
       <TouchableOpacity

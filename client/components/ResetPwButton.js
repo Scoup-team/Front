@@ -25,7 +25,7 @@ export const buttonStyle = StyleSheet.create({
     color: "#F9F9F9",
     fontSize: 15.5,
     fontStyle: "normal",
-    fontWeight: "600",
+    // fontWeight: 600,
     letterSpacing: 0.31,
     // justifyContent: "center",
     paddingTop: 8,
@@ -35,6 +35,6 @@ export const buttonStyle = StyleSheet.create({
     height: 40,
     flexShrink: 0,
     borderRadius: 7,
-    backgroundColor: '#1D2D4F',
+    backgroundColor: "#1D2D4F",
   },
 });

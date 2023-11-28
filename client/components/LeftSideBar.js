@@ -19,7 +19,7 @@ const LeftSidebar = ({ data, isAddMode, editMode, navigation }) => {
 
   useEffect(() => {
     // console.log("Left_ stores: ", data);
-    if (data.length !== 0) {
+    if (data && data.length !== 0) {
       // 처음 홈화면에 들어갔을 때, index[0]의 가게 정보가 출력
       if (shopId == -1) {
         setShopId(data[0].shopId);
@@ -56,26 +56,30 @@ const LeftSidebar = ({ data, isAddMode, editMode, navigation }) => {
     <View style={styles.Home}>
       <View style={styles.allStore}>
         <ScrollView>
-          {data.map((store) => (
-            <View key={store?.shopId}>
-              <TouchableWithoutFeedback
-                onPress={() => {
-                  goStore(store.shopId);
-                }}
-              >
-                <Image source={cozy} style={styles.clkStore} />
-              </TouchableWithoutFeedback>
-              {isAddMode && (
+          {data &&
+            data.map((store) => (
+              <View key={store?.shopId}>
                 <TouchableWithoutFeedback
                   onPress={() => {
-                    deleteStore(store.shopId);
+                    goStore(store.shopId);
                   }}
                 >
-                  <Image source={removeStore} style={styles.rmStore} />
+                  <Image
+                    source={{ uri: store.cafeImageUrl }}
+                    style={styles.clkStore}
+                  />
                 </TouchableWithoutFeedback>
-              )}
-            </View>
-          ))}
+                {isAddMode && (
+                  <TouchableWithoutFeedback
+                    onPress={() => {
+                      deleteStore(store.shopId);
+                    }}
+                  >
+                    <Image source={removeStore} style={styles.rmStore} />
+                  </TouchableWithoutFeedback>
+                )}
+              </View>
+            ))}
 
           {isAddMode && (
             <TouchableWithoutFeedback
@@ -115,6 +119,7 @@ const styles = StyleSheet.create({
     borderRadius: 53,
     borderWidth: 1.5,
     borderColor: "#6E85B7",
+    backgroundColor: "#FFF",
 
     marginLeft: "auto",
     marginRight: "auto",

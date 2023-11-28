@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   maintext: {
     position: "relative",
     fontSize: 15,
-    fontWeight: "700",
+    // fontWeight: "700",
     color: "#000000",
     textAlign: "center",
     fontSize: 20,
@@ -110,14 +110,14 @@ const styles = StyleSheet.create({
   alerttext: {
     position: "relative",
     fontSize: 15,
-    fontWeight: "700",
+    // fontWeight: "700",
     marginTop: 30,
     marginRight: 23,
     marginLeft: 23,
     color: "#6E85B7",
     textAlign: "center",
     fontSize: 10,
-    fontWeight: 500,
+    // fontWeight: 500,
   },
   close: { height: 20, width: 20 },
   btn: {
@@ -136,6 +136,6 @@ const styles = StyleSheet.create({
     color: "white",
     textAlign: "center",
     fontSize: 15.5,
-    fontWeight: 600,
+    // fontWeight: 600,
   },
 });
