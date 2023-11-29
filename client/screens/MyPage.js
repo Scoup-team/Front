@@ -20,12 +20,9 @@ const MyPage = ({ navigation }) => {
   const isFocused = useIsFocused();
   const [isLogin, setIsLogin] = useState(true);
 
-  const logout = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "SignIn" }],
-    });
+  const logout = async () => {
     setIsLogin(false);
+    await AsyncStorage.clear();
   };
 
   const CouponPageClick = () => {
@@ -33,10 +30,14 @@ const MyPage = ({ navigation }) => {
   };
 
   useEffect(() => {
-    getNick();
     if (!isLogin) {
-      AsyncStorage.clear();
       AsyncStorage.setItem("logout", "true");
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "SignIn" }],
+      });
+    } else {
+      getNick();
     }
   }, [isFocused, isLogin]); // isLogin도 의존성 배열에 추가
 
