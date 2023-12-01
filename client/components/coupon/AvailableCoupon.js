@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     fontStyle: "normal",
-    fontWeight: 400,
+    // fontWeight: 400,
     flexGrow: 1,
   },
 
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 15,
     fontStyle: "normal",
-    fontWeight: 500,
+    // fontWeight: 500,
     flexGrow: 1,
     marginRight: 15,
     marginTop: 4,
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 20,
     fontStyle: "normal",
-    fontWeight: 600,
+    // fontWeight: 600,
     flexGrow: 1,
   },
 });

@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
   Pressable,
-  Button,
   TouchableOpacity,
   StyleSheet,
   Image,
@@ -12,18 +11,35 @@ import bluearrow from "../assets/icons/bluearrow.png";
 import coffee from "../assets/icons/coffee.png";
 import { deleteUser } from "../api/userInfo";
 import { getNickname } from "../api/userInfo";
-import { useEffect } from "react";
+import { useIsFocused } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import SignIn from "./SignIn";
 
 const MyPage = ({ navigation }) => {
   const [nickname, setNickname] = useState("");
+  const isFocused = useIsFocused();
+  const [isLogin, setIsLogin] = useState(true);
+
+  const logout = async () => {
+    setIsLogin(false);
+    await AsyncStorage.clear();
+  };
 
   const CouponPageClick = () => {
     navigation;
   };
 
   useEffect(() => {
-    getNick();
-  }, []);
+    if (!isLogin) {
+      AsyncStorage.setItem("logout", "true");
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "SignIn" }],
+      });
+    } else {
+      getNick();
+    }
+  }, [isFocused, isLogin]); // isLogin도 의존성 배열에 추가
 
   const getNick = async () => {
     const nick = await getNickname();
@@ -49,16 +65,13 @@ const MyPage = ({ navigation }) => {
           <Image source={bluearrow} style={styles.arrow} />
         </Pressable>
       </View>
-      <Text
-        onPress={() => navigation.navigate("SignIn")}
-        style={styles.BottomMenu}
-      >
+      <Text onPress={logout} style={styles.BottomMenu}>
         로그아웃하기
       </Text>
       <TouchableOpacity
         onPress={() => {
           deleteUser();
-          navigation.navigate("SignIn");
+          setIsLogin(false);
         }}
       >
         <Text style={styles.BottomMenu}>탈퇴하기</Text>

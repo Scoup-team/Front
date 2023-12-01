@@ -1,7 +1,6 @@
 import axios from "axios";
 import { SPRING_URL } from "./url";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Linking } from "react-native";
 
 const client = axios.create();
 client.defaults.baseURL = `${SPRING_URL}`;
@@ -34,6 +33,11 @@ client.interceptors.response.use(
     }
   },
   async (error) => {
+    const logout = await AsyncStorage.getItem("logout");
+    if (logout === "true") {
+      // 로그아웃을 통해 로그인 페이지로 넘어간 경우 => 응답 인터셉터 무시
+      return Promise.reject(error);
+    }
     if (axios.isAxiosError(error)) {
       if (error.response.data.status === 401) {
         const acToken = await AsyncStorage.getItem("AccessToken");
@@ -50,11 +54,7 @@ client.interceptors.response.use(
         // 중단된 요청을(에러난 요청)을 토큰 갱신 후 재요청
         const response = await client.request(error.config);
         return response;
-      } else {
-        console.error("인터셉터_Non-Axios Error:", error.message);
       }
-    } else {
-      Linking.openURL("SignIn");
     }
     return Promise.reject(error);
   }

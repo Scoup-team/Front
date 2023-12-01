@@ -5,8 +5,6 @@ import RightStore from "./RightStore";
 import { getHome } from "../api/homeInfo";
 import { useIsFocused } from "@react-navigation/native";
 
-// import { homeData } from "./Data/homeData";
-
 const Cafe = ({ navigation }) => {
   const [stores, setStores] = useState([]);
 
@@ -41,7 +39,6 @@ const Cafe = ({ navigation }) => {
     <View style={style.Home}>
       <StatusBar backgroundColor="#F2F2F2" />
       <LeftSidebar
-        // data={homeData}
         data={stores}
         isAddMode={isAddMode}
         editMode={editMode}
@@ -99,7 +96,7 @@ const style = StyleSheet.create({
     color: "#000",
     fontSize: 14,
     fontStyle: "normal",
-    fontWeight: "600",
+    // fontWeight: 600,
     lineHeight: 14,
     letterSpacing: 0.28,
   },
@@ -137,7 +134,7 @@ const style = StyleSheet.create({
     color: "#000",
     fontSize: 11,
     fontStyle: "normal",
-    fontWeight: "600",
+    // fontWeight: 600,
     width: 85,
     marginTop: 8,
     textAlign: "center",

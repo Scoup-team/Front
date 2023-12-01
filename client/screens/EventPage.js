@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Pressable,
   Image,
+  BackHandler,
 } from "react-native";
 
 import coffee from "../assets/icons/coffee.png";
@@ -15,12 +16,27 @@ import LeftSidebar from "../components/LeftSideBar";
 
 import { getEvent } from "../api/cafe";
 
-const EventPage = ({ navigation }) => {
-  const shopId = 1;
+const EventPage = ({ navigation, shopId, onEventPress }) => {
+  // const { shopId } = route.params;
+  // const shopId = 1;
   const [eventData, setEventData] = useState([]);
+
+  // useEffect(() => {
+  // }, []);
 
   useEffect(() => {
     getEventData();
+    const handleBackPress = () => {
+      onEventPress(false);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      handleBackPress
+    );
+
+    return () => backHandler.remove();
   }, []);
 
   const getEventData = async () => {
@@ -40,7 +56,7 @@ const EventPage = ({ navigation }) => {
 
   return (
     <View style={styles.allContainer}>
-      <LeftSidebar navigation={navigation} stores={stores} />
+      {/* <LeftSidebar navigation={navigation} stores={stores} /> */}
       <View style={styles.container}>
         <View style={styles.header}>
           <Pressable onPress={() => navigation.pop()}>

@@ -1,6 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
-import * as React from "react";
-import { StyleSheet, View, Image } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, Image, LogBox } from "react-native";
 import MyPage from "./screens/MyPage";
 import SearchPage from "./screens/SearchPage";
 import EventPage from "./screens/EventPage";
@@ -15,6 +15,11 @@ import QrPage from "./screens/QrPage";
 import CameraPage from "./screens/CameraPage";
 import Home from "./screens/Home";
 import StampDetail from "./screens/StampDetail";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+LogBox.ignoreLogs(["Require cycle: "]);
+LogBox.ignoreLogs(["Sending `onAnimatedValueUpdate`"]);
+LogBox.ignoreLogs(["Could not find image file:"]);
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -63,37 +68,56 @@ const MainTabNavigator = () => {
 };
 
 const App = () => {
+  // const isFocused = useIsFocused();
+
+  const [isLogin, setIsLogin] = useState(false);
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = await AsyncStorage.getItem("AccessToken");
+      if (token) {
+        setIsLogin(!!token);
+      }
+    };
+    checkToken();
+  }, []);
+
   return (
     <NavigationContainer style={styles.container}>
-      <Stack.Navigator
-        screenOptions={{ headerShown: false }}
-        initialRouteName="SignIn"
-      >
-        <Stack.Screen name="Main" component={MainTabNavigator} />
-        <Stack.Screen name="SearchPage" component={SearchPage} />
-        {/* <Stack.Screen name="SignIn" component={SignIn} /> */}
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="FindPw" component={FindPw} />
-        <Stack.Screen name="ModifyInfo" component={ModifyInfo} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="CouponPage" component={CouponPage} />
-        <Stack.Screen name="QrPage" component={QrPage} />
-        <Stack.Screen name="CameraPage" component={CameraPage} />
-        <Stack.Screen name="EventPage" component={EventPage} />
-        <Stack.Screen name="StampDetail" component={StampDetail} />
-      </Stack.Navigator>
+      {isLogin ? (
+        <>
+          <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+            initialRouteName="Main"
+          >
+            <Stack.Screen name="Main" component={MainTabNavigator} />
+            <Stack.Screen name="SearchPage" component={SearchPage} />
+            <Stack.Screen name="ModifyInfo" component={ModifyInfo} />
+            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="StampDetail" component={StampDetail} />
+            <Stack.Screen name="CouponPage" component={CouponPage} />
+            <Stack.Screen name="QrPage" component={QrPage} />
+            <Stack.Screen name="CameraPage" component={CameraPage} />
+            <Stack.Screen name="EventPage" component={EventPage} />
+          </Stack.Navigator>
+        </>
+      ) : (
+        <>
+          <Stack.Navigator
+            screenOptions={{ headerShown: false }}
+            initialRouteName="SignIn"
+          >
+            <Stack.Screen name="SearchPage" component={SearchPage} />
+            <Stack.Screen name="Main" component={MainTabNavigator} />
+            <Stack.Screen name="SignIn" component={SignIn} />
+            <Stack.Screen name="FindPw" component={FindPw} />
+            <Stack.Screen name="SignUp" component={SignUp} />
+          </Stack.Navigator>
+        </>
+      )}
     </NavigationContainer>
   );
 };
 
 export default App;
 
-const styles = StyleSheet.create({
-  container: {
-    position: "absolute",
-    width: "100%",
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
-});
+const styles = StyleSheet;

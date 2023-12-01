@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Image,
   ScrollView,
+  BackHandler
 } from "react-native";
 
 import back from "../assets/icons/back.png";
@@ -17,12 +18,43 @@ import order from "../assets/icons/order.png";
 import card from "../assets/icons/card.png";
 import receipt from "../assets/icons/receipt.png";
 import shopEx from "../assets/icons/shopEx.png";
+import { detailPage } from "../api/receipt";
+import Cafe from "../components/Cafe";
+import { useNavigation } from "@react-navigation/native";
 
-const StampDetail = ({ navigation }) => {
-  const stores = [{ id: 1, name: "카페코지" }];
+const StampDetail = ({ stampId, onStampPress }) => {
+
+  useEffect(() => {
+    const handleBackPress = () => {
+      onStampPress(null);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      handleBackPress
+    );
+
+    return () => backHandler.remove();
+  }, []);
+
+  const [detailData, setDetailData] = useState({});
+
+  useEffect(() => {
+    getDetailData();
+  }, []);
+
+  const getDetailData = async () => {
+    try {
+      const response = await detailPage(stampId);
+      setDetailData(response.data.data);
+    } catch (error) {
+      console.log("getDetailData 에러", error);
+    }
+  };
+
   return (
     <View style={styles.allContainer}>
-      <LeftSidebar navigation={navigation} stores={stores} />
       <View style={styles.storeSection}>
         <View style={styles.header}>
           <Image source={back} style={styles.back} />
@@ -32,7 +64,7 @@ const StampDetail = ({ navigation }) => {
           <Image source={shopEx} style={styles.shopEx} />
           <View style={styles.sectionName}>
             <Image source={shop} style={styles.shopIcon} />
-            <Text style={styles.storeName}>카페코지</Text>
+            <Text style={styles.storeName}>{detailData?.cafeName}</Text>
           </View>
 
           <View style={styles.orderSection}>
@@ -41,16 +73,28 @@ const StampDetail = ({ navigation }) => {
               <Text style={styles.orderInfo}>주문내역</Text>
             </View>
             {/* 주문 내역 */}
-            <View style={styles.orderMenuSection}>
-              <View style={styles.orderMenu}>
-                <Text style={styles.orderText}>리얼두부칩</Text>
-                <Text style={styles.orderText}>3,400</Text>
+            {detailData.menu && detailData.menu[0] && (
+              <View style={styles.orderMenuSection}>
+                <View style={styles.orderMenu}>
+                  <Text style={styles.orderText}>
+                    {detailData.menu[0].name}
+                  </Text>
+                  <Text style={styles.orderText}>
+                    {detailData.menu[0].price}
+                  </Text>
+                </View>
+                {detailData.menu[1] && (
+                  <View style={styles.orderMenu}>
+                    <Text style={styles.orderText}>
+                      {detailData.menu[1].name}
+                    </Text>
+                    <Text style={styles.orderText}>
+                      {detailData.menu[1].price}
+                    </Text>
+                  </View>
+                )}
               </View>
-              <View style={styles.orderMenu}>
-                <Text style={styles.orderText}>I-F{")"}DCF 아메리카노</Text>
-                <Text style={styles.orderText}>4,800</Text>
-              </View>
-            </View>
+            )}
             {/* 결제 카드 정보 */}
             <Text style={[styles.orderText, { marginLeft: 13.89 }]}>
               신용카드
@@ -58,11 +102,11 @@ const StampDetail = ({ navigation }) => {
             <View style={styles.cardSection}>
               <View style={styles.card}>
                 <Text style={styles.orderText}>카드 종류</Text>
-                <Text style={styles.orderText}>하나카드</Text>
+                <Text style={styles.orderText}>{detailData?.cardName}</Text>
               </View>
               <View style={styles.card}>
                 <Text style={styles.orderText}>카드 번호</Text>
-                <Text style={styles.orderText}>53274011***111</Text>
+                <Text style={styles.orderText}>{detailData?.cardNum}</Text>
               </View>
             </View>
           </View>
@@ -72,7 +116,10 @@ const StampDetail = ({ navigation }) => {
               <Image source={card} style={styles.cardIcon} />
               <Text style={styles.orderInfo}>영수증</Text>
             </View>
-            <Image source={receipt} style={styles.receiptImg} />
+            <Image
+              source={{ uri: detailData?.cafeImageUrl }}
+              style={styles.receiptImg}
+            />
           </View>
         </ScrollView>
       </View>
@@ -84,9 +131,11 @@ const styles = StyleSheet.create({
   allContainer: {
     flexDirection: "row",
     flex: 1,
+    backgroundColor: "white"
   },
   storeSection: {
     flexDirection: "column",
+    backgroundColor: "white",
   },
   storeName: {
     color: "#000",
