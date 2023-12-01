@@ -16,7 +16,7 @@ export const getHome = async () => {
     }
   } catch (error) {
     console.error("home 조회 실패: ", error);
-    throw error;
+    // throw error;
   }
 };
 

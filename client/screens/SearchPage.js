@@ -93,7 +93,7 @@ const SearchPage = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: { backgroundColor: "#FFFFFF", flex: 1 },
+  container: { backgroundColor: "#FFFFFF", flex: 1, marginTop: 50 },
 
   searchBoxContainer: {
     flexDirection: "row",

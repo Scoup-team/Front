@@ -1,14 +1,10 @@
 import client from "./client";
 
 //내 쿠폰함을 조회하는 API
-export const getCoupon = async (userId) => {
+export const getCoupon = async () => {
   try {
-    const config = {
-      headers: {
-        userId: userId, // userId를 헤더에 추가
-      },
-    };
-    const res = await client.get(`mypage/coupon`, config);
+    const res = await client.get(`mypage/coupon`);
+    console.log(res.data);
     return res.data;
   } catch (err) {
     throw err;

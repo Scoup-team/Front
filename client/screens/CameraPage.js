@@ -7,6 +7,7 @@ import {
   Modal,
   Pressable,
   StyleSheet,
+  Alert,
 } from "react-native";
 import { Camera } from "expo-camera";
 import { FileSystem as ExpoFileSystem } from "expo";
@@ -59,7 +60,7 @@ const CameraPage = () => {
         });
 
         const info = await postReceipt(formData);
-        console.log(info)
+        console.log(info);
         if (info) {
           postReceiptData(info);
           console.log("서버로 이미지 전송");
@@ -104,16 +105,18 @@ const CameraPage = () => {
       });
 
       const info = await postReceipt(formData);
-      console.log(info)
+      console.log(info);
       if (info) {
         postReceiptData(info);
         console.log("서버로 이미지 전송");
+        Alert.alert("영수증 인증 성공");
+        navigation.native("Home");
       }
 
       console.log("Image uploaded successfully");
       closeModal();
     } catch (error) {
-      console.error("Error picking an image: ", error);
+      // console.error("Error picking an image: ", error);
     }
   };
 

@@ -23,15 +23,13 @@ const CouponPage = ({ navigation }) => {
   const [availableCoupons, setAvailableCoupons] = useState([]);
   const [usedCoupons, setUsedCoupons] = useState([]);
 
-  const userId = 4;
-
   useEffect(() => {
     getCouponData();
   }, []);
 
   const getCouponData = async () => {
     try {
-      const getData = await getCoupon(userId);
+      const getData = await getCoupon();
       const formattedData = getData.data.map((data) => ({
         ...data,
         createdAt: data.createdAt.split("T")[0],
@@ -44,6 +42,8 @@ const CouponPage = ({ navigation }) => {
 
       setAvailableCoupons(available);
       setUsedCoupons(used);
+      console.log(available);
+      console.log(used);
     } catch (err) {
       console.log(err);
     }
@@ -111,13 +111,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 40,
+    marginTop: 50,
   },
 
   back: {
     width: 32,
     height: 32,
     flexShrink: 0,
-    marginLeft: 31,
+    marginLeft: 20,
   },
 
   title: {

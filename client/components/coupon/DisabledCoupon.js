@@ -12,6 +12,7 @@ import {
 } from "react-native";
 
 const DisabledCoupon = ({ couponData }) => {
+  console.log(couponData);
   return (
     <View>
       <View style={styles.couponSection}>
@@ -28,7 +29,7 @@ const DisabledCoupon = ({ couponData }) => {
                 <Text style={styles.date}>{data.createdAt} 까지</Text>
               </View>
 
-              <Text style={styles.content}>{data.shopName}</Text>
+              <Text style={styles.content}>{data.content}</Text>
             </ImageBackground>
           ))
         ) : (

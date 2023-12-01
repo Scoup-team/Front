@@ -13,7 +13,7 @@ export const postReceipt = async (formData) => {
     const response = await AI_SPRING_URL.post(`receipt`, formData, config);
     return response.data;
   } catch (err) {
-    console.error("Error posting receipt: ", err);
+    // console.error("Error posting receipt: ", err);
     throw err;
   }
 };
@@ -28,9 +28,9 @@ export const postReceiptData = async (receiptInfo) => {
     const res = await client.post(`home/receipt`, receiptInfo, {
       headers: { "Content-Type": `application/json` },
     });
-    console.log("Response:", res.data);
+    // console.log("Response:", res.data);
   } catch (err) {
-    console.error("Error posting receipt: ", err);
+    // console.error("Error posting receipt: ", err);
     throw err;
   }
 };

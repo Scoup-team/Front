@@ -64,7 +64,11 @@ const RightStore = ({ shopData, navigation }) => {
   return (
     <View style={style.Home}>
       {selectedStampId ? (
-        <StampDetail stampId={selectedStampId} onStampPress={onStampPress} />
+        <StampDetail
+          stampId={selectedStampId}
+          onStampPress={onStampPress}
+          navigation={navigation}
+        />
       ) : eventMode ? (
         <EventPage shopId={shopId} onEventPress={onEventPress} />
       ) : (
@@ -76,7 +80,7 @@ const RightStore = ({ shopData, navigation }) => {
           >
             <View style={style.noticeContainer}>
               <Image source={notice} style={style.notice} />
-              <Text>{event}</Text>
+              <Text style={style.event}>{event}</Text>
             </View>
           </TouchableWithoutFeedback>
 
@@ -128,6 +132,9 @@ const style = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
   },
+  // event: {
+  //   width: 17,
+  // },
   allStore: {
     width: 80,
     backgroundColor: "#C4D7E0",
@@ -175,7 +182,7 @@ const style = StyleSheet.create({
     letterSpacing: 0.28,
   },
   bestMenu: {
-    width: 293,
+    width: 275,
     height: 133,
     borderRadius: 5,
     borderWidth: 0,
@@ -209,14 +216,14 @@ const style = StyleSheet.create({
     fontSize: 11,
     fontStyle: "normal",
     // fontWeight: 600,
-    width: 85,
+    width: 70,
     marginTop: 8,
     textAlign: "center",
     marginLeft: 9,
   },
   menuImage: {
-    width: 77,
-    height: 78,
+    width: 60,
+    height: 60,
     marginTop: 17,
     marginLeft: 10,
     marginRight: 10,

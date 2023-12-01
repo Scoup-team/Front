@@ -7,11 +7,13 @@ import {
   StyleSheet,
   Image,
   ScrollView,
-  BackHandler
+  BackHandler,
+  Pressable,
 } from "react-native";
 
 import back from "../assets/icons/back.png";
 import LeftSidebar from "../components/LeftSideBar";
+import receiptImage from "../assets/icons/receiptImage.png";
 
 import shop from "../assets/icons/shop.png";
 import order from "../assets/icons/order.png";
@@ -22,8 +24,7 @@ import { detailPage } from "../api/receipt";
 import Cafe from "../components/Cafe";
 import { useNavigation } from "@react-navigation/native";
 
-const StampDetail = ({ stampId, onStampPress }) => {
-
+const StampDetail = ({ stampId, onStampPress, navigation }) => {
   useEffect(() => {
     const handleBackPress = () => {
       onStampPress(null);
@@ -31,7 +32,7 @@ const StampDetail = ({ stampId, onStampPress }) => {
     };
 
     const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
+      "hardwareBackPress",
       handleBackPress
     );
 
@@ -57,7 +58,9 @@ const StampDetail = ({ stampId, onStampPress }) => {
     <View style={styles.allContainer}>
       <View style={styles.storeSection}>
         <View style={styles.header}>
-          <Image source={back} style={styles.back} />
+          <Pressable onPress={() => navigation.navigate("Home")}>
+            <Image source={back} style={styles.back} />
+          </Pressable>
           <Text style={styles.title}>상세내역 조회</Text>
         </View>
         <ScrollView>
@@ -117,7 +120,8 @@ const StampDetail = ({ stampId, onStampPress }) => {
               <Text style={styles.orderInfo}>영수증</Text>
             </View>
             <Image
-              source={{ uri: detailData?.cafeImageUrl }}
+              // source={{ uri: detailData?.cafeImageUrl }}
+              source={receiptImage}
               style={styles.receiptImg}
             />
           </View>
@@ -131,7 +135,7 @@ const styles = StyleSheet.create({
   allContainer: {
     flexDirection: "row",
     flex: 1,
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   storeSection: {
     flexDirection: "column",

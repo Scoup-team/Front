@@ -4,47 +4,60 @@ import {
   Image,
   TouchableWithoutFeedback,
   StyleSheet,
+  Alert,
 } from "react-native";
+import { ScrollView } from "react-native";
+import { useIsFocused } from "@react-navigation/native";
 import removeStore from "../assets/icons/removeStore.png";
 import plusStore from "../assets/icons/plusStore.png";
 import cozy from "../assets/icons/cozy.png";
 import setting from "../assets/icons/setting.png";
-import { ScrollView } from "react-native";
 import RightStore from "./RightStore";
 import { rmStoreData } from "../api/homeInfo";
 
 const LeftSidebar = ({ data, isAddMode, editMode, navigation }) => {
   const [shopId, setShopId] = useState(-1);
   const [shopData, setShopData] = useState([]);
+  const [refreshKey, setRefreshKey] = useState(0);
+  const isFocused = useIsFocused();
 
   useEffect(() => {
-    // console.log("Left_ stores: ", data);
+    if (isFocused) {
+      // 화면이 포커스를 얻었을 때 동작할 코드
+      console.log("Screen is focused");
+      // 추가적으로 필요한 로직을 여기에 추가하세요.
+    }
+  }, [isFocused]);
+
+  useEffect(() => {
     if (data && data.length !== 0) {
-      // 처음 홈화면에 들어갔을 때, index[0]의 가게 정보가 출력
-      if (shopId == -1) {
+      if (shopId === -1) {
         setShopId(data[0].shopId);
       } else {
-        const filterdata = data.filter((x) => x.shopId == shopId);
+        const filterdata = data.filter((x) => x.shopId === shopId);
         setShopData(filterdata);
         console.log("shopData: ", filterdata);
+        if (shopData[0]?.stamp?.length || 0 == 12) {
+          Alert.alert("쿠폰 발행 성공했습니다. 내 쿠폰함을 확인해주세요.");
+        }
       }
     } else {
       console.log("Empty store");
     }
-  }, [shopId]);
+  }, [shopId, data]);
 
-  // 가게 이동
   const goStore = (id) => {
     setShopId(id);
   };
 
-  // 가게 삭제
   const deleteStore = async (id) => {
     try {
       if (isAddMode) {
         const response = await rmStoreData(id);
-        if (response.status == 200) {
-          alert("가게 삭제 성공");
+        if (response.status === 200) {
+          console.log("가게 삭제 성공");
+          // 상태를 변경하여 화면을 다시 렌더링하도록 설정
+          setRefreshKey((prevKey) => prevKey + 1);
         }
       }
     } catch (error) {
@@ -55,7 +68,7 @@ const LeftSidebar = ({ data, isAddMode, editMode, navigation }) => {
   return (
     <View style={styles.Home}>
       <View style={styles.allStore}>
-        <ScrollView>
+        <ScrollView key={refreshKey}>
           {data &&
             data.map((store) => (
               <View key={store?.shopId}>

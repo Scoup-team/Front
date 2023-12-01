@@ -25,7 +25,7 @@ const Cafe = ({ navigation }) => {
       }
     } catch (error) {
       console.log("홈화면 조회 에러: ", error);
-      throw error;
+      // throw error;
     }
   };
 
@@ -54,6 +54,7 @@ const style = StyleSheet.create({
   Home: {
     flex: 1,
     flexDirection: "row",
+    marginTop: 50,
   },
   allStore: {
     width: 80,

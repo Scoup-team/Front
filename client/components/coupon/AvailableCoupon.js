@@ -41,7 +41,7 @@ const AvailableCoupon = ({ couponData }) => {
                   <Text style={styles.date}>{data.createdAt} 까지</Text>
                 </View>
 
-                <Text style={styles.content}>{data.shopName}</Text>
+                <Text style={styles.content}>{data.content}</Text>
               </ImageBackground>
             </Pressable>
           </View>

@@ -3,6 +3,7 @@ import ClickButton from "../components/ClickButton";
 import prevArrow from "../assets/icons/prevArrow.png";
 import { changeNickname, changePassword, getNickname } from "../api/userInfo";
 import React, { useState, useEffect } from "react";
+import back from "../assets/icons/back.png";
 
 const ModifyInfo = ({ navigation }) => {
   const [nickname, setNickname] = useState("");
@@ -25,14 +26,12 @@ const ModifyInfo = ({ navigation }) => {
         style={{
           width: 253,
           flexDirection: "row",
-          justifyContent: "space-between",
+          justifyContent: "center",
+          marginLeft: 65,
+          marginTop: 50,
         }}
       >
-        <Image
-          source={prevArrow}
-          style={{ marginTop: 18, marginLeft: 42, width: 32, height: 33 }}
-          onPress={() => navigation.navigate("MyPage")}
-        />
+        {/* <Image source={back} style={styles.back} /> */}
         <Text style={[textStyles.mainText]}>개인정보 수정</Text>
       </View>
 
@@ -103,6 +102,12 @@ const styles = StyleSheet.create({
 });
 
 export const boxStyle = StyleSheet.create({
+  back: {
+    width: 15,
+    height: 15,
+    flexShrink: 0,
+    marginLeft: 20,
+  },
   inputText: {
     backgroundColor: "#E8E8E8",
     width: 310,
@@ -126,10 +131,13 @@ export const textStyles = StyleSheet.create({
   },
 
   mainText: {
-    fontSize: 20,
-    // fontWeight: "bold",
+    color: "#000",
     textAlign: "center",
-    marginTop: 22,
+    fontSize: 20,
     fontStyle: "normal",
+    // fontWeight: 700,
+    marginTop: 20,
+    marginBottom: 50,
+    marginTop: 50,
   },
 });

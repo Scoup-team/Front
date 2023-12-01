@@ -98,6 +98,7 @@ const App = () => {
             <Stack.Screen name="QrPage" component={QrPage} />
             <Stack.Screen name="CameraPage" component={CameraPage} />
             <Stack.Screen name="EventPage" component={EventPage} />
+            <Stack.Screen name="SignIn" component={SignIn} />
           </Stack.Navigator>
         </>
       ) : (
@@ -108,6 +109,7 @@ const App = () => {
           >
             <Stack.Screen name="SearchPage" component={SearchPage} />
             <Stack.Screen name="Main" component={MainTabNavigator} />
+            <Stack.Screen name="CouponPage" component={CouponPage} />
             <Stack.Screen name="SignIn" component={SignIn} />
             <Stack.Screen name="FindPw" component={FindPw} />
             <Stack.Screen name="SignUp" component={SignUp} />

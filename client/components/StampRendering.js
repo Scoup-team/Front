@@ -4,16 +4,22 @@ import {
   StyleSheet,
   View,
   Image,
+  Alert,
 } from "react-native";
 import blkStamp from "../assets/icons/blkStamp.png";
 import fullStamp from "../assets/icons/fullStamp.png";
 import StampDetail from "../screens/StampDetail";
 
 const stampRendering = ({ stamps, onStampPress }) => {
-
   if (stamps === undefined) {
     stamps = [];
   }
+  useEffect(() => {
+    if (stamps.length == 3) {
+      console.log("한장");
+      Alert.alert("쿠폰 발행 성공했습니다. 내 쿠폰함을 확인해주세요.");
+    }
+  }, []);
 
   console.log("stamps: ", stamps);
 
@@ -53,7 +59,7 @@ export default stampRendering;
 
 const style = StyleSheet.create({
   stampContainer: {
-    marginLeft: 12,
+    marginLeft: 6,
     marginBottom: 30,
   },
   stampImage: {

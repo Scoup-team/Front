@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
     // fontWeight: 700,
     marginTop: 20,
     marginBottom: 50,
+    marginTop: 50,
   },
 
   arrow: {

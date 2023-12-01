@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
 
   EventComponent: {
     flexDirection: "column",
-    width: 292,
+    width: 272,
     height: 121,
     justifyContent: "center",
     borderRadius: 8,
